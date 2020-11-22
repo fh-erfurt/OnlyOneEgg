@@ -36,3 +36,5 @@
    - Eingabe
    - Liste von Rezepten
  - Timer-Seite
+
+<img src="Classes.png" alt="classes" width="600"/>
