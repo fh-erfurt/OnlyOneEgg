@@ -14,7 +14,6 @@
   - (Gruppen und Einladen von Freunden)
 
 ### Seiten:
- - Login/Register
  - Startseite/Dashboard
    - Eigene Kochbücher anzeigen
    - Neues Kochbuch hinzufügen
@@ -36,5 +35,11 @@
    - Eingabe
    - Liste von Rezepten
  - Timer-Seite
+
+ - Startseite/Dashboard - Olga
+ - Kochbuchansicht - Franziska
+ - Rezeptansicht - Bilal
+ - Timer-Seite - Tom
+
 
 <img src="Classes.png" alt="classes" width="600"/>
