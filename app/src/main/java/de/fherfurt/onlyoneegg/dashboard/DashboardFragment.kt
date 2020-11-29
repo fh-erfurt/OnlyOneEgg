@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import de.fherfurt.onlyoneegg.R
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import de.fherfurt.onlyoneegg.databinding.FragmentDashboardBinding
 
 class DashboardFragment : Fragment() {
@@ -32,6 +33,12 @@ class DashboardFragment : Fragment() {
         binding.dashboardViewModel = dashboardViewModel
         binding.setLifecycleOwner(this)
 
+
+        val adapter = DashboardAdapter()
+        binding.cookbookList.adapter = adapter
+
+        val manager = GridLayoutManager(activity, 2, GridLayoutManager.VERTICAL, false)
+        binding.cookbookList.layoutManager = manager
         return binding.root
     }
 }
