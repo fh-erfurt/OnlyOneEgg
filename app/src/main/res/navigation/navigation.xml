@@ -11,4 +11,10 @@
         android:label="DashboardFragment"
         tools:layout="@layout/fragment_dashboard"
         />
+
+    <fragment
+        android:id="@+id/timerFragment"
+        android:name="de.fherfurt.onlyoneegg.timer.TimerFragment"
+        android:label="TimerFragment"
+        tools:layout="@layout/fragment_timer" />
 </navigation>
