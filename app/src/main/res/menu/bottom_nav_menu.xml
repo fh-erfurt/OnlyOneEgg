@@ -16,4 +16,9 @@
         android:icon="@drawable/ic_action_timer"
         android:title="Recipe" />
 
+    <item
+        android:id="@+id/cookbookFragment"
+        android:icon="@drawable/ic_action_timer"
+        android:title="CookBook" />
+
 </menu>

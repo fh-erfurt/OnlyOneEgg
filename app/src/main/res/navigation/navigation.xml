@@ -24,5 +24,11 @@
         android:label="RecipeFragment"
         tools:layout="@layout/fragment_recipe" />
 
+    <fragment
+        android:id="@+id/cookbookFragment"
+        android:name="de.fherfurt.onlyoneegg.view.ui.cookbook.CookBookFragment"
+        android:label="CookBookFragment"
+        tools:layout="@layout/fragment_cookbook" />
+
 
 </navigation>
