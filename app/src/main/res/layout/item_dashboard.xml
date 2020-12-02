@@ -7,7 +7,7 @@
     <data>
         <variable
             name="cookbook"
-            type="de.fherfurt.onlyoneegg.dashboard.Cookbook"/>
+            type="de.fherfurt.onlyoneegg.model.Cookbook"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

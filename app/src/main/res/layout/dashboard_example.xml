@@ -7,7 +7,7 @@
     <data>
         <variable
             name="dashboardViewModel"
-            type="de.fherfurt.onlyoneegg.dashboard.DashboardViewModel" />
+            type="de.fherfurt.onlyoneegg.view.ui.dashboard.DashboardViewModel" />
     </data>
 
 
