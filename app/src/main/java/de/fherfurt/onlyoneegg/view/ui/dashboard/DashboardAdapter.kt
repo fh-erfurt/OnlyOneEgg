@@ -1,4 +1,4 @@
-package de.fherfurt.onlyoneegg.dashboard
+package de.fherfurt.onlyoneegg.view.ui.dashboard
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.fherfurt.onlyoneegg.databinding.ItemDashboardBinding
+import de.fherfurt.onlyoneegg.model.Cookbook
 
 class DashboardAdapter : ListAdapter<Cookbook, DashboardAdapter.ViewHolder>(CookbookDiffCallback()) {
 

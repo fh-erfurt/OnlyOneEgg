@@ -1,4 +1,4 @@
-package de.fherfurt.onlyoneegg.dashboard
+package de.fherfurt.onlyoneegg.view.ui.dashboard
 
 
 import android.os.Bundle
@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import de.fherfurt.onlyoneegg.R
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import de.fherfurt.onlyoneegg.databinding.FragmentDashboardBinding
 

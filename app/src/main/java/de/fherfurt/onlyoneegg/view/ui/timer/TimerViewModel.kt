@@ -1,4 +1,4 @@
-package de.fherfurt.onlyoneegg.timer
+package de.fherfurt.onlyoneegg.view.ui.timer
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

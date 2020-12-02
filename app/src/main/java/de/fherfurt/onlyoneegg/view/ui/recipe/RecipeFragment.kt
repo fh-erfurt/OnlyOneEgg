@@ -1,16 +1,13 @@
-package de.fherfurt.onlyoneegg.recipe
+package de.fherfurt.onlyoneegg.view.ui.recipe
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import de.fherfurt.onlyoneegg.R
-import de.fherfurt.onlyoneegg.dashboard.DashboardViewModel
-import de.fherfurt.onlyoneegg.dashboard.DashboardViewModelFactory
-import de.fherfurt.onlyoneegg.databinding.FragmentDashboardBinding
 import de.fherfurt.onlyoneegg.databinding.FragmentRecipeBinding
 
 class RecipeFragment : Fragment() {

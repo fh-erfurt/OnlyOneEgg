@@ -6,13 +6,13 @@
     <data>
         <variable
             name="recipeViewModel"
-            type="de.fherfurt.onlyoneegg.recipe.RecipeViewModel" />
+            type="de.fherfurt.onlyoneegg.view.ui.recipe.RecipeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".recipe.RecipeFragment">
+        tools:context=".view.ui.recipe.RecipeFragment">
 
 
         <TextView

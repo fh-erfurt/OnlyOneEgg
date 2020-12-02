@@ -1,8 +1,7 @@
-package de.fherfurt.onlyoneegg.dashboard
+package de.fherfurt.onlyoneegg.view.ui.dashboard
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 
 
 class DashboardViewModel(application: Application): AndroidViewModel(application) {

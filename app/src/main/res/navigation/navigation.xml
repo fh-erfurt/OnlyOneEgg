@@ -7,20 +7,20 @@
 
     <fragment
         android:id="@+id/dashboardFragment"
-        android:name="de.fherfurt.onlyoneegg.dashboard.DashboardFragment"
+        android:name="de.fherfurt.onlyoneegg.view.ui.dashboard.DashboardFragment"
         android:label="DashboardFragment"
         tools:layout="@layout/fragment_dashboard"
         />
 
     <fragment
         android:id="@+id/timerFragment"
-        android:name="de.fherfurt.onlyoneegg.timer.TimerFragment"
+        android:name="de.fherfurt.onlyoneegg.view.ui.timer.TimerFragment"
         android:label="TimerFragment"
         tools:layout="@layout/fragment_timer" />
 
     <fragment
         android:id="@+id/recipeFragment"
-        android:name="de.fherfurt.onlyoneegg.recipe.RecipeFragment"
+        android:name="de.fherfurt.onlyoneegg.view.ui.recipe.RecipeFragment"
         android:label="RecipeFragment"
         tools:layout="@layout/fragment_recipe" />
 

@@ -6,13 +6,13 @@ xmlns:tools="http://schemas.android.com/tools">
 <data>
     <variable
         name="dashboardViewModel"
-        type="de.fherfurt.onlyoneegg.dashboard.DashboardViewModel" />
+        type="de.fherfurt.onlyoneegg.view.ui.dashboard.DashboardViewModel" />
 </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".dashboard.DashboardFragment">
+    tools:context=".view.ui.dashboard.DashboardFragment">
 
 
     <androidx.recyclerview.widget.RecyclerView

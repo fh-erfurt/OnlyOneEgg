@@ -7,14 +7,14 @@
 
         <variable
             name="timerViewModel"
-            type="de.fherfurt.onlyoneegg.timer.TimerViewModel" />
+            type="de.fherfurt.onlyoneegg.view.ui.timer.TimerViewModel" />
     </data>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".timer.TimerFragment">
+        tools:context=".view.ui.timer.TimerFragment">
 
         <TextView
             android:id="@+id/timer"

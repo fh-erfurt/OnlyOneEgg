@@ -1,4 +1,4 @@
-package de.fherfurt.onlyoneegg.recipe
+package de.fherfurt.onlyoneegg.view.ui.recipe
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
