@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration.Builder(
-            R.id.dashboardFragment, R.id.timerFragment
+            R.id.dashboardFragment, R.id.timerFragment, R.id.recipeFragment
         )
             .build()
 
