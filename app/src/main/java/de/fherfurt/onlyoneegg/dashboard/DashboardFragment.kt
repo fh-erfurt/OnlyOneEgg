@@ -40,5 +40,8 @@ class DashboardFragment : Fragment() {
         val manager = GridLayoutManager(activity, 2, GridLayoutManager.VERTICAL, false)
         binding.cookbookList.layoutManager = manager
         return binding.root
+
+
+
     }
 }
