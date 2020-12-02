@@ -1,10 +1,13 @@
 package de.fherfurt.onlyoneegg.timer
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -37,16 +40,20 @@ class TimerFragment : Fragment() {
         binding.setLifecycleOwner(this)
 
 
-        var START_MILLI_SECONDS = 60000L
+        var START_MILLI_SECONDS = 0L
 
         lateinit var countdown_timer: CountDownTimer
         var isRunning: Boolean = false;
         var time_in_milli_seconds = 0L
 
+        fun hideKeyboard(context: Context, view: View) {
+            val imm = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
+        }
 
         fun pauseTimer() {
 
-            binding.button.text = "Start"
+            binding.button.text = getString(R.string.timer_start)
             countdown_timer.cancel()
             isRunning = false
             binding.reset.visibility = View.VISIBLE
@@ -79,7 +86,7 @@ class TimerFragment : Fragment() {
             countdown_timer.start()
 
             isRunning = true
-            binding.button.text = "Pause"
+            binding.button.text = getString(R.string.timer_pause)
             binding.reset.visibility = View.INVISIBLE
 
         }
@@ -92,6 +99,7 @@ class TimerFragment : Fragment() {
                 time_in_milli_seconds = time.toLong() * 60000L
                 startTimer(time_in_milli_seconds)
             }
+            hideKeyboard(this.requireContext(), it)
         }
 
         binding.reset.setOnClickListener {

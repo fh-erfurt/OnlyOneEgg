@@ -4,4 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_timer">Timer</string>
     <string name="title_dashboard">Dashboard</string>
+    <string name="timer_start">Start</string>
+    <string name="timer_pause">Pause</string>
+    <string name="recipeImage">CHECKEN</string>
 </resources>

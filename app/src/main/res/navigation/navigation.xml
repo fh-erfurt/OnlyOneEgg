@@ -17,4 +17,12 @@
         android:name="de.fherfurt.onlyoneegg.timer.TimerFragment"
         android:label="TimerFragment"
         tools:layout="@layout/fragment_timer" />
+
+    <fragment
+        android:id="@+id/recipeFragment"
+        android:name="de.fherfurt.onlyoneegg.recipe.RecipeFragment"
+        android:label="RecipeFragment"
+        tools:layout="@layout/fragment_recipe" />
+
+
 </navigation>
