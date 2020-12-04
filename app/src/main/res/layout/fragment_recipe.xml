@@ -19,7 +19,7 @@
             android:id="@+id/recipeName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{recipeViewModel.recipeName}"
+            android:text="@{recipeViewModel.recipeName"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,6 +37,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/recipeInsert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="150dp"
+            android:layout_marginTop="190dp"
+            android:onClick="@{() -> recipeViewModel.onInsertIngredient()}"
+            android:text="@string/insert"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/reset"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.64" />
 
         <TextView
             android:id="@+id/recipe"

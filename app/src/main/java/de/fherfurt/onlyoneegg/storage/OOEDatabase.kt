@@ -5,11 +5,13 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import de.fherfurt.onlyoneegg.model.Ingredient
+import de.fherfurt.onlyoneegg.model.Recipe
 
 
-@Database(entities = [Ingredient::class], version = 3, exportSchema = false)
+@Database(entities = [Ingredient::class,Recipe::class], version = 4, exportSchema = false)
 abstract class OOEDatabase : RoomDatabase() {
     abstract val ingredientDao: IngredientDao
+    abstract val recipeDao : RecipeDao
 
     companion object {
         val LOG_TAG_DB: String = "OOEDatabase"
