@@ -11,6 +11,8 @@ import de.fherfurt.onlyoneegg.R
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import de.fherfurt.onlyoneegg.databinding.FragmentDashboardBinding
+import de.fherfurt.onlyoneegg.storage.CookbookRepository
+import de.fherfurt.onlyoneegg.storage.OOEDatabase
 
 class DashboardFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -22,8 +24,10 @@ class DashboardFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
 
-
-        val viewModelFactory = DashboardViewModelFactory(application)
+        //add repository to viewModel
+        val cookbookDao = OOEDatabase.getInstance(application).cookbookDao
+        val cookbookRepository=CookbookRepository(cookbookDao)
+        val viewModelFactory = DashboardViewModelFactory(application, cookbookRepository)
 
         val dashboardViewModel =
             ViewModelProvider(
@@ -36,6 +40,11 @@ class DashboardFragment : Fragment() {
         val adapter = DashboardAdapter()
         binding.cookbookList.adapter = adapter
 
+        dashboardViewModel.cookbooks.observe(viewLifecycleOwner, {
+            it?.let{
+                adapter.submitList(it)
+            }
+        })
         val manager = GridLayoutManager(activity, 2, GridLayoutManager.VERTICAL, false)
         binding.cookbookList.layoutManager = manager
         return binding.root

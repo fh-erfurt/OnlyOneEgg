@@ -18,8 +18,8 @@ interface CookbookDao {
     @Query("SELECT * FROM cookbook_table ORDER BY cookbookId DESC LIMIT 1")
     suspend fun getCookbook(): Cookbook?
 
- /*@Query("SELECT * FROM cookbook_table ORDER BY id DESC")
-    fun getAllNights(): LiveData<List<Cookbook>>*/
+    @Query("SELECT * FROM cookbook_table ORDER BY cookbookId DESC")
+    fun getAllCookbooks(): LiveData<List<Cookbook>>
 
 
    /* @Transaction
