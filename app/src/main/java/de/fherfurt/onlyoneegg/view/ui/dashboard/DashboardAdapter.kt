@@ -15,6 +15,7 @@ class DashboardAdapter : ListAdapter<Cookbook, DashboardAdapter.ViewHolder>(Cook
         holder.bind(item)
     }
 
+    //wenn neues kind objekt notwendig ist ind keins anderes verfuegbar ist
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }

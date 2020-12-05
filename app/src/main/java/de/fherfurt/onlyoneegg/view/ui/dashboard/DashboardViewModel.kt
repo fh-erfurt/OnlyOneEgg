@@ -7,7 +7,8 @@ import androidx.lifecycle.AndroidViewModel
 class DashboardViewModel(application: Application): AndroidViewModel(application) {
 
 
-
+// here repository reference
+    // get contacts form repository als livedata
     val book="lala"
     val cookbooks : List<String>
         get() = mutableListOf("Salads", "Desserts", "Pasta")
