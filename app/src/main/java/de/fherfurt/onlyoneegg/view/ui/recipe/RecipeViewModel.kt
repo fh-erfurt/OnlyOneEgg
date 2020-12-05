@@ -9,9 +9,7 @@ import de.fherfurt.onlyoneegg.storage.RecipeRepository
 import kotlinx.coroutines.launch
 
 class RecipeViewModel (application: Application): AndroidViewModel(application) {
-
     val recipeTest = Recipe()
-
 
     val recipeDao = OOEDatabase.getInstance(application).recipeDao;
 
@@ -21,7 +19,8 @@ class RecipeViewModel (application: Application): AndroidViewModel(application) 
             " poultry seasoning, oregano, pepper, and thyme together in a bowl and pour into a resealable plastic bag."
 
 
-    fun onInsertIngredient(){
+
+    fun onInsertRecipe(){
         recipeTest.name = "Checken"
         recipeTest.description = "MiauMiau"
         recipeTest.cooktime = 23.4f
@@ -30,5 +29,13 @@ class RecipeViewModel (application: Application): AndroidViewModel(application) 
             val checken = recipeDao.insert(recipeTest) ?: return@launch
         }
     }
+
+
+
+    fun getRecipe(){
+        val test = viewModelScope.launch {  recipeDao.getRecipe() ?: return@launch}
+
+    }
+
 
 }

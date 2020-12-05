@@ -11,7 +11,7 @@ data class Recipe(
 
 
         @PrimaryKey(autoGenerate = true)
-        var id: Long = 0L,
+        var recipeId: Long = 0L,
 
         @ColumnInfo(name = "created")
         val created: Long = System.currentTimeMillis(),

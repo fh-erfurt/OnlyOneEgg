@@ -9,7 +9,7 @@ import de.fherfurt.onlyoneegg.model.Ingredient
 import de.fherfurt.onlyoneegg.model.Recipe
 
 
-@Database(entities = [Ingredient::class,Recipe::class,Cookbook::class], version = 8, exportSchema = false)
+@Database(entities = [Ingredient::class,Recipe::class,Cookbook::class], version = 12, exportSchema = false)
 abstract class OOEDatabase : RoomDatabase() {
     abstract val ingredientDao: IngredientDao
     abstract val recipeDao : RecipeDao

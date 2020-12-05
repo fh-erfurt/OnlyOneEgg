@@ -27,4 +27,9 @@ data class Ingredient(
     @NonNull
     @ColumnInfo(name = "value")
     var value: Long = -1,
-)
+
+
+    var myRecipeId: Long,
+
+
+    )

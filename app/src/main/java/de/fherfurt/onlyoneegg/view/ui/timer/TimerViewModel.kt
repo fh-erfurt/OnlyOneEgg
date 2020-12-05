@@ -14,12 +14,13 @@ class TimerViewModel(application: Application): AndroidViewModel(application) {
     // TODO Remove all of this - just used for testing purposes
     val database = OOEDatabase.getInstance(application).ingredientDao
 
-    val testIngredient = Ingredient()
+    val testIngredient = Ingredient(myRecipeId = 1)
 
-    fun onInsertIngredient(){
+    fun onInsertIngredient() {
         testIngredient.name = "s"
         testIngredient.value = 23
         testIngredient.measurement = "liter"
+        testIngredient.myRecipeId = 1
         viewModelScope.launch {
             val tonight = database.insert(testIngredient) ?: return@launch
         }
