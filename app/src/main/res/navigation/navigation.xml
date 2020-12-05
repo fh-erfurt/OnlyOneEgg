@@ -8,26 +8,26 @@
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="de.fherfurt.onlyoneegg.view.ui.dashboard.DashboardFragment"
-        android:label="DashboardFragment"
+        android:label="Dashboard"
         tools:layout="@layout/fragment_dashboard"
         />
 
     <fragment
         android:id="@+id/timerFragment"
         android:name="de.fherfurt.onlyoneegg.view.ui.timer.TimerFragment"
-        android:label="TimerFragment"
+        android:label="Timer"
         tools:layout="@layout/fragment_timer" />
 
     <fragment
         android:id="@+id/recipeFragment"
         android:name="de.fherfurt.onlyoneegg.view.ui.recipe.RecipeFragment"
-        android:label="RecipeFragment"
+        android:label="Recipe"
         tools:layout="@layout/fragment_recipe" />
 
     <fragment
         android:id="@+id/cookbookFragment"
         android:name="de.fherfurt.onlyoneegg.view.ui.cookbook.CookBookFragment"
-        android:label="CookBookFragment"
+        android:label="CookBook"
         tools:layout="@layout/fragment_cookbook" />
 
 
