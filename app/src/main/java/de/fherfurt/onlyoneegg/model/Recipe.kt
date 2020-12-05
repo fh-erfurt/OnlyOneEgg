@@ -39,5 +39,7 @@ data class Recipe(
         // TODO make difficulty an enum
         var difficulty: String = "",
 
-
-        )
+        /*@NonNull
+        @ColumnInfo(name = "myCookbookId")
+        val myCookbookId: Long*/
+)
