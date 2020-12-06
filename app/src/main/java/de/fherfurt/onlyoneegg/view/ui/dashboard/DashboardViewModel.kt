@@ -27,6 +27,9 @@ class DashboardViewModel(application: Application, cookbookRepository: CookbookR
 
         viewModelScope.launch {
             val salads = cookbookDao.insert(cookbookTest) ?: return@launch
+            val desserts=Cookbook()
+            desserts.cookbookName="Desserts"
+            cookbookDao.insert(desserts)
         }
     }
 }

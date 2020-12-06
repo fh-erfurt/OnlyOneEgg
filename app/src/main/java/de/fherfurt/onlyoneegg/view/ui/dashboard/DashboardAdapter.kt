@@ -41,7 +41,7 @@ class DashboardAdapter : ListAdapter<Cookbook, DashboardAdapter.ViewHolder>(Cook
 class CookbookDiffCallback : DiffUtil.ItemCallback<Cookbook>() {
 
     override fun areItemsTheSame(oldItem: Cookbook, newItem: Cookbook): Boolean {
-        return true//oldItem.nightId == newItem.nightId
+        return oldItem.cookbookId == newItem.cookbookId
     }
 
 
