@@ -17,8 +17,8 @@ interface RecipeDao {
     @Update
     suspend fun update(recipe: Recipe)
 
-    @Query("SELECT * FROM recipe_table ORDER BY recipeId DESC LIMIT 1")
-    suspend fun getRecipe(): Recipe?
+    @Query("SELECT * FROM recipe_table where recipeId = :id ")
+    suspend fun getRecipe(id : Int): Recipe?
 
     @Transaction
     @Query("SELECT * FROM recipe_table")

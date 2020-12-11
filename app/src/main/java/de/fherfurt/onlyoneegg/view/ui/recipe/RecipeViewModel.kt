@@ -17,30 +17,23 @@ import kotlinx.coroutines.launch
 class RecipeViewModel (application: Application, ingredientRepository: IngredientRepository): AndroidViewModel(application) {
 
 
-    var recipe = MutableLiveData<String>()
+    var recipe = MutableLiveData<Recipe>()
 
     val recipeDao = OOEDatabase.getInstance(application).recipeDao;
 
-    val ingredientRepository = ingredientRepository
     val ingredients  = ingredientRepository.getAllIngredients(1)
 
-    val recipeName ="Greek Chicken Skewers"
-
-    val recipeDescription ="Whisk lemon juice, oil, vinegar, onion flakes, garlic, lemon zest, Greek seasoning," +
-            " poultry seasoning, oregano, pepper, and thyme together in a bowl and pour into a resealable plastic bag."
-
     init{
-        initializeRecipe()
+        initializeRecipe(1)
 
     }
 
-    private fun initializeRecipe(){
-        // var recipe = MutableLiveData<Recipe?>()
+    private fun initializeRecipe(id : Int){
+
         viewModelScope.launch {
-            recipe.value = getRecipeFromDatabase()?.name
+            recipe.value = getRecipeFromDatabase(id)
         }
     }
-
 
 
     fun onInsertRecipe(){
@@ -55,14 +48,10 @@ class RecipeViewModel (application: Application, ingredientRepository: Ingredien
 
     }
 
-    private suspend fun getRecipeFromDatabase() : Recipe?{
-        var recipe = recipeDao.getRecipe()
-       /* if(recipe?.description == null)
-            recipe=null*/
-        if (recipe != null) {
-         //   Log.i("RecipeViewModel",recipe.description)
-        }
-       // Log.i("RecipeViewModel","test")
+    private suspend fun getRecipeFromDatabase(id : Int) : Recipe? {
+        var recipe = recipeDao.getRecipe(id)
+        if(recipe == null)
+            recipe = null
 
         return recipe
     }

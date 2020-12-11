@@ -56,8 +56,11 @@ class RecipeFragment : Fragment() {
         binding.ingredientList.layoutManager = manager
 
 
-    recipeViewModel.recipe.observe(viewLifecycleOwner, Observer { newRecipe ->  binding.recipe.text = newRecipe })
-    //recipeViewModel.recipe.observe(viewLifecycleOwner, Observer { newRecipe -> Log.i("RecipeFragment", newRecipe )   })
+        recipeViewModel.recipe.observe(viewLifecycleOwner, Observer { newRecipe ->  binding.recipeName.text = newRecipe.name })
+
+        recipeViewModel.recipe.observe(viewLifecycleOwner, Observer { newRecipe ->  binding.recipeDescription.text = newRecipe.description })
+
+
 
 
         return binding.root
@@ -66,3 +69,4 @@ class RecipeFragment : Fragment() {
     }
 
 }
+//recipeViewModel.recipe.observe(viewLifecycleOwner, Observer { newRecipe -> Log.i("RecipeFragment", newRecipe )   })

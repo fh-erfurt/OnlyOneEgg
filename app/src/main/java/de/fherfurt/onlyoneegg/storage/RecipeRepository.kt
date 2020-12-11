@@ -16,8 +16,8 @@ class RecipeRepository(private  val recipeDao: RecipeDao) {
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun get(recipe: Recipe) {
-        recipeDao.getRecipe()
+    suspend fun get(id: Int) {
+        recipeDao.getRecipe(id)
     }
 
     fun getAllRecipes(): LiveData<List<Recipe>> {
