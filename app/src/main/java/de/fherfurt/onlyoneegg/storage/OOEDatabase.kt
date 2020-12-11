@@ -4,12 +4,14 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import de.fherfurt.onlyoneegg.model.Cookbook
 import de.fherfurt.onlyoneegg.model.Ingredient
 import de.fherfurt.onlyoneegg.model.Recipe
 
+@Database(entities = [Ingredient::class,Recipe::class,Cookbook::class], version = 18, exportSchema = false)
+@TypeConverters(Converters::class)
 
-@Database(entities = [Ingredient::class,Recipe::class,Cookbook::class], version = 12, exportSchema = false)
 abstract class OOEDatabase : RoomDatabase() {
     abstract val ingredientDao: IngredientDao
     abstract val recipeDao : RecipeDao

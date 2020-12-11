@@ -28,8 +28,6 @@ data class Recipe(
         @ColumnInfo(name = "description")
         var description: String = "",
 
-        //todo: list of ingredient
-
         @NonNull
         @ColumnInfo(name = "cooktime")
         var cooktime: Float = 0F,
