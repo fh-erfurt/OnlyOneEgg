@@ -22,7 +22,7 @@ class RecipeViewModel (application: Application, ingredientRepository: Ingredien
     val recipeDao = OOEDatabase.getInstance(application).recipeDao;
 
     val ingredientRepository = ingredientRepository
-    val ingredients  = ingredientRepository.getAllIngredients()
+    val ingredients  = ingredientRepository.getAllIngredients(1)
 
     val recipeName ="Greek Chicken Skewers"
 
