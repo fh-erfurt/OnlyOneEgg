@@ -3,10 +3,8 @@ package de.fherfurt.onlyoneegg.view
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import de.fherfurt.onlyoneegg.R
 
@@ -21,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration.Builder(
-            R.id.dashboardFragment, R.id.timerFragment, R.id.recipeFragment, R.id.cookbookFragment
+            R.id.dashboardFragment, R.id.timerFragment, R.id.recipeFragment, R.id.cookbookFragment, R.id.addRecipeFragment
         )
             .build()
 

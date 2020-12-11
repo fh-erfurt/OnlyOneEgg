@@ -21,4 +21,9 @@
         android:icon="@drawable/ic_action_book"
         android:title="CookBook" />
 
+    <item
+        android:id="@+id/addRecipeFragment"
+        android:icon="@drawable/ic_action_add"
+        android:title="addRecipe" />
+
 </menu>
