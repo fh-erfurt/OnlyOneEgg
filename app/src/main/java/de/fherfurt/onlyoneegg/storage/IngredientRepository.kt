@@ -1,6 +1,8 @@
 package de.fherfurt.onlyoneegg.storage
 
 import androidx.annotation.WorkerThread
+import androidx.lifecycle.LiveData
+import de.fherfurt.onlyoneegg.model.Cookbook
 import de.fherfurt.onlyoneegg.model.Ingredient
 
 class IngredientRepository(private val ingredientDao: IngredientDao) {
@@ -11,6 +13,10 @@ class IngredientRepository(private val ingredientDao: IngredientDao) {
     @WorkerThread
     suspend fun insert(ingredient: Ingredient) {
         ingredientDao.insert(ingredient)
+    }
+
+    fun getAllIngredients(): LiveData<List<Ingredient>> {
+        return ingredientDao.getAllIngredients()
     }
 
 }

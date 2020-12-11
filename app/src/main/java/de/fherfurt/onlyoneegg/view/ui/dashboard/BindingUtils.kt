@@ -6,6 +6,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.fherfurt.onlyoneegg.R
 import de.fherfurt.onlyoneegg.model.Cookbook
+import de.fherfurt.onlyoneegg.model.Ingredient
 import de.fherfurt.onlyoneegg.model.Recipe
 
 
@@ -17,4 +18,10 @@ fun ImageView.setSleepImage(item: Cookbook) {
 @BindingAdapter("cookbookName")
 fun TextView.setSleepQualityString(item: Cookbook) {
     text = item.cookbookName
+}
+
+
+@BindingAdapter("ingredientName")
+fun TextView.setIngredientString(item: Ingredient) {
+    text = item.name
 }

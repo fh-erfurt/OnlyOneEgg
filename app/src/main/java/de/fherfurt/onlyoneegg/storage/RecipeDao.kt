@@ -22,7 +22,7 @@ interface RecipeDao {
 
     @Transaction
     @Query("SELECT * FROM recipe_table")
-    fun getRecipesWithIngredients(): List<RecipeWithIngredients>
+    fun getRecipesWithIngredients(): LiveData<List<RecipeWithIngredients>>
 
 
     @Query("SELECT * FROM recipe_table ORDER BY recipeId DESC")

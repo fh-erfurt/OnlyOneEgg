@@ -9,19 +9,20 @@ import androidx.lifecycle.viewModelScope
 
 import de.fherfurt.onlyoneegg.model.Recipe
 import de.fherfurt.onlyoneegg.model.RecipeWithIngredients
+import de.fherfurt.onlyoneegg.storage.IngredientRepository
 import de.fherfurt.onlyoneegg.storage.OOEDatabase
 import de.fherfurt.onlyoneegg.storage.RecipeRepository
 import kotlinx.coroutines.launch
 
-class RecipeViewModel (application: Application): AndroidViewModel(application) {
+class RecipeViewModel (application: Application, ingredientRepository: IngredientRepository): AndroidViewModel(application) {
 
 
-     var recipe = MutableLiveData<String>()
-
+    var recipe = MutableLiveData<String>()
 
     val recipeDao = OOEDatabase.getInstance(application).recipeDao;
 
-    //val recipes : List<RecipeWithIngredients> = recipeDao.getRecipesWithIngredients()
+    val ingredientRepository = ingredientRepository
+    val ingredients  = ingredientRepository.getAllIngredients()
 
     val recipeName ="Greek Chicken Skewers"
 
