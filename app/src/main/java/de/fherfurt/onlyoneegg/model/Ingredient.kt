@@ -5,6 +5,13 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+enum class Measurement() {
+    l,
+    ml,
+    g,
+    pc,
+}
+
 @Entity(tableName = "ingredient_table")
 data class Ingredient(
     @PrimaryKey(autoGenerate = true)
@@ -22,14 +29,11 @@ data class Ingredient(
 
     @NonNull
     @ColumnInfo(name = "measurement")
-    // TODO make measurement an enum
-    var measurement: String = "",
+    var measurement: Measurement = Measurement.pc,
+
     @NonNull
     @ColumnInfo(name = "value")
     var value: Long = -1,
 
-
     var myRecipeId: Long,
-
-
-    )
+)

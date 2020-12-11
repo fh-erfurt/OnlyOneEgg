@@ -19,7 +19,7 @@ class TimerViewModel(application: Application): AndroidViewModel(application) {
     fun onInsertIngredient() {
         testIngredient.name = "s"
         testIngredient.value = 23
-        testIngredient.measurement = "liter"
+        //testIngredient.measurement = Measurement.l
         testIngredient.myRecipeId = 1
         viewModelScope.launch {
             val tonight = database.insert(testIngredient) ?: return@launch
