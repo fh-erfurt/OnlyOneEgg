@@ -8,4 +8,9 @@
     <string name="timer_pause">Pause</string>
     <string name="recipeImage">CHECKEN</string>
     <string name="insert">Insert</string>
+    <string name="cookbookNameTextView">Enter a name for cookbook</string>
+    <string name="addPictureCookbook">Add Picture</string>
+    <string name="doneAddCookbook">Done</string>
+    <string name="addCookbook">Add</string>
+
 </resources>

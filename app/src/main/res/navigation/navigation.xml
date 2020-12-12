@@ -10,7 +10,12 @@
         android:name="de.fherfurt.onlyoneegg.view.ui.dashboard.DashboardFragment"
         android:label="Dashboard"
         tools:layout="@layout/fragment_dashboard"
-        />
+        >
+        <action
+            android:id="@+id/action_dashboardFragment_to_inputCookbookFragment"
+            app:destination="@id/inputCookbookFragment"
+            app:launchSingleTop="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/timerFragment"
@@ -29,6 +34,14 @@
         android:name="de.fherfurt.onlyoneegg.view.ui.cookbook.CookBookFragment"
         android:label="CookBook"
         tools:layout="@layout/fragment_cookbook" />
+    <fragment
+        android:id="@+id/inputCookbookFragment"
+        android:name="de.fherfurt.onlyoneegg.view.ui.inputCookbook.InputCookbookFragment"
+        android:label="InputCookbookFragment" >
+        <action
+            android:id="@+id/action_inputCookbookFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
 
 
 </navigation>
