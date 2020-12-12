@@ -1,6 +1,7 @@
 package de.fherfurt.onlyoneegg.view.ui.inputCookbook
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import de.fherfurt.onlyoneegg.model.Cookbook
@@ -11,27 +12,14 @@ import kotlinx.coroutines.launch
 class InputCookbookViewModel(application: Application, cookbookRepository: CookbookRepository): AndroidViewModel(application) {
 
     val cookbookRepository=cookbookRepository
-    val cookbooks=cookbookRepository.getAllCookbooks()
-    // here repository reference
-    // get contacts form repository als livedata
-
-    val cookbookTest= Cookbook()
-    val cookbookDao = OOEDatabase.getInstance(application).cookbookDao;
 
 
 
-
-    fun onClick(){
-        cookbookTest.cookbookName = "Salads"
-
+    fun insertCookbook(cookbook: Cookbook){
         viewModelScope.launch {
-            val salads = cookbookDao.insert(cookbookTest) ?: return@launch
-            val desserts= Cookbook()
-            desserts.cookbookName="Desserts"
-            cookbookDao.insert(desserts)
-
+            val id= cookbookRepository.insert(cookbook)
+            Log.i("InputCookbookViewModel", "Inserted cookbook with id $id")
         }
-
     }
 
 

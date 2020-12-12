@@ -23,24 +23,26 @@
             app:cookbookImage="@{cookbook}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintVertical_bias="0.0"
             tools:srcCompat="@drawable/salad" />
 
         <TextView
-            android:id="@+id/quality_string"
+            android:id="@+id/nameCookbook"
             android:layout_width="0dp"
             android:layout_height="20dp"
             android:layout_marginEnd="16dp"
             android:textAlignment="center"
+            android:textSize="14sp"
             app:cookbookName="@{cookbook}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cookbook_image"
+            app:layout_constraintVertical_bias="0.0"
             tools:text="Excellent!" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
