@@ -49,7 +49,5 @@ class DashboardFragment : Fragment() {
         binding.cookbookList.layoutManager = manager
         return binding.root
 
-
-
     }
 }

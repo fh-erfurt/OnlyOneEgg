@@ -16,4 +16,7 @@ class CookbookRepository(private val cookbookDao: CookbookDao) {
      fun getAllCookbooks():LiveData<List<Cookbook>> {
         return cookbookDao.getAllCookbooks()
     }
+    fun getCookbook():Cookbook{
+        return cookbookDao.getCookbook()
+    }
 }
