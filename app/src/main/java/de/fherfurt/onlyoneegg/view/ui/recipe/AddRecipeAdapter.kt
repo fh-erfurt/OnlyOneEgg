@@ -2,7 +2,6 @@ package de.fherfurt.onlyoneegg.view.ui.recipe
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.fherfurt.onlyoneegg.databinding.ItemIngredientBinding
@@ -36,7 +35,7 @@ class AddRecipeAdapter : ListAdapter<Ingredient, AddRecipeAdapter.ViewHolder>(In
     }
 }
 
-
+/*
 class IngredientDiffCallback : DiffUtil.ItemCallback<Ingredient>() {
 
     override fun areItemsTheSame(oldItem: Ingredient, newItem: Ingredient): Boolean {
@@ -47,4 +46,4 @@ class IngredientDiffCallback : DiffUtil.ItemCallback<Ingredient>() {
     override fun areContentsTheSame(oldItem: Ingredient, newItem: Ingredient): Boolean {
         return oldItem == newItem
     }
-}
+}*/
