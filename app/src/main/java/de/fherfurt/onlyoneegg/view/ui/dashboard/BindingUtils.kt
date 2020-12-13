@@ -11,12 +11,12 @@ import de.fherfurt.onlyoneegg.model.Recipe
 
 
 @BindingAdapter("cookbookImage")
-fun ImageView.setSleepImage(item: Cookbook) {
+fun ImageView.setCookbookImage(item: Cookbook) {
     setImageResource(R.drawable.salad)
 }
 
 @BindingAdapter("cookbookName")
-fun TextView.setSleepQualityString(item: Cookbook) {
+fun TextView.setCookbookName(item: Cookbook) {
     text = item.cookbookName
 }
 
