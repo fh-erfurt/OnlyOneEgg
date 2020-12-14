@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import de.fherfurt.onlyoneegg.R
 import de.fherfurt.onlyoneegg.databinding.FragmentCookbookBinding
 
@@ -32,6 +33,8 @@ class CookBookFragment : Fragment() {
         val cookbookViewModel =
                 ViewModelProvider(
                         this, viewModelFactory).get(CookBookViewModel::class.java)
+
+        binding.addRecipe.setOnClickListener { findNavController().navigate(R.id.action_cookbookFragment_to_addRecipeFragment2) }
 
         binding.cookbookViewModel = cookbookViewModel
         binding.setLifecycleOwner(this)

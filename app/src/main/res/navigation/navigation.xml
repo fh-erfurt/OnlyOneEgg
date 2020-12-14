@@ -28,12 +28,20 @@
         android:id="@+id/cookbookFragment"
         android:name="de.fherfurt.onlyoneegg.view.ui.cookbook.CookBookFragment"
         android:label="CookBook"
-        tools:layout="@layout/fragment_cookbook" />
+        tools:layout="@layout/fragment_cookbook" >
+        <action
+            android:id="@+id/action_cookbookFragment_to_addRecipeFragment2"
+            app:destination="@id/addRecipeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addRecipeFragment"
         android:name="AddRecipeFragment"
         android:label="AddRecipeFragment"
-        tools:layout="@layout/fragment_addrecipe"/>
+        tools:layout="@layout/fragment_addrecipe">
+        <action
+            android:id="@+id/action_addRecipeFragment_to_cookbookFragment"
+            app:destination="@id/cookbookFragment" />
+    </fragment>
 
 
 </navigation>
