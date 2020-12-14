@@ -9,6 +9,9 @@ interface IngredientDao {
     @Insert
     suspend fun insert(ingredient: Ingredient)
 
+    @Insert
+    suspend fun insertArrayList(ingredients: ArrayList<Ingredient>)
+
     @Update
     suspend fun update(ingredient: Ingredient)
 

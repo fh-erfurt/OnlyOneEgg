@@ -32,6 +32,7 @@ abstract class OOEDatabase : RoomDatabase() {
                         OOEDatabase::class.java,
                         "OOEDatabase"
                     )
+                        .allowMainThreadQueries()
                         .fallbackToDestructiveMigration()
                         .build()
                     INSTANCE = instance

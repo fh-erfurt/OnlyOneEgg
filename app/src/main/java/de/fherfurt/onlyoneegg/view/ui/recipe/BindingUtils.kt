@@ -11,10 +11,10 @@ fun TextView.setIngredientName (item: Ingredient) {
 
 @BindingAdapter("ingredientAmount")
 fun TextView.setIngredientAmount (item: Ingredient) {
-    text = item.name
+    text = item.value.toString()
 }
 
 @BindingAdapter("ingredientMeasurement")
 fun TextView.setIngredientMeasurement (item: Ingredient) {
-    text = item.name
+    text = item.measurement.toString()
 }

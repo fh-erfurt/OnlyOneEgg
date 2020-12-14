@@ -1,4 +1,3 @@
-
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
@@ -7,23 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import de.fherfurt.onlyoneegg.R
 import de.fherfurt.onlyoneegg.databinding.FragmentAddrecipeBinding
+import de.fherfurt.onlyoneegg.model.Ingredient
 import de.fherfurt.onlyoneegg.model.Measurement
 import de.fherfurt.onlyoneegg.model.Recipe
-import de.fherfurt.onlyoneegg.storage.IngredientRepository
-import de.fherfurt.onlyoneegg.storage.OOEDatabase
-import de.fherfurt.onlyoneegg.storage.RecipeRepository
 import de.fherfurt.onlyoneegg.view.ui.recipe.AddRecipeAdapter
 import de.fherfurt.onlyoneegg.view.ui.recipe.AddRecipeViewModel
 import de.fherfurt.onlyoneegg.view.ui.recipe.AddRecipeViewModelFactory
 
-class AddRecipeFragment : Fragment(){
-
+class AddRecipeFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,18 +32,11 @@ class AddRecipeFragment : Fragment(){
         val binding: FragmentAddrecipeBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_addrecipe, container, false
         )
-
+        // Get a reference to the application
         val application = requireNotNull(this.activity).application
 
-        // database stuff
-        val recipeDao = OOEDatabase.getInstance(application).recipeDao;
-        val recipeRepository = RecipeRepository(recipeDao)
-        val ingredientDao = OOEDatabase.getInstance(application).ingredientDao;
-        val ingredientRepository = IngredientRepository(ingredientDao)
-
-
+        // Setup ViewModel
         val viewModelFactory = AddRecipeViewModelFactory(application)
-
         val addRecipeViewModel =
             ViewModelProvider(
                 this, viewModelFactory
@@ -53,8 +45,29 @@ class AddRecipeFragment : Fragment(){
         binding.addRecipeViewModel = addRecipeViewModel
         binding.setLifecycleOwner(this)
 
-        val adapter = AddRecipeAdapter()
+        // Setup the recycler View for further usage
+        val ingredients = ArrayList<Ingredient>()
+        val adapter = AddRecipeAdapter(ingredients)
         binding.ingredientList.adapter = adapter
+        binding.ingredientList.layoutManager =
+            LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
+
+        // ClickListener for adding a ingredient
+        binding.addIngredientButton.setOnClickListener {
+            val ingredient = Ingredient(myRecipeId = 0)
+
+            ingredient.name = binding.editIngredientNameText.text.toString()
+            binding.editIngredientNameText.text.clear()
+
+            ingredient.value = binding.editIngredientAmountText.text.toString().toLong()
+            binding.editIngredientAmountText.text.clear()
+
+            ingredient.measurement =
+                Measurement.valueOf(binding.measurementSpinner.selectedItem.toString())
+
+            ingredients.add(ingredient)
+            adapter.notifyDataSetChanged()
+        }
 
         // Helper function for hiding the keyboard
         fun hideKeyboard(context: Context, view: View) {
@@ -63,21 +76,35 @@ class AddRecipeFragment : Fragment(){
         }
 
         // Set the SpinnerAdapter to our measurement enum
-        binding.measurementSpinner.adapter = ArrayAdapter<Measurement>(this.requireContext(), android.R.layout.simple_list_item_1, Measurement.values())
+        binding.measurementSpinner.adapter = ArrayAdapter<Measurement>(
+            this.requireContext(),
+            android.R.layout.simple_list_item_1,
+            Measurement.values()
+        )
 
         // ClickListener for recipe saving
         binding.saveRecipeButton.setOnClickListener {
-            // save recipe in database
-            var recipe = Recipe()
-            recipe.name = binding.editRecipeNameText.toString()
-            recipe.description = binding.editRecipeDescriptionText.toString()
-            // cooktime
-            // difficulty
+            val recipe = Recipe()
+            recipe.name = binding.editRecipeNameText.text.toString()
+            recipe.description = binding.editRecipeDescriptionText.text.toString()
+            recipe.cooktime = binding.editRecipeCooktime.text.toString().toFloat()
+            // TODO save difficulty
+            // Write the recipe into the database and save its id
+            val recipeId = addRecipeViewModel.insertRecipe(recipe)
 
-            //recipeRepository.insert(recipe)
-            // save all ingredients in the database with a reference to the recipe id
+            // Set recipeId in all ingredients to the actual id
+            for (ingredient in ingredients) {
+                ingredient.myRecipeId = recipeId
+            }
+            // Save all ingredients in the database
+            addRecipeViewModel.insertIngredientList(ingredients)
 
             hideKeyboard(this.requireContext(), it)
+            // show a popup that the insertion worked
+            Toast.makeText(application.applicationContext, "Added Recipe", Toast.LENGTH_SHORT)
+                .show()
+            // navigate back to the cookbook
+            findNavController().navigate(R.id.action_addRecipeFragment_to_cookbookFragment)
         }
 
         val manager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)

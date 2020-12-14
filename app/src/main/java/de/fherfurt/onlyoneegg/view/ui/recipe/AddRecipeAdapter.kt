@@ -7,21 +7,23 @@ import androidx.recyclerview.widget.RecyclerView
 import de.fherfurt.onlyoneegg.databinding.ItemIngredientBinding
 import de.fherfurt.onlyoneegg.model.Ingredient
 
-class AddRecipeAdapter : ListAdapter<Ingredient, AddRecipeAdapter.ViewHolder>(IngredientDiffCallback()) {
+class AddRecipeAdapter(val ingredientList: ArrayList<Ingredient>) : ListAdapter<Ingredient, AddRecipeAdapter.ViewHolder>(IngredientDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.bind(item)
+        val currentItem = ingredientList[position]
+        holder.bind(currentItem)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
 
+    override fun getItemCount() = ingredientList.size
+
     class ViewHolder private constructor(val binding: ItemIngredientBinding) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(item: Ingredient) {
-            binding.ingredient
+            binding.ingredient = item
             binding.executePendingBindings()
         }
 
@@ -34,16 +36,3 @@ class AddRecipeAdapter : ListAdapter<Ingredient, AddRecipeAdapter.ViewHolder>(In
         }
     }
 }
-
-/*
-class IngredientDiffCallback : DiffUtil.ItemCallback<Ingredient>() {
-
-    override fun areItemsTheSame(oldItem: Ingredient, newItem: Ingredient): Boolean {
-        return oldItem.id == newItem.id
-    }
-
-
-    override fun areContentsTheSame(oldItem: Ingredient, newItem: Ingredient): Boolean {
-        return oldItem == newItem
-    }
-}*/
