@@ -14,7 +14,7 @@
     <item
         android:id="@+id/recipeFragment"
         android:icon="@drawable/ic_action_list"
-        android:title="Recipe" />
+        android:title="@string/title_recipe" />
 
     <item
         android:id="@+id/cookbookFragment"

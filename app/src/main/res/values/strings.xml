@@ -8,4 +8,7 @@
     <string name="timer_pause">Pause</string>
     <string name="recipeImage">CHECKEN</string>
     <string name="insert">Insert</string>
+    <string name="title_recipe">Recipe</string>
+    <string name="saveAddRecipe">Save</string>
+    <string name="plus">+</string>
 </resources>
