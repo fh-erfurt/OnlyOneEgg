@@ -22,6 +22,16 @@ fun TextView.setCookbookName(item: Cookbook) {
 
 
 @BindingAdapter("ingredientName")
-fun TextView.setIngredientString(item: Ingredient) {
+fun TextView.setIngredientNameString(item: Ingredient) {
     text = item.name
+}
+
+@BindingAdapter("ingredientMeasurement")
+fun TextView.setIngredientMeasurementString(item: Ingredient) {
+    text = item.measurement.toString()
+}
+
+@BindingAdapter("ingredientAmount")
+fun TextView.setIngredientAmountString(item: Ingredient) {
+    text = item.value.toString()
 }
