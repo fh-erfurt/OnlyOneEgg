@@ -1,7 +1,10 @@
 package de.fherfurt.onlyoneegg.view.ui.dashboard
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import de.fherfurt.onlyoneegg.model.Cookbook
 import de.fherfurt.onlyoneegg.storage.CookbookRepository
@@ -30,6 +33,10 @@ class DashboardViewModel(application: Application, cookbookRepository: CookbookR
             val desserts=Cookbook()
             desserts.cookbookName="Desserts"
             cookbookDao.insert(desserts)
+
         }
+
     }
+
+
 }

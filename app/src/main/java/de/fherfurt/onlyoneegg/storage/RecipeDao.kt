@@ -15,14 +15,14 @@ interface RecipeDao {
     @Update
     suspend fun update(recipe: Recipe)
 
-    @Query("SELECT * FROM recipe_table where recipeId = :id ")
-    suspend fun getRecipe(id: Int): Recipe?
+    @Query("SELECT * FROM recipe_table where id = :id ")
+    suspend fun getRecipe(id : Int): Recipe?
 
     @Transaction
     @Query("SELECT * FROM recipe_table")
     fun getRecipesWithIngredients(): LiveData<List<RecipeWithIngredients>>
 
-    @Query("SELECT * FROM recipe_table ORDER BY recipeId DESC")
+    @Query("SELECT * FROM recipe_table ORDER BY id DESC")
     fun getAllRecipes(): LiveData<List<Recipe>>
 
     @Query("SELECT recipeId FROM recipe_table ORDER BY created DESC LIMIT 1")

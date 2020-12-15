@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import de.fherfurt.onlyoneegg.R
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import de.fherfurt.onlyoneegg.databinding.FragmentDashboardBinding
 import de.fherfurt.onlyoneegg.storage.CookbookRepository
@@ -34,6 +35,7 @@ class DashboardFragment : Fragment() {
                 this, viewModelFactory).get(DashboardViewModel::class.java)
 
         binding.dashboardViewModel = dashboardViewModel
+        binding.addCookbook.setOnClickListener { findNavController().navigate(R.id.action_dashboardFragment_to_inputCookbookFragment) }
         binding.setLifecycleOwner(this)
 
 
@@ -49,7 +51,6 @@ class DashboardFragment : Fragment() {
         binding.cookbookList.layoutManager = manager
         return binding.root
 
-
-
     }
+
 }

@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        this.getSupportActionBar()?.hide();
         val navView = findViewById<BottomNavigationView>(R.id.nav_view)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.fherfurt.onlyoneegg.databinding.ItemDashboardBinding
-import de.fherfurt.onlyoneegg.databinding.ItemRecipeBinding
+import de.fherfurt.onlyoneegg.databinding.ItemIngredientBinding
 import de.fherfurt.onlyoneegg.model.Cookbook
 import de.fherfurt.onlyoneegg.model.Ingredient
 
@@ -21,7 +21,7 @@ class RecipeAdapter : ListAdapter<Ingredient, RecipeAdapter.ViewHolder>(Ingredie
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder private constructor(val binding: ItemRecipeBinding) : RecyclerView.ViewHolder(binding.root){
+    class ViewHolder private constructor(val binding: ItemIngredientBinding) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(item: Ingredient) {
             binding.ingredient = item
@@ -31,7 +31,7 @@ class RecipeAdapter : ListAdapter<Ingredient, RecipeAdapter.ViewHolder>(Ingredie
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ItemRecipeBinding.inflate(layoutInflater, parent, false)
+                val binding = ItemIngredientBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
             }
         }

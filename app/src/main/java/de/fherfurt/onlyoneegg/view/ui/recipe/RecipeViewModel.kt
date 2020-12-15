@@ -36,18 +36,6 @@ class RecipeViewModel (application: Application, ingredientRepository: Ingredien
     }
 
 
-    fun onInsertRecipe(){
-        val recipeTest = Recipe()
-        recipeTest.name = "Checken"
-        recipeTest.description = "MiauMiau"
-        recipeTest.cooktime = 23.4f
-        recipeTest.difficulty = "Hard"
-        viewModelScope.launch {
-            val checken = recipeDao.insert(recipeTest) ?: return@launch
-        }
-
-    }
-
     private suspend fun getRecipeFromDatabase(id : Int) : Recipe? {
         var recipe = recipeDao.getRecipe(id)
         if(recipe == null)
