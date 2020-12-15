@@ -9,8 +9,7 @@
         android:id="@+id/dashboardFragment"
         android:name="de.fherfurt.onlyoneegg.view.ui.dashboard.DashboardFragment"
         android:label="Dashboard"
-        tools:layout="@layout/fragment_dashboard"
-        >
+        tools:layout="@layout/fragment_dashboard">
         <action
             android:id="@+id/action_dashboardFragment_to_inputCookbookFragment"
             app:destination="@id/inputCookbookFragment"
@@ -33,19 +32,21 @@
         android:id="@+id/cookbookFragment"
         android:name="de.fherfurt.onlyoneegg.view.ui.cookbook.CookBookFragment"
         android:label="CookBook"
-        tools:layout="@layout/fragment_cookbook" />
-  
-    <fragment
-        android:id="@+id/inputCookbookFragment"
-        android:name="de.fherfurt.onlyoneegg.view.ui.inputCookbook.InputCookbookFragment"
-        android:label="InputCookbookFragment" >
-        <action
-            android:id="@+id/action_inputCookbookFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+        tools:layout="@layout/fragment_cookbook">
         <action
             android:id="@+id/action_cookbookFragment_to_addRecipeFragment2"
             app:destination="@id/addRecipeFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/inputCookbookFragment"
+        android:name="de.fherfurt.onlyoneegg.view.ui.inputCookbook.InputCookbookFragment"
+        android:label="InputCookbookFragment">
+        <action
+            android:id="@+id/action_inputCookbookFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/addRecipeFragment"
         android:name="AddRecipeFragment"

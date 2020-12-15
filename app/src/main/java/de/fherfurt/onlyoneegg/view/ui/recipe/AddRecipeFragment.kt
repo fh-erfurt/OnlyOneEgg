@@ -54,7 +54,7 @@ class AddRecipeFragment : Fragment() {
 
         // ClickListener for adding a ingredient
         binding.addIngredientButton.setOnClickListener {
-            val ingredient = Ingredient(myRecipeId = 0)
+            val ingredient = Ingredient(id = 0)
 
             ingredient.name = binding.editIngredientNameText.text.toString()
             binding.editIngredientNameText.text.clear()
@@ -94,7 +94,7 @@ class AddRecipeFragment : Fragment() {
 
             // Set recipeId in all ingredients to the actual id
             for (ingredient in ingredients) {
-                ingredient.myRecipeId = recipeId
+                ingredient.recipeId = recipeId
             }
             // Save all ingredients in the database
             addRecipeViewModel.insertIngredientList(ingredients)
