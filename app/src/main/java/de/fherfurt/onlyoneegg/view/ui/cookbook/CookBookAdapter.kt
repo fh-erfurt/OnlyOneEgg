@@ -41,7 +41,7 @@ class CookBookAdapter : ListAdapter<Recipe, CookBookAdapter.ViewHolder>(RecipeDi
 class RecipeDiffCallback : DiffUtil.ItemCallback<Recipe>() {
 
     override fun areItemsTheSame(oldItem: Recipe, newItem: Recipe): Boolean {
-        return oldItem.recipeId == newItem.recipeId
+        return oldItem.id == newItem.id
     }
 
 

@@ -19,7 +19,7 @@ data class Recipe(
 
 
         @PrimaryKey(autoGenerate = true)
-        var recipeId: Long = 0L,
+        var id: Long = 0L,
 
         @ColumnInfo(name = "created")
         val created: Long = System.currentTimeMillis(),
@@ -45,7 +45,7 @@ data class Recipe(
         // TODO make difficulty an enum
         var difficulty: Difficulty = Difficulty.easy,
 
-        /*@NonNull
-        @ColumnInfo(name = "myCookbookId")
-        val myCookbookId: Long*/
+        @NonNull
+        @ColumnInfo(name = "cookbookId")
+        var myCookbookId: Long = 1,
 )

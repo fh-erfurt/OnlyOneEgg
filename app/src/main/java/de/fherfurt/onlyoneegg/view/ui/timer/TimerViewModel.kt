@@ -18,13 +18,13 @@ class TimerViewModel(application: Application): AndroidViewModel(application) {
     val recipeDao = OOEDatabase.getInstance(application).recipeDao;
 
 
-    val testIngredient = Ingredient(myRecipeId = 1)
+    val testIngredient = Ingredient(id = 1)
 
     fun onInsertIngredient() {
         testIngredient.name = "Apfel"
         testIngredient.value = 23
         //testIngredient.measurement = Measurement.l
-        testIngredient.myRecipeId = 1
+        testIngredient.recipeId = 1
         viewModelScope.launch {
             val tonight = database.insert(testIngredient) ?: return@launch
         }
@@ -36,6 +36,7 @@ class TimerViewModel(application: Application): AndroidViewModel(application) {
         recipeTest.description = "Garlic, herbs and lemon—plus a glug of white wine—mean that these juicy, tender chicken breasts are as delicious as they are healthy."
         recipeTest.cooktime = 23.4f
         recipeTest.difficulty = Difficulty.complex
+        recipeTest.myCookbookId = 1
         viewModelScope.launch {
             val checken = recipeDao.insert(recipeTest) ?: return@launch
         }

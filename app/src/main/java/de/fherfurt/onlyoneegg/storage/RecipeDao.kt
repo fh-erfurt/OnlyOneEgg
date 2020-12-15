@@ -2,8 +2,6 @@ package de.fherfurt.onlyoneegg.storage
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import de.fherfurt.onlyoneegg.model.Cookbook
-import de.fherfurt.onlyoneegg.model.Ingredient
 import de.fherfurt.onlyoneegg.model.Recipe
 import de.fherfurt.onlyoneegg.model.RecipeWithIngredients
 
@@ -17,7 +15,7 @@ interface RecipeDao {
     @Update
     suspend fun update(recipe: Recipe)
 
-    @Query("SELECT * FROM recipe_table where recipeId = :id ")
+    @Query("SELECT * FROM recipe_table where id = :id ")
     suspend fun getRecipe(id : Int): Recipe?
 
     @Transaction
@@ -25,7 +23,7 @@ interface RecipeDao {
     fun getRecipesWithIngredients(): LiveData<List<RecipeWithIngredients>>
 
 
-    @Query("SELECT * FROM recipe_table ORDER BY recipeId DESC")
+    @Query("SELECT * FROM recipe_table ORDER BY id DESC")
     fun getAllRecipes(): LiveData<List<Recipe>>
 
 
