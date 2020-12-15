@@ -21,7 +21,7 @@ class TimerViewModel(application: Application): AndroidViewModel(application) {
     val testIngredient = Ingredient(myRecipeId = 1)
 
     fun onInsertIngredient() {
-        testIngredient.name = "s"
+        testIngredient.name = "Apfel"
         testIngredient.value = 23
         //testIngredient.measurement = Measurement.l
         testIngredient.myRecipeId = 1
