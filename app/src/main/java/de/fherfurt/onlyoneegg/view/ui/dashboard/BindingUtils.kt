@@ -3,7 +3,6 @@ package de.fherfurt.onlyoneegg.view.ui.dashboard
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.RecyclerView
 import de.fherfurt.onlyoneegg.R
 import de.fherfurt.onlyoneegg.model.Cookbook
 import de.fherfurt.onlyoneegg.model.Ingredient
@@ -34,4 +33,14 @@ fun TextView.setIngredientMeasurementString(item: Ingredient) {
 @BindingAdapter("ingredientAmount")
 fun TextView.setIngredientAmountString(item: Ingredient) {
     text = item.value.toString()
+}
+
+@BindingAdapter("recipeName")
+fun TextView.setRecipeName(item: Recipe) {
+    text = item.name
+}
+
+@BindingAdapter("recipeImage")
+fun ImageView.setRecipeImage(item: Recipe) {
+    setImageResource(R.drawable.salad)
 }

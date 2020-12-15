@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.fherfurt.onlyoneegg.databinding.ItemDashboardBinding
 import de.fherfurt.onlyoneegg.databinding.ItemIngredientBinding
-import de.fherfurt.onlyoneegg.databinding.ItemRecipeBinding
 import de.fherfurt.onlyoneegg.model.Cookbook
 import de.fherfurt.onlyoneegg.model.Ingredient
 

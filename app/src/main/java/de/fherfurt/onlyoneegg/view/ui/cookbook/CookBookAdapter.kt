@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import de.fherfurt.onlyoneegg.databinding.ItemCookbookBinding
 import de.fherfurt.onlyoneegg.model.Recipe
 
 
@@ -20,7 +21,7 @@ class CookBookAdapter : ListAdapter<Recipe, CookBookAdapter.ViewHolder>(RecipeDi
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder private constructor(val binding: ItemCookBookBinding) : RecyclerView.ViewHolder(binding.root){
+    class ViewHolder private constructor(val binding: ItemCookbookBinding ) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(item: Recipe) {
             binding.recipe = item
@@ -30,7 +31,7 @@ class CookBookAdapter : ListAdapter<Recipe, CookBookAdapter.ViewHolder>(RecipeDi
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ItemCookBookBinding.inflate(layoutInflater, parent, false)
+                val binding = ItemCookbookBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
             }
         }
