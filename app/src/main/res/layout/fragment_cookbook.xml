@@ -14,7 +14,7 @@ xmlns:tools="http://schemas.android.com/tools">
         android:layout_height="match_parent"
         android:background="@color/yellow">
 
-        <TextView
+       <TextView
             android:id="@+id/onlyOneEggText"
             android:layout_width="0dp"
             android:layout_height="40dp"
@@ -33,7 +33,7 @@ xmlns:tools="http://schemas.android.com/tools">
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="90dp"
-            android:text="My Cookbooks"
+            android:text="My Recipes"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -56,7 +56,7 @@ xmlns:tools="http://schemas.android.com/tools">
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="320dp"
-            android:text="Cookbook 1"
+            android:text="Recipe 1"
             android:textColor="@color/black"
             app:layout_constraintBottom_toTopOf="@+id/onlyOneEggText"
             app:layout_constraintEnd_toEndOf="parent"
@@ -84,7 +84,7 @@ xmlns:tools="http://schemas.android.com/tools">
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="320dp"
-            android:text="Cookbook 2"
+            android:text="Recipe 2"
             android:textColor="@color/black"
             app:layout_constraintBottom_toTopOf="@+id/onlyOneEggText"
             app:layout_constraintEnd_toStartOf="@+id/cookbook_text1"
@@ -92,6 +92,28 @@ xmlns:tools="http://schemas.android.com/tools">
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recipe_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/addRecipe"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/addRecipe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="48dp"
+            android:text="@string/addRecipe"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.467"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

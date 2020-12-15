@@ -13,5 +13,9 @@
     <string name="addPictureCookbook">Add Picture</string>
     <string name="doneAddCookbook">Done</string>
     <string name="addCookbook">Add</string>
+    <string name="recipeNameTextView">Enter a name for cookbook</string>
+    <string name="addPictureRecipe">Add Picture</string>
+    <string name="doneAddRecipe">Done</string>
+    <string name="addRecipe">Add</string>
 
 </resources>
