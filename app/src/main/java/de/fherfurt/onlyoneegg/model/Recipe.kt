@@ -6,6 +6,14 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 
+enum class Difficulty() {
+        easy,
+        middle,
+        hard,
+        complex,
+}
+
+
 @Entity(tableName = "recipe_table")
 data class Recipe(
 
@@ -35,7 +43,7 @@ data class Recipe(
         @NonNull
         @ColumnInfo(name = "difficulty")
         // TODO make difficulty an enum
-        var difficulty: String = "",
+        var difficulty: Difficulty = Difficulty.easy,
 
         /*@NonNull
         @ColumnInfo(name = "myCookbookId")
