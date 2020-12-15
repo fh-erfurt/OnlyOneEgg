@@ -48,6 +48,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editRecipeCooktime" />
 
+        <Spinner
+            android:id="@+id/difficultySpinner"
+            android:layout_width="147dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editRecipeNameText" />
+
+        <EditText
+            android:id="@+id/editRecipeCooktime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:inputType="number"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editRecipeNameText" />
+
         <Button
             android:id="@+id/addIngredientButton"
             android:layout_width="40dp"
@@ -101,17 +121,6 @@
             app:layout_constraintHorizontal_bias="0.944"
             app:layout_constraintStart_toEndOf="@+id/editIngredientAmountText"
             app:layout_constraintTop_toBottomOf="@+id/editRecipeDescriptionText" />
-
-        <EditText
-            android:id="@+id/editRecipeCooktime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:ems="10"
-            android:inputType="number"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editRecipeNameText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

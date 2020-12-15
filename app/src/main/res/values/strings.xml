@@ -20,4 +20,5 @@
     <string name="addPictureRecipe">Add Picture</string>
     <string name="doneAddRecipe">Done</string>
     <string name="addRecipe">Add</string>
+    <string name="cookbook_addRecipe">Add Recipe</string>
 </resources>

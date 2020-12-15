@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import de.fherfurt.onlyoneegg.R
 import de.fherfurt.onlyoneegg.databinding.FragmentAddrecipeBinding
+import de.fherfurt.onlyoneegg.model.Difficulty
 import de.fherfurt.onlyoneegg.model.Ingredient
 import de.fherfurt.onlyoneegg.model.Measurement
 import de.fherfurt.onlyoneegg.model.Recipe
@@ -82,13 +83,22 @@ class AddRecipeFragment : Fragment() {
             Measurement.values()
         )
 
+        // Set the SpinnerAdapter to our difficulty enum
+        binding.difficultySpinner.adapter = ArrayAdapter<Difficulty>(
+            this.requireContext(),
+            android.R.layout.simple_list_item_1,
+            Difficulty.values()
+        )
+
         // ClickListener for recipe saving
         binding.saveRecipeButton.setOnClickListener {
             val recipe = Recipe()
             recipe.name = binding.editRecipeNameText.text.toString()
             recipe.description = binding.editRecipeDescriptionText.text.toString()
             recipe.cooktime = binding.editRecipeCooktime.text.toString().toFloat()
-            // TODO save difficulty
+            recipe.difficulty =
+                Difficulty.valueOf(binding.difficultySpinner.selectedItem.toString())
+
             // Write the recipe into the database and save its id
             val recipeId = addRecipeViewModel.insertRecipe(recipe)
 
