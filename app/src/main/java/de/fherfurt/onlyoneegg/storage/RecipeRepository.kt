@@ -2,16 +2,13 @@ package de.fherfurt.onlyoneegg.storage
 
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
-import de.fherfurt.onlyoneegg.model.Ingredient
 import de.fherfurt.onlyoneegg.model.Recipe
 
-class RecipeRepository(private  val recipeDao: RecipeDao) {
+class RecipeRepository(private val recipeDao: RecipeDao) {
 
 
-    @Suppress("RedundantSuspendModifier")
-    @WorkerThread
-    suspend fun insert(recipe: Recipe) {
-        recipeDao.insert(recipe)
+    fun insert(recipe: Recipe): Long {
+        return recipeDao.insert(recipe)
     }
 
     @Suppress("RedundantSuspendModifier")
@@ -24,4 +21,9 @@ class RecipeRepository(private  val recipeDao: RecipeDao) {
         return recipeDao.getAllRecipes()
     }
 
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun getLastId(): Long {
+        return recipeDao.getLastId()
+    }
 }

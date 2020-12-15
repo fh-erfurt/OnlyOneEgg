@@ -9,6 +9,9 @@
     <string name="recipeImage">CHECKEN</string>
     <string name="insertRecipe">Insert Recipe</string>
     <string name="insert">Insert</string>
+    <string name="title_recipe">Recipe</string>
+    <string name="saveAddRecipe">Save</string>
+    <string name="plus">+</string>
     <string name="cookbookNameTextView">Enter a name for cookbook</string>
     <string name="addPictureCookbook">Add Picture</string>
     <string name="doneAddCookbook">Done</string>
@@ -17,5 +20,4 @@
     <string name="addPictureRecipe">Add Picture</string>
     <string name="doneAddRecipe">Done</string>
     <string name="addRecipe">Add</string>
-
 </resources>
