@@ -3,6 +3,7 @@ package de.fherfurt.onlyoneegg.view.ui.timer
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import de.fherfurt.onlyoneegg.model.Difficulty
 import de.fherfurt.onlyoneegg.model.Ingredient
 import de.fherfurt.onlyoneegg.model.Recipe
 import de.fherfurt.onlyoneegg.storage.OOEDatabase
@@ -34,7 +35,7 @@ class TimerViewModel(application: Application): AndroidViewModel(application) {
         recipeTest.name = "Lemon Chicken"
         recipeTest.description = "Garlic, herbs and lemon—plus a glug of white wine—mean that these juicy, tender chicken breasts are as delicious as they are healthy."
         recipeTest.cooktime = 23.4f
-        recipeTest.difficulty = "Hard"
+        recipeTest.difficulty = Difficulty.complex
         viewModelScope.launch {
             val checken = recipeDao.insert(recipeTest) ?: return@launch
         }
