@@ -42,10 +42,9 @@ data class Recipe(
 
         @NonNull
         @ColumnInfo(name = "difficulty")
-        // TODO make difficulty an enum
         var difficulty: Difficulty = Difficulty.easy,
 
         @NonNull
         @ColumnInfo(name = "cookbookId")
-        var myCookbookId: Long = 1,
+        var cookbookId: Long = 1,
 )

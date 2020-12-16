@@ -16,7 +16,7 @@ fun ImageView.setCookbookImage(item: Cookbook) {
 
 @BindingAdapter("cookbookName")
 fun TextView.setCookbookName(item: Cookbook) {
-    text = item.cookbookName
+    text = item.name
 }
 
 

@@ -6,8 +6,8 @@
     <!--// build clean, rebuild-->
     <data>
         <variable
-            name="cookbook"
-            type="de.fherfurt.onlyoneegg.model.Cookbook"/>
+            name="recipe"
+            type="de.fherfurt.onlyoneegg.model.Recipe"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,12 +15,12 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/cookbook_image"
+            android:id="@+id/recipe_image"
             android:layout_width="@dimen/icon_size"
             android:layout_height="150dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            app:cookbookImage="@{cookbook}"
+            app:recipeImage="@{recipe}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -30,18 +30,18 @@
             tools:srcCompat="@drawable/salad" />
 
         <TextView
-            android:id="@+id/nameCookbook"
+            android:id="@+id/nameRecipe"
             android:layout_width="0dp"
             android:layout_height="20dp"
             android:layout_marginEnd="16dp"
             android:textAlignment="center"
             android:textSize="14sp"
-            app:cookbookName="@{cookbook}"
+            app:recipeName="@{recipe}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cookbook_image"
+            app:layout_constraintTop_toBottomOf="@+id/recipe_image"
             app:layout_constraintVertical_bias="0.0"
             tools:text="Excellent!" />
     </androidx.constraintlayout.widget.ConstraintLayout>

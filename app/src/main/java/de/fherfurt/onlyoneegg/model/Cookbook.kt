@@ -12,7 +12,7 @@ import androidx.room.PrimaryKey
 data class Cookbook(
 
     @PrimaryKey(autoGenerate = true)
-    var cookbookId: Long = 0L,
+    var id: Long = 0L,
 
     @ColumnInfo(name = "created")
     val created: Long = System.currentTimeMillis(),
@@ -22,7 +22,7 @@ data class Cookbook(
 
     @NonNull
     @ColumnInfo(name = "cookbookName")
-    var cookbookName: String = "",
+    var name: String = "",
 
     )
 

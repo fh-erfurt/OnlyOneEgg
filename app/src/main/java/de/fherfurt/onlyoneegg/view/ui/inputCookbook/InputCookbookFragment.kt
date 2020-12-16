@@ -8,20 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import de.fherfurt.onlyoneegg.R
 import de.fherfurt.onlyoneegg.databinding.FragmentInputCookbookBinding
 import de.fherfurt.onlyoneegg.model.Cookbook
 import de.fherfurt.onlyoneegg.storage.CookbookRepository
 import de.fherfurt.onlyoneegg.storage.OOEDatabase
-import de.fherfurt.onlyoneegg.view.ui.dashboard.DashboardAdapter
-import de.fherfurt.onlyoneegg.view.ui.dashboard.DashboardViewModel
-import de.fherfurt.onlyoneegg.view.ui.dashboard.DashboardViewModelFactory
 
 class InputCookbookFragment : Fragment() {
 
@@ -52,7 +47,7 @@ class InputCookbookFragment : Fragment() {
         binding.doneAddCookbook.setOnClickListener {
             binding.apply {
                 var cookbook = Cookbook()
-                cookbook.cookbookName = cookbookNameEdit.text.toString()
+                cookbook.name = cookbookNameEdit.text.toString()
                 inputCookbookViewModel.insertCookbook(cookbook)
                 hideKeyboard()
                 findNavController().navigate(R.id.action_inputCookbookFragment_to_dashboardFragment)

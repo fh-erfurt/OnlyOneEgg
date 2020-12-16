@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import de.fherfurt.onlyoneegg.databinding.ItemDashboardBinding
+import de.fherfurt.onlyoneegg.databinding.ItemCookbookBinding
 import de.fherfurt.onlyoneegg.model.Cookbook
 
 class DashboardAdapter : ListAdapter<Cookbook, DashboardAdapter.ViewHolder>(CookbookDiffCallback()) {
@@ -20,7 +20,7 @@ class DashboardAdapter : ListAdapter<Cookbook, DashboardAdapter.ViewHolder>(Cook
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder private constructor(val binding: ItemDashboardBinding) : RecyclerView.ViewHolder(binding.root){
+    class ViewHolder private constructor(val binding: ItemCookbookBinding) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(item: Cookbook) {
             binding.cookbook = item
@@ -30,7 +30,7 @@ class DashboardAdapter : ListAdapter<Cookbook, DashboardAdapter.ViewHolder>(Cook
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ItemDashboardBinding.inflate(layoutInflater, parent, false)
+                val binding = ItemCookbookBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
             }
         }
@@ -41,7 +41,7 @@ class DashboardAdapter : ListAdapter<Cookbook, DashboardAdapter.ViewHolder>(Cook
 class CookbookDiffCallback : DiffUtil.ItemCallback<Cookbook>() {
 
     override fun areItemsTheSame(oldItem: Cookbook, newItem: Cookbook): Boolean {
-        return oldItem.cookbookId == newItem.cookbookId
+        return oldItem.id == newItem.id
     }
 
 

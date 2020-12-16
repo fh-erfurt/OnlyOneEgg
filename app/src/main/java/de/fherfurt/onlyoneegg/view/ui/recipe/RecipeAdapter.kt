@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import de.fherfurt.onlyoneegg.databinding.ItemDashboardBinding
 import de.fherfurt.onlyoneegg.databinding.ItemIngredientBinding
 import de.fherfurt.onlyoneegg.model.Cookbook
 import de.fherfurt.onlyoneegg.model.Ingredient
