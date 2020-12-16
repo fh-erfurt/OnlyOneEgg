@@ -3,4 +3,5 @@
 
 <resources>
     <dimen name="icon_size">150dp</dimen>
+    <dimen name="inputHeight">42dp</dimen>
 </resources>
