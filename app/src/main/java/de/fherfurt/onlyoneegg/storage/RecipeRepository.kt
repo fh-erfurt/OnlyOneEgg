@@ -21,6 +21,11 @@ class RecipeRepository(private val recipeDao: RecipeDao) {
         return recipeDao.getAllRecipes()
     }
 
+    suspend fun deleteRecipeWithIngredients(id: Long){
+        recipeDao.deleteIngredientsByRecipeId(id)
+        recipeDao.deleteById(id)
+    }
+
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun getLastId(): Long {

@@ -15,6 +15,15 @@ interface RecipeDao {
     @Update
     suspend fun update(recipe: Recipe)
 
+    @Delete
+    suspend fun delete(recipe: Recipe)
+
+    @Query("DELETE FROM recipe_table where id = :id ")
+    suspend fun deleteById(id : Long)
+
+    @Query("DELETE FROM ingredient_table WHERE recipeId = :recipeId")
+    suspend fun deleteIngredientsByRecipeId(recipeId: Long)
+
     @Query("SELECT * FROM recipe_table where id = :id ")
     suspend fun getRecipe(id : Int): Recipe?
 
