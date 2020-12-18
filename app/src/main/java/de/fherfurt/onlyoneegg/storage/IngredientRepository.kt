@@ -17,8 +17,8 @@ class IngredientRepository(private val ingredientDao: IngredientDao) {
     suspend fun insertArrayList(ingredients: ArrayList<Ingredient>) {
         ingredientDao.insertArrayList(ingredients)
     }
-
-    fun getAllIngredients(recipeId : Int): LiveData<List<Ingredient>> {
+    
+    fun getAllIngredients(recipeId : Long): LiveData<List<Ingredient>> {
         return ingredientDao.getAllIngredientsFromRecipe(recipeId )
     }
 
