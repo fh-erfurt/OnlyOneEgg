@@ -26,7 +26,11 @@
         android:id="@+id/recipeFragment"
         android:name="de.fherfurt.onlyoneegg.view.ui.recipe.RecipeFragment"
         android:label="Recipe"
-        tools:layout="@layout/fragment_recipe" />
+        tools:layout="@layout/fragment_recipe" >
+        <argument
+            android:name="recipeId"
+            app:argType="long" />
+    </fragment>
 
     <fragment
         android:id="@+id/cookbookFragment"
@@ -36,6 +40,9 @@
         <action
             android:id="@+id/action_cookbookFragment_to_addRecipeFragment2"
             app:destination="@id/addRecipeFragment" />
+        <action
+            android:id="@+id/action_cookbookFragment_to_recipeFragment"
+            app:destination="@id/recipeFragment" />
     </fragment>
 
     <fragment

@@ -13,7 +13,7 @@ class RecipeRepository(private val recipeDao: RecipeDao) {
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun get(id: Int) {
+    suspend fun get(id: Long) {
         recipeDao.getRecipe(id)
     }
 

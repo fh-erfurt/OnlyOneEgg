@@ -69,6 +69,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recipeDescription"
-            app:layout_constraintVertical_bias="0.63" />
+            app:layout_constraintVertical_bias="0.63"
+            tools:listitem="@layout/item_ingredient"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
