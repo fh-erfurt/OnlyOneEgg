@@ -18,7 +18,7 @@ import de.fherfurt.onlyoneegg.storage.RecipeRepository
 
 
 class RecipeFragment : Fragment() {
-    
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
