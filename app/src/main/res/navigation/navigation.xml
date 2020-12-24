@@ -14,6 +14,9 @@
             android:id="@+id/action_dashboardFragment_to_inputCookbookFragment"
             app:destination="@id/inputCookbookFragment"
             app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_cookbookFragment"
+            app:destination="@id/cookbookFragment" />
     </fragment>
 
     <fragment
@@ -43,6 +46,9 @@
         <action
             android:id="@+id/action_cookbookFragment_to_recipeFragment"
             app:destination="@id/recipeFragment" />
+        <argument
+            android:name="cookbookId"
+            app:argType="long" />
     </fragment>
 
     <fragment

@@ -13,27 +13,6 @@ class DashboardViewModel(application: Application, cookbookRepository: CookbookR
 
     val cookbookRepository=cookbookRepository
     val cookbooks=cookbookRepository.getAllCookbooks()
-    // here repository reference
-    // get contacts form repository als livedata
-
-    val cookbookTest=Cookbook()
-    val cookbookDao = OOEDatabase.getInstance(application).cookbookDao;
-
-
-
-
-    fun onClick(){
-        cookbookTest.name = "Salads"
-
-        viewModelScope.launch {
-            val salads = cookbookDao.insert(cookbookTest) ?: return@launch
-            val desserts=Cookbook()
-            desserts.name="Desserts"
-            cookbookDao.insert(desserts)
-
-        }
-
-    }
 
 
 }

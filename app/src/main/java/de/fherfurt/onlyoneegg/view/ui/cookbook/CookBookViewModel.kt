@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 
 
-class CookBookViewModel (application: Application, recipeRepository: RecipeRepository): AndroidViewModel(application) {
+class CookBookViewModel (application: Application, recipeRepository: RecipeRepository, cookbookId:Long): AndroidViewModel(application) {
 
     val recipeRepository = recipeRepository
     val recipes = recipeRepository.getAllRecipes()
