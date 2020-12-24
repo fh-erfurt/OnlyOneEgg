@@ -19,10 +19,10 @@ interface RecipeDao {
     suspend fun delete(recipe: Recipe)
 
     @Query("DELETE FROM recipe_table where id = :id ")
-    suspend fun deleteById(id : Long)
+     fun deleteById(id : Long)
 
     @Query("DELETE FROM ingredient_table WHERE recipeId = :recipeId")
-    suspend fun deleteIngredientsByRecipeId(recipeId: Long)
+     fun deleteIngredientsByRecipeId(recipeId: Long)
 
     @Query("SELECT * FROM recipe_table where id = :id ")
     suspend fun getRecipe(id : Long): Recipe?
@@ -36,6 +36,9 @@ interface RecipeDao {
 
     @Query("SELECT * FROM recipe_table WHERE cookbookId= :cookbookId ORDER BY id DESC")
     fun getAllRecipesFromCertainCookbook(cookbookId:Long): LiveData<List<Recipe>>
+
+    @Query("SELECT * FROM recipe_table WHERE cookbookId= :cookbookId ORDER BY id DESC")
+    fun getAllRecipesFromCertainCookbookList(cookbookId:Long): List<Recipe>
 
     @Query("SELECT id FROM recipe_table ORDER BY created DESC LIMIT 1")
     fun getLastId(): Long

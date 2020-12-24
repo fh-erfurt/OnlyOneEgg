@@ -33,6 +33,8 @@ class DashboardFragment : Fragment() {
 
         //add repository to viewModel
         val cookbookDao = OOEDatabase.getInstance(application).cookbookDao
+        val recipeDao = OOEDatabase.getInstance(application).recipeDao
+
         val cookbookRepository=CookbookRepository(cookbookDao)
         val viewModelFactory = DashboardViewModelFactory(application, cookbookRepository)
 

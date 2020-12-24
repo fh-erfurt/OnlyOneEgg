@@ -22,7 +22,7 @@ interface IngredientDao {
     suspend fun getIngredient(): Ingredient?
 
     @Query("SELECT * from ingredient_table ORDER BY id ASC")
-     fun getAllIngredients(): LiveData<List<Ingredient>>
+    fun getAllIngredients(): LiveData<List<Ingredient>>
 
     @Query("SELECT * from ingredient_table where recipeId = :recipeId ORDER BY id ASC")
     fun getAllIngredientsFromRecipe( recipeId: Long): LiveData<List<Ingredient>>

@@ -7,11 +7,14 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import de.fherfurt.onlyoneegg.R
 import de.fherfurt.onlyoneegg.databinding.FragmentCookbookBinding
+import de.fherfurt.onlyoneegg.storage.CookbookRepository
 import de.fherfurt.onlyoneegg.storage.OOEDatabase
 import de.fherfurt.onlyoneegg.storage.RecipeRepository
 
@@ -38,8 +41,12 @@ class CookBookFragment : Fragment() {
         val application = requireNotNull(this.activity).application
 
         val recipeDao = OOEDatabase.getInstance(application).recipeDao
+        val cookbookDao = OOEDatabase.getInstance(application).cookbookDao
+
         val recipeRepository = RecipeRepository(recipeDao)
-        val viewModelFactory = CookBookViewModelFactory(application, recipeRepository, cookbookId)
+        val cookbookRepository = CookbookRepository(cookbookDao)
+        val viewModelFactory =
+            CookBookViewModelFactory(application, recipeRepository, cookbookRepository, cookbookId)
 
         val cookbookViewModel =
             ViewModelProvider(
@@ -52,6 +59,11 @@ class CookBookFragment : Fragment() {
                 CookBookFragmentDirections.actionCookbookFragmentToAddRecipeFragment2(cookbookId)
             Navigation.findNavController(binding.root).navigate(action)
 
+        }
+        // click listener for removing of entire cookbook
+        binding.removeCookbook.setOnClickListener {
+            cookbookViewModel.removeCookbook(cookbookId);
+            findNavController().navigate(R.id.action_cookbookFragment_to_dashboardFragment)
         }
 
 

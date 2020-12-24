@@ -49,6 +49,9 @@
         <argument
             android:name="cookbookId"
             app:argType="long" />
+        <action
+            android:id="@+id/action_cookbookFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
     </fragment>
 
     <fragment
