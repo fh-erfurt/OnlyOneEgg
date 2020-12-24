@@ -10,7 +10,9 @@ class RecipeRepository(private val recipeDao: RecipeDao) {
     fun insert(recipe: Recipe): Long {
         return recipeDao.insert(recipe)
     }
-
+    fun getAllRecipesFromCertainCookbook(cookbookId: Long):LiveData<List<Recipe>>{
+        return recipeDao.getAllRecipesFromCertainCookbook(cookbookId)
+    }
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun get(id: Long) {

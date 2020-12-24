@@ -34,6 +34,9 @@ interface RecipeDao {
     @Query("SELECT * FROM recipe_table ORDER BY id DESC")
     fun getAllRecipes(): LiveData<List<Recipe>>
 
+    @Query("SELECT * FROM recipe_table WHERE cookbookId= :cookbookId ORDER BY id DESC")
+    fun getAllRecipesFromCertainCookbook(cookbookId:Long): LiveData<List<Recipe>>
+
     @Query("SELECT id FROM recipe_table ORDER BY created DESC LIMIT 1")
     fun getLastId(): Long
 }

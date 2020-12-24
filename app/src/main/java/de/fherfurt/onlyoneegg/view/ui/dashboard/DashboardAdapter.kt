@@ -1,12 +1,15 @@
 package de.fherfurt.onlyoneegg.view.ui.dashboard
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.fherfurt.onlyoneegg.databinding.ItemCookbookBinding
 import de.fherfurt.onlyoneegg.model.Cookbook
+import de.fherfurt.onlyoneegg.view.ui.cookbook.CookBookFragmentDirections
 
 class DashboardAdapter : ListAdapter<Cookbook, DashboardAdapter.ViewHolder>(CookbookDiffCallback()) {
 
@@ -26,7 +29,15 @@ class DashboardAdapter : ListAdapter<Cookbook, DashboardAdapter.ViewHolder>(Cook
             binding.cookbook = item
             binding.executePendingBindings()
         }
-
+        init{
+            binding.root.setOnClickListener{ v: View ->
+                val position : Long? = binding.cookbook?.id
+                if(position != null) {
+                    val action = DashboardFragmentDirections.actionDashboardFragmentToCookbookFragment(position)
+                    Navigation.findNavController(binding.root).navigate(action)
+                }
+            }
+        }
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)

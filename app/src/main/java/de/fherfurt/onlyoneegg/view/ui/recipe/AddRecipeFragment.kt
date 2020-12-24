@@ -10,7 +10,9 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import de.fherfurt.onlyoneegg.R
@@ -19,6 +21,7 @@ import de.fherfurt.onlyoneegg.model.Difficulty
 import de.fherfurt.onlyoneegg.model.Ingredient
 import de.fherfurt.onlyoneegg.model.Measurement
 import de.fherfurt.onlyoneegg.model.Recipe
+import de.fherfurt.onlyoneegg.view.ui.cookbook.CookBookFragmentDirections
 import de.fherfurt.onlyoneegg.view.ui.recipe.AddRecipeAdapter
 import de.fherfurt.onlyoneegg.view.ui.recipe.AddRecipeViewModel
 import de.fherfurt.onlyoneegg.view.ui.recipe.AddRecipeViewModelFactory
@@ -29,6 +32,11 @@ class AddRecipeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        //initialize a cookbookId from nav args
+        val args: AddRecipeFragmentArgs by navArgs()
+        val cookbookId = args.cookbookId
+
         // Get a reference to the binding object and inflate the fragment views.
         val binding: FragmentAddrecipeBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_addrecipe, container, false
@@ -93,6 +101,7 @@ class AddRecipeFragment : Fragment() {
         // ClickListener for recipe saving
         binding.saveRecipeButton.setOnClickListener {
             val recipe = Recipe()
+            recipe.cookbookId=cookbookId
             recipe.name = binding.editRecipeNameText.text.toString()
             recipe.description = binding.editRecipeDescriptionText.text.toString()
             recipe.cooktime = binding.editRecipeCooktime.text.toString().toFloat()
@@ -114,7 +123,9 @@ class AddRecipeFragment : Fragment() {
             Toast.makeText(application.applicationContext, "Added Recipe", Toast.LENGTH_SHORT)
                 .show()
             // navigate back to the cookbook
-            findNavController().navigate(R.id.action_addRecipeFragment_to_cookbookFragment)
+            val action =
+                AddRecipeFragmentDirections.actionAddRecipeFragmentToCookbookFragment(cookbookId)
+            Navigation.findNavController(binding.root).navigate(action)
         }
 
         val manager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
@@ -122,4 +133,5 @@ class AddRecipeFragment : Fragment() {
 
         return binding.root
     }
+
 }
