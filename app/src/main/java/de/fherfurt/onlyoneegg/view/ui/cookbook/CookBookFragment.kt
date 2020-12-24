@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
@@ -16,6 +17,7 @@ import de.fherfurt.onlyoneegg.R
 import de.fherfurt.onlyoneegg.databinding.FragmentCookbookBinding
 import de.fherfurt.onlyoneegg.storage.OOEDatabase
 import de.fherfurt.onlyoneegg.storage.RecipeRepository
+import de.fherfurt.onlyoneegg.view.ui.dashboard.DashboardFragmentDirections
 
 
 class CookBookFragment : Fragment() {
@@ -44,7 +46,13 @@ class CookBookFragment : Fragment() {
                 this, viewModelFactory
             ).get(CookBookViewModel::class.java)
 
-        binding.addRecipe.setOnClickListener { findNavController().navigate(R.id.action_cookbookFragment_to_addRecipeFragment2) }
+        binding.addRecipe.setOnClickListener {
+
+            val action =
+                CookBookFragmentDirections.actionCookbookFragmentToAddRecipeFragment2(cookbookId)
+            Navigation.findNavController(binding.root).navigate(action)
+
+        }
 
 
         binding.cookbookViewModel = cookbookViewModel
@@ -61,12 +69,8 @@ class CookBookFragment : Fragment() {
         })
         val manager = GridLayoutManager(activity, 2, GridLayoutManager.VERTICAL, false)
         binding.recipeList.layoutManager = manager
-        context?.toast(cookbookId.toString())
         return binding.root
-
-
     }
-    fun Context.toast(message: CharSequence) =
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+
 
 }
