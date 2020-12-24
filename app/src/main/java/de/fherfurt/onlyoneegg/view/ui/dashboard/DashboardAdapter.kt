@@ -36,7 +36,6 @@ class DashboardAdapter : ListAdapter<Cookbook, DashboardAdapter.ViewHolder>(Cook
                     val action = DashboardFragmentDirections.actionDashboardFragmentToCookbookFragment(position)
                     Navigation.findNavController(binding.root).navigate(action)
                 }
-                //Toast.makeText(itemView.context,"you clicked # ${position }",Toast.LENGTH_LONG).show()
             }
         }
         companion object {

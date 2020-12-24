@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 class CookBookViewModel (application: Application, recipeRepository: RecipeRepository, cookbookId:Long): AndroidViewModel(application) {
 
     val recipeRepository = recipeRepository
-    val recipes = recipeRepository.getAllRecipes()
+    val recipes = recipeRepository.getAllRecipesFromCertainCookbook(cookbookId)
 
     val recipeTest = Recipe()
     val recipeDao = OOEDatabase.getInstance(application).recipeDao;

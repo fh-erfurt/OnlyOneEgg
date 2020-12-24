@@ -22,8 +22,6 @@ interface CookbookDao {
     fun getAllCookbooks(): LiveData<List<Cookbook>>
 
 
-   /* @Transaction
-    @Query("SELECT * FROM cookbook_table")
-    fun getCookbookWithRecipes(): List<CookbookWithRecipes>*/
+
 
 }
