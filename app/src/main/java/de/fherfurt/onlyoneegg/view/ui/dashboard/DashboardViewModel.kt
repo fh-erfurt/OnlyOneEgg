@@ -8,11 +8,11 @@ import de.fherfurt.onlyoneegg.storage.CookbookRepository
 import de.fherfurt.onlyoneegg.storage.OOEDatabase
 import kotlinx.coroutines.launch
 
-
+/*
+* DashboardViewModel class tracks all cookbooks and uses cookbookRepository
+* */
 class DashboardViewModel(application: Application, cookbookRepository: CookbookRepository): AndroidViewModel(application) {
 
     val cookbookRepository=cookbookRepository
     val cookbooks=cookbookRepository.getAllCookbooks()
-
-
 }

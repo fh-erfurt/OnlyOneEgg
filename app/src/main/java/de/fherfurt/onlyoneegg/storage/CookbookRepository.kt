@@ -12,11 +12,14 @@ class CookbookRepository(private val cookbookDao: CookbookDao) {
         cookbookDao.insert(cookbook)
     }
 
-
-     fun getAllCookbooks():LiveData<List<Cookbook>> {
+    fun getLastCookbookId():Long{
+       return cookbookDao.lastCookbookId()
+    }
+    fun getAllCookbooks(): LiveData<List<Cookbook>> {
         return cookbookDao.getAllCookbooks()
     }
-    fun getCookbook():Cookbook{
+
+    fun getCookbook(): Cookbook {
         return cookbookDao.getCookbook()
     }
 }

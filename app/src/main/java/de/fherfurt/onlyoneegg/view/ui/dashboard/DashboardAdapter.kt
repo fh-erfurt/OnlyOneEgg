@@ -10,7 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import de.fherfurt.onlyoneegg.databinding.ItemCookbookBinding
 import de.fherfurt.onlyoneegg.model.Cookbook
 import de.fherfurt.onlyoneegg.view.ui.cookbook.CookBookFragmentDirections
-
+/*
+* Dashboard Recycle View implementation class
+* is used to list all cookbooks of the application
+*
+* */
 class DashboardAdapter : ListAdapter<Cookbook, DashboardAdapter.ViewHolder>(CookbookDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -18,7 +22,7 @@ class DashboardAdapter : ListAdapter<Cookbook, DashboardAdapter.ViewHolder>(Cook
         holder.bind(item)
     }
 
-    //wenn neues kind objekt notwendig ist ind keins anderes verfuegbar ist
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
@@ -29,6 +33,8 @@ class DashboardAdapter : ListAdapter<Cookbook, DashboardAdapter.ViewHolder>(Cook
             binding.cookbook = item
             binding.executePendingBindings()
         }
+        // set click listener to each cookbook
+        // item as navigation component to list of recipes
         init{
             binding.root.setOnClickListener{ v: View ->
                 val position : Long? = binding.cookbook?.id

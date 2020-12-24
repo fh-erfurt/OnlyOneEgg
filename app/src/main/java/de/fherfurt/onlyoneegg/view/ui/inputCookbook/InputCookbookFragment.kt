@@ -37,17 +37,25 @@ class InputCookbookFragment : Fragment() {
         val cookbookDao = OOEDatabase.getInstance(application).cookbookDao
         val cookbookRepository = CookbookRepository(cookbookDao)
         val viewModelFactory = InputCookbookViewModelFactory(application, cookbookRepository)
-
+        // create viewModel
         val inputCookbookViewModel =
                 ViewModelProvider(
                         this, viewModelFactory).get(InputCookbookViewModel::class.java)
-
         binding.inputCookbookViewModel = inputCookbookViewModel
+        // bind input field with the variable
         cookbookNameEdit = binding.cookbookName
+
+        // add click listener to insert new cookbook
         binding.doneAddCookbook.setOnClickListener {
             binding.apply {
                 var cookbook = Cookbook()
-                cookbook.name = cookbookNameEdit.text.toString()
+                if(cookbookNameEdit.text.toString().isEmpty()){
+                    cookbook.name="Cookbook "+inputCookbookViewModel.getLastCookbookId()+1;
+                }
+                else{
+                    cookbook.name = cookbookNameEdit.text.toString()
+                }
+
                 inputCookbookViewModel.insertCookbook(cookbook)
                 hideKeyboard()
                 findNavController().navigate(R.id.action_inputCookbookFragment_to_dashboardFragment)

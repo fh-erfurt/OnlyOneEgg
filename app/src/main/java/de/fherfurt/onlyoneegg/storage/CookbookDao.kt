@@ -18,6 +18,9 @@ interface CookbookDao {
     @Query("SELECT * FROM cookbook_table ORDER BY id DESC LIMIT 1")
     fun getCookbook(): Cookbook
 
+    @Query("SELECT id FROM cookbook_table ORDER BY id DESC LIMIT 1")
+    fun lastCookbookId(): Long
+
     @Query("SELECT * FROM cookbook_table ORDER BY id DESC")
     fun getAllCookbooks(): LiveData<List<Cookbook>>
 

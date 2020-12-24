@@ -1,25 +1,25 @@
 package de.fherfurt.onlyoneegg.view.ui.cookbook
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import de.fherfurt.onlyoneegg.R
 import de.fherfurt.onlyoneegg.databinding.FragmentCookbookBinding
 import de.fherfurt.onlyoneegg.storage.OOEDatabase
 import de.fherfurt.onlyoneegg.storage.RecipeRepository
-import de.fherfurt.onlyoneegg.view.ui.dashboard.DashboardFragmentDirections
 
-
+/*
+* Cookbook Recycle View implementation class
+* is used to list all recipes of the certain cookbook
+*
+* */
 class CookBookFragment : Fragment() {
 
     override fun onCreateView(
@@ -45,7 +45,7 @@ class CookBookFragment : Fragment() {
             ViewModelProvider(
                 this, viewModelFactory
             ).get(CookBookViewModel::class.java)
-
+        // click listener to navigate to the addRecipeFragment with cookbookId as argument
         binding.addRecipe.setOnClickListener {
 
             val action =
