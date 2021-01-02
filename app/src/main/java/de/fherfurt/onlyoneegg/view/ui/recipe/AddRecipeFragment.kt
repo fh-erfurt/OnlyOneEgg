@@ -11,7 +11,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,7 +20,6 @@ import de.fherfurt.onlyoneegg.model.Difficulty
 import de.fherfurt.onlyoneegg.model.Ingredient
 import de.fherfurt.onlyoneegg.model.Measurement
 import de.fherfurt.onlyoneegg.model.Recipe
-import de.fherfurt.onlyoneegg.view.ui.cookbook.CookBookFragmentDirections
 import de.fherfurt.onlyoneegg.view.ui.recipe.AddRecipeAdapter
 import de.fherfurt.onlyoneegg.view.ui.recipe.AddRecipeViewModel
 import de.fherfurt.onlyoneegg.view.ui.recipe.AddRecipeViewModelFactory
@@ -65,17 +63,29 @@ class AddRecipeFragment : Fragment() {
         binding.addIngredientButton.setOnClickListener {
             val ingredient = Ingredient(id = 0)
 
-            ingredient.name = binding.editIngredientNameText.text.toString()
-            binding.editIngredientNameText.text.clear()
+            when {
+                binding.editIngredientNameText.text.toString().trim().isEmpty() -> {
+                    Toast.makeText(it.context, "Please input a ingredient name", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                binding.editIngredientAmountText.text.toString().trim().isEmpty() -> {
+                    Toast.makeText(it.context, "Please input a ingredient amount", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                else -> {
+                    ingredient.name = binding.editIngredientNameText.text.toString()
+                    binding.editIngredientNameText.text.clear()
 
-            ingredient.value = binding.editIngredientAmountText.text.toString().toLong()
-            binding.editIngredientAmountText.text.clear()
+                    ingredient.value = binding.editIngredientAmountText.text.toString().toLong()
+                    binding.editIngredientAmountText.text.clear()
 
-            ingredient.measurement =
-                Measurement.valueOf(binding.measurementSpinner.selectedItem.toString())
+                    ingredient.measurement =
+                        Measurement.valueOf(binding.measurementSpinner.selectedItem.toString())
 
-            ingredients.add(ingredient)
-            adapter.notifyDataSetChanged()
+                    ingredients.add(ingredient)
+                    adapter.notifyDataSetChanged()
+                }
+            }
         }
 
         // Helper function for hiding the keyboard
@@ -101,31 +111,53 @@ class AddRecipeFragment : Fragment() {
         // ClickListener for recipe saving
         binding.saveRecipeButton.setOnClickListener {
             val recipe = Recipe()
-            recipe.cookbookId=cookbookId
-            recipe.name = binding.editRecipeNameText.text.toString()
-            recipe.description = binding.editRecipeDescriptionText.text.toString()
-            recipe.cooktime = binding.editRecipeCooktime.text.toString().toFloat()
-            recipe.difficulty =
-                Difficulty.valueOf(binding.difficultySpinner.selectedItem.toString())
+            recipe.cookbookId = cookbookId
 
-            // Write the recipe into the database and save its id
-            val recipeId = addRecipeViewModel.insertRecipe(recipe)
+            when {
+                binding.editRecipeNameText.text.toString().trim().isEmpty() -> {
+                    Toast.makeText(it.context, "Please input a recipe name", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                binding.editRecipeCooktime.text.toString().trim().isEmpty() -> {
+                    Toast.makeText(it.context, "Please input a recipe cooktime", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                binding.editRecipeDescriptionText.text.toString().trim().isEmpty() -> {
+                    Toast.makeText(it.context, "Please input a recipe description", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                ingredients.isEmpty() -> {
+                    Toast.makeText(it.context, "Please add atleast one ingredient", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                else -> {
+                    recipe.name = binding.editRecipeNameText.text.toString()
+                    recipe.cooktime = binding.editRecipeCooktime.text.toString().toFloat()
+                    recipe.description = binding.editRecipeDescriptionText.text.toString()
 
-            // Set recipeId in all ingredients to the actual id
-            for (ingredient in ingredients) {
-                ingredient.recipeId = recipeId
+                    recipe.difficulty =
+                        Difficulty.valueOf(binding.difficultySpinner.selectedItem.toString())
+
+                    // Write the recipe into the database and save its id
+                    val recipeId = addRecipeViewModel.insertRecipe(recipe)
+
+                    // Set recipeId in all ingredients to the actual id
+                    for (ingredient in ingredients) {
+                        ingredient.recipeId = recipeId
+                    }
+                    // Save all ingredients in the database
+                    addRecipeViewModel.insertIngredientList(ingredients)
+
+                    hideKeyboard(this.requireContext(), it)
+                    // show a popup that the insertion worked
+                    Toast.makeText(application.applicationContext, "Added Recipe", Toast.LENGTH_SHORT)
+                        .show()
+                    // navigate back to the cookbook
+                    val action =
+                        AddRecipeFragmentDirections.actionAddRecipeFragmentToCookbookFragment(cookbookId)
+                    Navigation.findNavController(binding.root).navigate(action)
+                }
             }
-            // Save all ingredients in the database
-            addRecipeViewModel.insertIngredientList(ingredients)
-
-            hideKeyboard(this.requireContext(), it)
-            // show a popup that the insertion worked
-            Toast.makeText(application.applicationContext, "Added Recipe", Toast.LENGTH_SHORT)
-                .show()
-            // navigate back to the cookbook
-            val action =
-                AddRecipeFragmentDirections.actionAddRecipeFragmentToCookbookFragment(cookbookId)
-            Navigation.findNavController(binding.root).navigate(action)
         }
 
         val manager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
