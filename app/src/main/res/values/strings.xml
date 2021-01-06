@@ -21,4 +21,6 @@
     <string name="doneAddRecipe">Done</string>
     <string name="addRecipe">Add</string>
     <string name="cookbook_addRecipe">Add Recipe</string>
+    <string name="cookbook_removeCookbook">Remove cookbook</string>
+    <string name="minutesText">min.</string>
 </resources>

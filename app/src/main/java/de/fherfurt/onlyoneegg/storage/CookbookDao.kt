@@ -13,17 +13,21 @@ interface CookbookDao {
     @Update
     suspend fun update(cookbook: Cookbook)
     @Delete
-    suspend fun delete(cookbook: Cookbook)
+     fun delete(cookbook: Cookbook)
 
     @Query("SELECT * FROM cookbook_table ORDER BY id DESC LIMIT 1")
     fun getCookbook(): Cookbook
+
+    @Query("SELECT * FROM cookbook_table WHERE id=:id LIMIT 1")
+    fun getCookbook(id:Long): Cookbook
+
+    @Query("SELECT id FROM cookbook_table ORDER BY id DESC LIMIT 1")
+    fun lastCookbookId(): Long
 
     @Query("SELECT * FROM cookbook_table ORDER BY id DESC")
     fun getAllCookbooks(): LiveData<List<Cookbook>>
 
 
-   /* @Transaction
-    @Query("SELECT * FROM cookbook_table")
-    fun getCookbookWithRecipes(): List<CookbookWithRecipes>*/
+
 
 }

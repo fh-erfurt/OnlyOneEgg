@@ -11,10 +11,6 @@
         android:icon="@drawable/ic_action_timer"
         android:title="@string/title_timer" />
 
-    <item
-        android:id="@+id/recipeFragment"
-        android:icon="@drawable/ic_action_list"
-        android:title="@string/title_recipe" />
 
     <item
         android:id="@+id/cookbookFragment"

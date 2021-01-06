@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import de.fherfurt.onlyoneegg.R
 import de.fherfurt.onlyoneegg.databinding.FragmentRecipeBinding
@@ -18,11 +19,13 @@ import de.fherfurt.onlyoneegg.storage.RecipeRepository
 
 class RecipeFragment : Fragment() {
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        val args : RecipeFragmentArgs by navArgs()
+        val recipeId = args.recipeId
 
         // Get a reference to the binding object and inflate the fragment views.
         val binding : FragmentRecipeBinding = DataBindingUtil.inflate(
@@ -34,7 +37,7 @@ class RecipeFragment : Fragment() {
 
         val ingredientDao = OOEDatabase.getInstance(application).ingredientDao;
         val ingredientRepository = IngredientRepository(ingredientDao)
-        val viewModelFactory = RecipeViewModelFactory(application,ingredientRepository)
+        val viewModelFactory = RecipeViewModelFactory(application,ingredientRepository,recipeId)
 
         val recipeViewModel =
             ViewModelProvider(

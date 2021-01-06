@@ -22,5 +22,9 @@ class InputCookbookViewModel(application: Application, cookbookRepository: Cookb
         }
     }
 
+    fun getLastCookbookId(): Long {
+        return cookbookRepository.getLastCookbookId()
+    }
+
 
 }

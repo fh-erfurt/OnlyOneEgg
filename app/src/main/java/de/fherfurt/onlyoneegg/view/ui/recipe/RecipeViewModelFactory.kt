@@ -7,11 +7,13 @@ import de.fherfurt.onlyoneegg.storage.IngredientRepository
 
 class RecipeViewModelFactory (
         private val application: Application,
-        private val dataSource: IngredientRepository) : ViewModelProvider.Factory {
+        private val dataSource: IngredientRepository,
+        private var recipeID : Long ) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(RecipeViewModel::class.java)) {
-            return RecipeViewModel(application, dataSource) as T
+
+            return RecipeViewModel(application, dataSource, recipeID ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

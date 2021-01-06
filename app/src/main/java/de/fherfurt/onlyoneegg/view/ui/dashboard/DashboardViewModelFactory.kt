@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import de.fherfurt.onlyoneegg.storage.CookbookRepository
 import javax.sql.CommonDataSource
-
+/*
+* class used to create dashboard view model
+* */
 class DashboardViewModelFactory(
         private val application: Application,
         private val dataSource: CookbookRepository) : ViewModelProvider.Factory {

@@ -2,10 +2,13 @@ package de.fherfurt.onlyoneegg.view.ui.recipe
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.Navigation
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.fherfurt.onlyoneegg.databinding.ItemIngredientBinding
 import de.fherfurt.onlyoneegg.model.Ingredient
+import de.fherfurt.onlyoneegg.view.ui.cookbook.CookBookFragmentDirections
 
 class AddRecipeAdapter(val ingredientList: ArrayList<Ingredient>) : ListAdapter<Ingredient, AddRecipeAdapter.ViewHolder>(IngredientDiffCallback()) {
 
@@ -26,7 +29,6 @@ class AddRecipeAdapter(val ingredientList: ArrayList<Ingredient>) : ListAdapter<
             binding.ingredient = item
             binding.executePendingBindings()
         }
-
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
@@ -35,4 +37,16 @@ class AddRecipeAdapter(val ingredientList: ArrayList<Ingredient>) : ListAdapter<
             }
         }
     }
+/*
+    class IngredientDiffCallback : DiffUtil.ItemCallback<Ingredient>() {
+
+        override fun areItemsTheSame(oldItem: Ingredient, newItem: Ingredient): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+
+        override fun areContentsTheSame(oldItem: Ingredient, newItem: Ingredient): Boolean {
+            return oldItem == newItem
+        }
+        }*/
 }

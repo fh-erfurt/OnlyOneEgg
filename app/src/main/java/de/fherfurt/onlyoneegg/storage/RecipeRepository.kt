@@ -11,9 +11,13 @@ class RecipeRepository(private val recipeDao: RecipeDao) {
         return recipeDao.insert(recipe)
     }
 
+    fun getAllRecipesFromCertainCookbook(cookbookId: Long): LiveData<List<Recipe>> {
+        return recipeDao.getAllRecipesFromCertainCookbook(cookbookId)
+    }
+
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun get(id: Int) {
+    suspend fun get(id: Long) {
         recipeDao.getRecipe(id)
     }
 
@@ -21,9 +25,20 @@ class RecipeRepository(private val recipeDao: RecipeDao) {
         return recipeDao.getAllRecipes()
     }
 
+    fun deleteRecipeWithIngredients(id: Long) {
+
+        recipeDao.deleteIngredientsByRecipeId(id)
+        recipeDao.deleteById(id)
+
+    }
+
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun getLastId(): Long {
         return recipeDao.getLastId()
+    }
+
+    fun getAllRecipesFromCertainCookbookList(cookbookId: Long):List<Recipe>{
+        return recipeDao.getAllRecipesFromCertainCookbookList(cookbookId)
     }
 }
