@@ -17,6 +17,10 @@
 
 ![DatabaseSchema](PMEDatabaseSchema.png)
 
+### Projektstruktur
+
+![DatabaseSchema](Structure.png)
+
 ### Seiten:
 - [x] Startseite/Dashboard
   - [x] Eigene Kochbücher anzeigen
