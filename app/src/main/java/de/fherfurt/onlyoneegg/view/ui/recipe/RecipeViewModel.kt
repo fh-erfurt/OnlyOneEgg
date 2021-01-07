@@ -1,15 +1,10 @@
 package de.fherfurt.onlyoneegg.view.ui.recipe
 
 import android.app.Application
-import android.util.Log
-
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.fragment.navArgs
-
 import de.fherfurt.onlyoneegg.model.Recipe
-import de.fherfurt.onlyoneegg.model.RecipeWithIngredients
 import de.fherfurt.onlyoneegg.storage.IngredientRepository
 import de.fherfurt.onlyoneegg.storage.OOEDatabase
 import de.fherfurt.onlyoneegg.storage.RecipeRepository
@@ -21,7 +16,7 @@ class RecipeViewModel (application: Application, ingredientRepository: Ingredien
     var recipe = MutableLiveData<Recipe>()
 
     val recipeDao = OOEDatabase.getInstance(application).recipeDao;
-
+    val recipeRepository = RecipeRepository(recipeDao);
     val ingredients  = ingredientRepository.getAllIngredients(recipeID)
 
     init{
@@ -46,6 +41,9 @@ class RecipeViewModel (application: Application, ingredientRepository: Ingredien
     }
 
 
+    fun removeRecipe(recipeId: Long){
+        recipeRepository.deleteRecipeWithIngredients(recipeId)
+    }
 
 
 }

@@ -33,6 +33,9 @@
         <argument
             android:name="recipeId"
             app:argType="long" />
+        <action
+            android:id="@+id/action_recipeFragment_to_cookbookFragment"
+            app:destination="@id/cookbookFragment" />
     </fragment>
 
     <fragment
