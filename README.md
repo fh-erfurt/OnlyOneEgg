@@ -13,23 +13,27 @@
 - (Voicecontrol)
 - (Gruppen und Einladen von Freunden)
 
+### Room-Datenbankklassen
+
+![DatabaseSchema](PMEDatabaseSchema.png)
+
 ### Seiten:
-- [ ] Startseite/Dashboard
+- [x] Startseite/Dashboard
   - [x] Eigene Kochbücher anzeigen
   - [x] Neues Kochbuch hinzufügen
 	  - [x] Name
     - [ ] Bild
 - [ ] Kochbuchansicht
   - [ ] Rezept suchen
-  - [ ] Liste von Rezepten
-  - [ ] Rezept hinzufügen
+  - [x] Liste von Rezepten
+  - [x] Rezept hinzufügen
   	- [x] Name, Bild(er), Zutaten, Anleitung, Schwierigkeit, Dauer
-  - [ ] Rezept löschen
-- [ ] Rezeptansicht
+  - [x] Rezept löschen
+- [x] Rezeptansicht
   - [x] Liste von Zutaten
   - [x] Kochanleitung
   - [ ] Ändern
-  - [ ] Löschen
+  - [x] Löschen
 - [ ] Rezeptfinder
   - [ ] Eingabe
   - [ ] Liste von Rezepten
