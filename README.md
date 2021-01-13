@@ -38,9 +38,9 @@
   - [x] Kochanleitung
   - [ ] Ändern
   - [x] Löschen
-- [ ] Rezeptfinder
-  - [ ] Eingabe
-  - [ ] Liste von Rezepten
+- [x] Rezeptfinder
+  - [x] Eingabe
+  - [x] Liste von Rezepten
 - [x] Timer-Seite
 
 ### Lessons Learned:
