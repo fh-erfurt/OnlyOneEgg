@@ -41,4 +41,12 @@ class RecipeRepository(private val recipeDao: RecipeDao) {
     fun getAllRecipesFromCertainCookbookList(cookbookId: Long):List<Recipe>{
         return recipeDao.getAllRecipesFromCertainCookbookList(cookbookId)
     }
+
+    fun getAllRecipesWithString(keyword: String): List<Recipe>{
+        return if(keyword.trim().isBlank()){
+            ArrayList<Recipe>()
+        }else{
+            recipeDao.getAllRecipesWithString(keyword.trim())
+        }
+    }
 }

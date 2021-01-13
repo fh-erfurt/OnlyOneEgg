@@ -78,5 +78,13 @@
             android:name="cookbookId"
             app:argType="long" />
     </fragment>
+    <fragment
+        android:id="@+id/searchRecipeFragment"
+        android:name="de.fherfurt.onlyoneegg.view.ui.searchRecipe.SearchRecipeFragment"
+        android:label="SearchRecipeFragment" >
+        <action
+            android:id="@+id/action_searchRecipeFragment_to_recipeFragment"
+            app:destination="@id/recipeFragment" />
+    </fragment>
 
 </navigation>

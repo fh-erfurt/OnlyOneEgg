@@ -42,5 +42,9 @@ interface RecipeDao {
 
     @Query("SELECT id FROM recipe_table ORDER BY created DESC LIMIT 1")
     fun getLastId(): Long
+
+    // uses SQLite string concatenation for the like
+    @Query("SELECT * FROM recipe_table WHERE name LIKE '%' || :keyword || '%' ORDER BY created DESC")
+    fun getAllRecipesWithString(keyword: String): List<Recipe>
 }
 

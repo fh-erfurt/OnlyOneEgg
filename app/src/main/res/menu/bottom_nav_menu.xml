@@ -11,6 +11,10 @@
         android:icon="@drawable/ic_action_timer"
         android:title="@string/title_timer" />
 
+    <item
+        android:id="@+id/searchRecipeFragment"
+        android:icon="@drawable/ic_action_search"
+        android:title="@string/searchText" />
 
     <item
         android:id="@+id/cookbookFragment"
