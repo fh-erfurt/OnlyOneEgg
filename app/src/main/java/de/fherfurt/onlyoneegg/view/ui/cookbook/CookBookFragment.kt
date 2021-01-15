@@ -1,5 +1,6 @@
 package de.fherfurt.onlyoneegg.view.ui.cookbook
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,12 +27,14 @@ import de.fherfurt.onlyoneegg.storage.RecipeRepository
 class CookBookFragment : Fragment() {
 
     override fun onCreateView(
+
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         //initialize a cookbookId from nav args
         val args: CookBookFragmentArgs by navArgs()
         val cookbookId = args.cookbookId
+
 
         // Get a reference to the binding object and inflate the fragment views.
         val binding: FragmentCookbookBinding = DataBindingUtil.inflate(

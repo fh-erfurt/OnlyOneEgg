@@ -1,5 +1,6 @@
 package de.fherfurt.onlyoneegg.view.ui.recipe
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +27,8 @@ class RecipeFragment : Fragment() {
 
         val args : RecipeFragmentArgs by navArgs()
         val recipeId = args.recipeId
+
+        getActivity()?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         // Get a reference to the binding object and inflate the fragment views.
         val binding : FragmentRecipeBinding = DataBindingUtil.inflate(
