@@ -11,6 +11,7 @@ import de.fherfurt.onlyoneegg.model.Ingredient
 
 class RecipeAdapter : ListAdapter<Ingredient, RecipeAdapter.ViewHolder>(IngredientDiffCallback()) {
 
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)

@@ -6,7 +6,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="timer_start">Start</string>
     <string name="timer_pause">Pause</string>
-    <string name="recipeImage">CHECKEN</string>
+    <string name="recipeImage">CHICKEN</string>
     <string name="insertRecipe">Insert Recipe</string>
     <string name="insert">Insert</string>
     <string name="title_recipe">Recipe</string>
@@ -25,4 +25,8 @@
     <string name="minutesText">min.</string>
     <string name="searchButton">Search</string>
     <string name="searchText">Search</string>
+    <string name="zutaten">Zutaten</string>
+    <string name="remove">Remove</string>
+
+
 </resources>

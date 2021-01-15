@@ -16,8 +16,4 @@
         android:icon="@drawable/ic_action_search"
         android:title="@string/searchText" />
 
-    <item
-        android:id="@+id/cookbookFragment"
-        android:icon="@drawable/ic_action_book"
-        android:title="CookBook" />
 </menu>
