@@ -32,6 +32,7 @@ class RecipeFragment : Fragment() {
             inflater,R.layout.fragment_recipe, container, false)
 
 
+
         val application = requireNotNull(this.activity).application
         val recipeDao = OOEDatabase.getInstance(application).recipeDao;
 
@@ -55,6 +56,7 @@ class RecipeFragment : Fragment() {
                 adapter.submitList(it)
             }
         })
+
         val manager = GridLayoutManager(activity, 1, GridLayoutManager.VERTICAL, false)
         binding.ingredientList.layoutManager = manager
 

@@ -42,5 +42,5 @@ fun TextView.setRecipeName(item: Recipe) {
 
 @BindingAdapter("recipeImage")
 fun ImageView.setRecipeImage(item: Recipe) {
-    setImageResource(R.drawable.salad)
+    setImageResource(R.drawable.chicken)
 }
