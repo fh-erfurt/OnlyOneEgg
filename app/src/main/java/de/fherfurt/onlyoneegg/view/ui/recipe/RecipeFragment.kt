@@ -28,7 +28,7 @@ class RecipeFragment : Fragment() {
         val args : RecipeFragmentArgs by navArgs()
         val recipeId = args.recipeId
 
-        getActivity()?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        getActivity()?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 
         // Get a reference to the binding object and inflate the fragment views.
         val binding : FragmentRecipeBinding = DataBindingUtil.inflate(
