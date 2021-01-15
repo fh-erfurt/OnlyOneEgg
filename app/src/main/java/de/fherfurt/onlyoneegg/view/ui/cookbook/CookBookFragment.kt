@@ -31,6 +31,10 @@ class CookBookFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        // set the Fragment as only Portrait
+        getActivity()?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         //initialize a cookbookId from nav args
         val args: CookBookFragmentArgs by navArgs()
         val cookbookId = args.cookbookId

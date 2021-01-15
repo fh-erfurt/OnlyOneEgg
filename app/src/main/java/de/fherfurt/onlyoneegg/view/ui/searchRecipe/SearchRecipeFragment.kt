@@ -1,6 +1,7 @@
 package de.fherfurt.onlyoneegg.view.ui.searchRecipe
 
 import android.annotation.SuppressLint
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,9 @@ class SearchRecipeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        // set the Fragment as only Portrait
+        getActivity()?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // Get a reference to the binding object and inflate the fragment views.
         val binding: FragmentSearchRecipeBinding = DataBindingUtil.inflate(

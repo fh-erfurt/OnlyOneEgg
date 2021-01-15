@@ -1,5 +1,6 @@
 import android.app.Activity
 import android.content.Context
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +31,9 @@ class AddRecipeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        // set the Fragment as only Portrait
+        getActivity()?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         //initialize a cookbookId from nav args
         val args: AddRecipeFragmentArgs by navArgs()

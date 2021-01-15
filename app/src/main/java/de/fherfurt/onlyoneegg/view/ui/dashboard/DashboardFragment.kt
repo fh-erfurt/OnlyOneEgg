@@ -27,7 +27,8 @@ class DashboardFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
 
 
-
+        // set the Fragment as only Portrait
+        getActivity()?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // Get a reference to the binding object and inflate the fragment views.
         val binding: FragmentDashboardBinding = DataBindingUtil.inflate(
