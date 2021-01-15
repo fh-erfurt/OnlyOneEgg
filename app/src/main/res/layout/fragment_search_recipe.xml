@@ -13,6 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingTop="50dp"
         tools:context=".view.ui.recipe.RecipeFragment">
 
         <EditText
@@ -42,7 +43,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/inputSearchText"
-            tools:listitem="@layout/item_recipe" >
+            tools:listitem="@layout/item_recipe">
 
         </androidx.recyclerview.widget.RecyclerView>
 

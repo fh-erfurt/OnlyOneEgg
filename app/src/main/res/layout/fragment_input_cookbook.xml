@@ -9,11 +9,13 @@
             name="inputCookbookViewModel"
             type="de.fherfurt.onlyoneegg.view.ui.inputCookbook.InputCookbookViewModel" />
     </data>
+
     <LinearLayout
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:paddingTop="50dp"
         tools:context=".MainActivity">
 
         <TextView
