@@ -55,6 +55,7 @@ class DashboardFragment : Fragment() {
 
         val cookbookRepository=CookbookRepository(cookbookDao)
         val recipeRepository=RecipeRepository(recipeDao)
+        // create view model factory
         val viewModelFactory = DashboardViewModelFactory(
             application,
             cookbookRepository,
@@ -66,10 +67,8 @@ class DashboardFragment : Fragment() {
             ViewModelProvider(
                 this, viewModelFactory
             ).get(DashboardViewModel::class.java)
+
         binding.dashboardViewModel = dashboardViewModel
-
-
-
         binding.setLifecycleOwner(this)
 
         // create recycle view for dashboard
@@ -81,11 +80,7 @@ class DashboardFragment : Fragment() {
         binding.remove.setOnClickListener {
             var ids=adapter.getAllSelectedIds()
             dashboardViewModel.removeAllSelectedCookbooks(ids)
-
-
         }
-
-
         binding.cookbookList.adapter = adapter
 
 
@@ -96,14 +91,17 @@ class DashboardFragment : Fragment() {
             }
         })
         // create layout manager for dashboard recycle view
-        val manager = GridLayoutManager(activity, 3, GridLayoutManager.VERTICAL, false)
+        val manager = GridLayoutManager(activity, 2, GridLayoutManager.VERTICAL, false)
         binding.cookbookList.layoutManager = manager
         // set up multiple selection tracker
         setupTracker(adapter, binding)
 
         return binding.root
     }
-
+    /*
+    * Creates a tracker which tracks all selected items of dashboard recycle view
+    *
+    * */
     private fun setupTracker(adapter: DashboardAdapter, binding: FragmentDashboardBinding){
         tracker = SelectionTracker.Builder<Long>(
             "mySelection",
@@ -115,13 +113,20 @@ class DashboardFragment : Fragment() {
             SelectionPredicates.createSelectAnything()
         ).build()
 
+        addCallbacksToTracker(adapter)
+
+        adapter.tracker = tracker
+    }
+    /*
+    * attaches callbacks to the dashboard tracker
+    *
+    * */
+    private fun addCallbacksToTracker(adapter: DashboardAdapter){
         tracker?.addObserver(
             object : SelectionTracker.SelectionObserver<Long>() {
                 override fun onSelectionChanged() {
                     super.onSelectionChanged()
                     val items = tracker?.selection!!.size()
-
-                    // binding.remove.text=items.toString()
                     //reset selected list
                     adapter.positionsSelected = mutableListOf()
                     // save all new selected positions
@@ -129,29 +134,20 @@ class DashboardFragment : Fragment() {
                         adapter.positionsSelected.add(id.toInt())
                     }
                 }
-
+                // upgrates selected list if items are deleted
                 override fun onItemStateChanged(key: Long, selected: Boolean) {
                     if (!tracker!!.hasSelection())
                         adapter.notifyDataSetChanged()
                     super.onItemStateChanged(key, !selected)
 
                 }
-
+                // removes all selected items from tracker selection and notifies the adapter
                 override fun onSelectionRefresh() {
                     super.onSelectionRefresh()
                     tracker!!.clearSelection()
                     adapter.notifyDataSetChanged()
                 }
 
-                override fun onSelectionRestored() {
-                    super.onSelectionRestored()
-                }
-
-
-
-
             })
-        adapter.tracker = tracker
     }
-
 }

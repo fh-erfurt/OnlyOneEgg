@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 /*
 * This is the class that will provide the selection library the information about the items
-* associated with the users selection. That selection is based on a MotionEvent that is maped
-* to the ViewHolders.
+* associated with the users selection related to the dashboard fragment.
+*  That selection is based on a MotionEvent that is mapped to the ViewHolders.
 *
 * */
 class MyItemDetailsLookup(private val recyclerView: RecyclerView) :
