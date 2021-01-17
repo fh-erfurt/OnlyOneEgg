@@ -2,6 +2,7 @@ package de.fherfurt.onlyoneegg.view.ui.timer
 
 import android.app.Activity
 import android.content.Context
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -19,6 +20,9 @@ class TimerFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        // set the Fragment as only Portrait
+        getActivity()?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // Get a reference to the binding object and inflate the fragment views.
         val binding: FragmentTimerBinding = DataBindingUtil.inflate(

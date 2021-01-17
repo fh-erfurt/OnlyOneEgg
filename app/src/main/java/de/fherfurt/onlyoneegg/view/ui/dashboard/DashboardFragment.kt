@@ -1,6 +1,7 @@
 package de.fherfurt.onlyoneegg.view.ui.dashboard
 
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +25,10 @@ import de.fherfurt.onlyoneegg.storage.OOEDatabase
 class DashboardFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+
+
+        // set the Fragment as only Portrait
+        getActivity()?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // Get a reference to the binding object and inflate the fragment views.
         val binding: FragmentDashboardBinding = DataBindingUtil.inflate(
