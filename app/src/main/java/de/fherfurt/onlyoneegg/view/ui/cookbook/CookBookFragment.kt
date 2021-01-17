@@ -69,7 +69,7 @@ class CookBookFragment : Fragment() {
         }
         // click listener for removing of entire cookbook
         binding.removeCookbook.setOnClickListener {
-            cookbookViewModel.removeCookbook(cookbookId);
+            cookbookViewModel.removeCookbook(cookbookId, recipeRepository, cookbookRepository);
             findNavController().navigate(R.id.action_cookbookFragment_to_dashboardFragment)
         }
 

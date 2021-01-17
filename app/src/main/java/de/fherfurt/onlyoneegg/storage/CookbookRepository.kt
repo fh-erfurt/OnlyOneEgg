@@ -24,9 +24,6 @@ class CookbookRepository(private val cookbookDao: CookbookDao) {
     }
 
      fun delete(cookbookId:Long){
-
-            cookbookDao.delete(cookbookDao.getCookbook(cookbookId))
-
-
-    }
+         cookbookDao.delete(cookbookDao.getCookbook(cookbookId))
+     }
 }
