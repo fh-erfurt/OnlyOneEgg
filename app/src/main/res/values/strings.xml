@@ -27,6 +27,7 @@
     <string name="searchText">Search</string>
     <string name="zutaten">Zutaten</string>
     <string name="remove">Remove</string>
+    <string name="dish">dish</string>
 
 
 </resources>
