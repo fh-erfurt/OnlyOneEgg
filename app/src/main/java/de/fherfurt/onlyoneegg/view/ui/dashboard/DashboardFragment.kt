@@ -2,6 +2,7 @@ package de.fherfurt.onlyoneegg.view.ui.dashboard
 
 
 import android.content.pm.ActivityInfo
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -113,7 +114,7 @@ class DashboardFragment : Fragment() {
             SelectionPredicates.createSelectAnything()
         ).build()
 
-        addCallbacksToTracker(adapter)
+        addCallbacksToTracker(adapter, binding)
 
         adapter.tracker = tracker
     }
@@ -121,12 +122,22 @@ class DashboardFragment : Fragment() {
     * attaches callbacks to the dashboard tracker
     *
     * */
-    private fun addCallbacksToTracker(adapter: DashboardAdapter){
+    private fun addCallbacksToTracker(adapter: DashboardAdapter, binding:FragmentDashboardBinding){
         tracker?.addObserver(
             object : SelectionTracker.SelectionObserver<Long>() {
                 override fun onSelectionChanged() {
                     super.onSelectionChanged()
                     val items = tracker?.selection!!.size()
+                    // show or hide number of items and trash icon
+                    if (items>0){
+                        binding.remove.visibility=View.VISIBLE
+                        binding.numberOfItemsSelected.visibility=View.VISIBLE
+                        binding.numberOfItemsSelected.text=items.toString()
+                    }
+                    else{
+                        binding.remove.visibility=View.INVISIBLE
+                        binding.numberOfItemsSelected.visibility=View.INVISIBLE
+                    }
                     //reset selected list
                     adapter.positionsSelected = mutableListOf()
                     // save all new selected positions

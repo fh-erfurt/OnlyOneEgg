@@ -1,8 +1,6 @@
 package de.fherfurt.onlyoneegg.`interface`
 
-import android.app.Application
-import de.fherfurt.onlyoneegg.storage.CookbookRepository
-import de.fherfurt.onlyoneegg.storage.RecipeRepository
+
 
 interface ViewModelCustom{
 
@@ -16,4 +14,8 @@ interface ViewModelCustom{
         cookbookRepository.delete(cookbookId)
 
     }*/
+    //val prop: Int // abstract
+
+
+
 }

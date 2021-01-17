@@ -7,8 +7,10 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import de.fherfurt.onlyoneegg.R
+import de.fherfurt.onlyoneegg.`interface`.ViewModelCustom
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(){
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

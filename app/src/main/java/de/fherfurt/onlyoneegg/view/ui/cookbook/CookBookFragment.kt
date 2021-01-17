@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import de.fherfurt.onlyoneegg.R
+import de.fherfurt.onlyoneegg.`interface`.ViewModelCustom
 import de.fherfurt.onlyoneegg.databinding.FragmentCookbookBinding
 import de.fherfurt.onlyoneegg.storage.CookbookRepository
 import de.fherfurt.onlyoneegg.storage.OOEDatabase
@@ -24,7 +25,7 @@ import de.fherfurt.onlyoneegg.storage.RecipeRepository
 * is used to list all recipes of the certain cookbook
 *
 * */
-class CookBookFragment : Fragment() {
+class CookBookFragment : Fragment(){
 
     override fun onCreateView(
 
