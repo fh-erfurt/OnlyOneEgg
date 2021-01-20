@@ -27,8 +27,7 @@
   - [x] Neues Kochbuch hinzufügen
 	  - [x] Name
     - [ ] Bild
-- [ ] Kochbuchansicht
-  - [ ] Rezept suchen
+- [x] Kochbuchansicht
   - [x] Liste von Rezepten
   - [x] Rezept hinzufügen
   	- [x] Name, Bild(er), Zutaten, Anleitung, Schwierigkeit, Dauer
