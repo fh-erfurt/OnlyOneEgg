@@ -33,6 +33,13 @@
             android:inputType="textPersonName|text|textEmailAddress"
             android:textAlignment="center" />
 
+        <ImageView
+            android:id="@+id/imageCookbook"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_baseline_image_24" />
+
         <Button
             android:id="@+id/add_picture"
             android:layout_width="wrap_content"
@@ -46,6 +53,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/doneAddCookbook" />
+
+
 
 
     </LinearLayout>
