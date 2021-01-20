@@ -9,7 +9,7 @@ import de.fherfurt.onlyoneegg.model.Cookbook
 import de.fherfurt.onlyoneegg.model.Ingredient
 import de.fherfurt.onlyoneegg.model.Recipe
 
-@Database(entities = [Ingredient::class,Recipe::class,Cookbook::class], version = 23, exportSchema = false)
+@Database(entities = [Ingredient::class,Recipe::class,Cookbook::class], version = 24, exportSchema = false)
 @TypeConverters(Converters::class)
 
 abstract class OOEDatabase : RoomDatabase() {

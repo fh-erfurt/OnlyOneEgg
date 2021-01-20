@@ -6,8 +6,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 
-
-
 @Entity(tableName = "cookbook_table")
 data class Cookbook(
 
@@ -24,5 +22,6 @@ data class Cookbook(
     @ColumnInfo(name = "cookbookName")
     var name: String = "",
 
+    @ColumnInfo(name = "uri")
+    var uri: String = "",
     )
-

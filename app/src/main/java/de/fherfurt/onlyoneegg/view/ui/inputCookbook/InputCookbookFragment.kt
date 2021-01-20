@@ -5,23 +5,16 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.DataBindingUtil.setContentView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -30,8 +23,6 @@ import de.fherfurt.onlyoneegg.databinding.FragmentInputCookbookBinding
 import de.fherfurt.onlyoneegg.model.Cookbook
 import de.fherfurt.onlyoneegg.storage.CookbookRepository
 import de.fherfurt.onlyoneegg.storage.OOEDatabase
-import java.io.FileNotFoundException
-import java.io.InputStream
 
 class InputCookbookFragment : Fragment() {
 
@@ -39,12 +30,17 @@ class InputCookbookFragment : Fragment() {
 
     lateinit var binding: FragmentInputCookbookBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    lateinit var uri: String
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         // Get a reference to the binding object and inflate the fragment views.
         binding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_input_cookbook, container, false)
+            inflater, R.layout.fragment_input_cookbook, container, false
+        )
 
         val application = requireNotNull(this.activity).application
 
@@ -56,8 +52,9 @@ class InputCookbookFragment : Fragment() {
         val viewModelFactory = InputCookbookViewModelFactory(application, cookbookRepository)
         // create viewModel
         val inputCookbookViewModel =
-                ViewModelProvider(
-                        this, viewModelFactory).get(InputCookbookViewModel::class.java)
+            ViewModelProvider(
+                this, viewModelFactory
+            ).get(InputCookbookViewModel::class.java)
         binding.inputCookbookViewModel = inputCookbookViewModel
         // bind input field with the variable
         cookbookNameEdit = binding.cookbookName
@@ -66,12 +63,13 @@ class InputCookbookFragment : Fragment() {
         binding.doneAddCookbook.setOnClickListener {
             binding.apply {
                 var cookbook = Cookbook()
-                if(cookbookNameEdit.text.toString().isEmpty()){
-                    cookbook.name="Cookbook "+inputCookbookViewModel.getLastCookbookId()+1;
-                }
-                else{
+                if (cookbookNameEdit.text.toString().isEmpty()) {
+                    cookbook.name = "Cookbook " + inputCookbookViewModel.getLastCookbookId() + 1;
+                } else {
                     cookbook.name = cookbookNameEdit.text.toString()
                 }
+
+                cookbook.uri = uri
 
                 inputCookbookViewModel.insertCookbook(cookbook)
                 hideKeyboard()
@@ -81,15 +79,14 @@ class InputCookbookFragment : Fragment() {
         binding.setLifecycleOwner(this)
 
 
-
-
         //Add picture
         // Button Click
         binding.addPicture.setOnClickListener {
             // check runtime permission
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (checkSelfPermission(it.context,Manifest.permission.READ_EXTERNAL_STORAGE) ==
-                        PackageManager.PERMISSION_DENIED) {
+                if (checkSelfPermission(it.context, Manifest.permission.READ_EXTERNAL_STORAGE) ==
+                    PackageManager.PERMISSION_DENIED
+                ) {
                     //permission denied
                     val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
                     //show popup to request runtime permission
@@ -106,7 +103,7 @@ class InputCookbookFragment : Fragment() {
         return binding.root
     }
 
-    private fun pickImageFromGallery(){
+    private fun pickImageFromGallery() {
         //Intent to pick image
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
@@ -116,20 +113,25 @@ class InputCookbookFragment : Fragment() {
     companion object {
         //image pick code
         private val IMAGE_PICK_CODE = 1000;
+
         //Permission Code
         private val PERMISSION_CODE = 1001;
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when(requestCode) {
+        when (requestCode) {
             PERMISSION_CODE -> {
-                if (grantResults.size >0 && grantResults[0] ==
-                        PackageManager.PERMISSION_GRANTED){
+                if (grantResults.size > 0 && grantResults[0] ==
+                    PackageManager.PERMISSION_GRANTED
+                ) {
                     //permission from popup granted
                     pickImageFromGallery()
-                }
-                else{
+                } else {
                     //permission from popup denied
                     Toast.makeText(this.context, "Permission denied", Toast.LENGTH_SHORT).show()
                 }
@@ -139,13 +141,16 @@ class InputCookbookFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE){
+        if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             binding.imageCookbook.setImageURI(data?.data)
+            uri = data?.data.toString()
         }
     }
 
+
     fun Context.hideKeyboard(view: View) {
-        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 

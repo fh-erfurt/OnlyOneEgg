@@ -1,5 +1,6 @@
 package de.fherfurt.onlyoneegg.view.ui.dashboard
 
+import android.net.Uri
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -11,14 +12,17 @@ import de.fherfurt.onlyoneegg.model.Recipe
 
 @BindingAdapter("cookbookImage")
 fun ImageView.setCookbookImage(item: Cookbook) {
-    setImageResource(R.drawable.egg)
+    if (item.uri.isEmpty() || true) {
+        setImageResource(R.drawable.egg)
+    } else {
+        setImageURI(Uri.parse(item.uri))
+    }
 }
 
 @BindingAdapter("cookbookName")
 fun TextView.setCookbookName(item: Cookbook) {
     text = item.name
 }
-
 
 @BindingAdapter("ingredientName")
 fun TextView.setIngredientNameString(item: Ingredient) {
