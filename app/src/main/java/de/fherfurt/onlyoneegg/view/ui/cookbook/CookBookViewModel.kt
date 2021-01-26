@@ -12,7 +12,9 @@ import de.fherfurt.onlyoneegg.storage.OOEDatabase
 import de.fherfurt.onlyoneegg.storage.RecipeRepository
 import kotlinx.coroutines.launch
 
-
+/*
+* CookBookViewModel class tracks all recipes and uses RecipeRepository
+* */
 
 class CookBookViewModel (application: Application, recipeRepository: RecipeRepository,
                          cookbookRepository: CookbookRepository,cookbookId:Long):  AndroidViewModel(application) {

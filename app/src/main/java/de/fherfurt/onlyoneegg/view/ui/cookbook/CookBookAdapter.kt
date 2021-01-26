@@ -13,18 +13,20 @@ import androidx.recyclerview.widget.RecyclerView
 import de.fherfurt.onlyoneegg.databinding.ItemRecipeBinding
 import de.fherfurt.onlyoneegg.model.Recipe
 
-
+/*
+* CookBook Recycle View implementation class
+* is used to list all recipes of the application
+*
+* */
 
 class CookBookAdapter : ListAdapter<Recipe, CookBookAdapter.ViewHolder>(RecipeDiffCallback()) {
-
-
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
     }
 
-    //wenn neues kind objekt notwendig ist ind keins anderes verfuegbar ist
+    // when a new child object is necessary and no other one is available
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
@@ -36,6 +38,8 @@ class CookBookAdapter : ListAdapter<Recipe, CookBookAdapter.ViewHolder>(RecipeDi
             binding.recipe = item
             binding.executePendingBindings()
         }
+
+        // set click listener to each recipe
         init{
             binding.root.setOnClickListener{ v: View ->
                 val position : Long? = binding.recipe?.id
