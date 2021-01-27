@@ -74,6 +74,8 @@ class CookBookFragment : Fragment(){
             findNavController().navigate(R.id.action_cookbookFragment_to_dashboardFragment)
         }
 
+        val cookbook = cookbookRepository.getCookbook()
+        binding.cookbookText.text = cookbook.name
 
         binding.cookbookViewModel = cookbookViewModel
         /** binding.addRecipe.setOnClickListener { findNavController().navigate(R.id.action_cookbookFragment_to_inputrecipeFragment) } **/
@@ -90,6 +92,9 @@ class CookBookFragment : Fragment(){
         val manager = GridLayoutManager(activity, 2, GridLayoutManager.VERTICAL, false)
         binding.recipeList.layoutManager = manager
         return binding.root
+
+
+
     }
 
 
