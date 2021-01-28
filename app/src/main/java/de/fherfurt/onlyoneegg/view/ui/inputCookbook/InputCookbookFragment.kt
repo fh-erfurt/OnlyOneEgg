@@ -3,8 +3,13 @@ package de.fherfurt.onlyoneegg.view.ui.inputCookbook
 import android.Manifest
 import android.app.Activity
 import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,6 +28,11 @@ import de.fherfurt.onlyoneegg.databinding.FragmentInputCookbookBinding
 import de.fherfurt.onlyoneegg.model.Cookbook
 import de.fherfurt.onlyoneegg.storage.CookbookRepository
 import de.fherfurt.onlyoneegg.storage.OOEDatabase
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.OutputStream
+import java.util.*
 
 class InputCookbookFragment : Fragment() {
 
@@ -69,7 +79,8 @@ class InputCookbookFragment : Fragment() {
                     cookbook.name = cookbookNameEdit.text.toString()
                 }
 
-                cookbook.uri = uri
+                val uri = saveImageToInternalStorage(binding.imageCookbook.drawable)
+                cookbook.uri = uri.toString()
 
                 inputCookbookViewModel.insertCookbook(cookbook)
                 hideKeyboard()
@@ -101,6 +112,41 @@ class InputCookbookFragment : Fragment() {
             }
         }
         return binding.root
+    }
+    // Method to save an image to internal storage
+    private fun saveImageToInternalStorage(drawable: Drawable): Uri {
+        // Get the bitmap from drawable object
+        val bitmap = (drawable as BitmapDrawable).bitmap
+
+        // Get the context wrapper instance
+        val wrapper = ContextWrapper(context)
+
+        // Initializing a new file
+        // The bellow line return a directory in internal storage
+        var file = wrapper.getDir("images", Context.MODE_PRIVATE)
+
+
+        // Create a file to save the image
+        file = File(file, "${UUID.randomUUID()}.jpg")
+
+        try {
+            // Get the file output stream
+            val stream: OutputStream = FileOutputStream(file)
+
+            // Compress bitmap
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+
+            // Flush the stream
+            stream.flush()
+
+            // Close stream
+            stream.close()
+        } catch (e: IOException){ // Catch the exception
+            e.printStackTrace()
+        }
+
+        // Return the saved image uri
+        return Uri.parse(file.absolutePath)
     }
 
     private fun pickImageFromGallery() {
