@@ -84,6 +84,8 @@ class CookBookFragment : Fragment() {
             var ids = adapter.getAllSelectedIds()
             cookbookViewModel.removeAllSelectedRecipes(ids)
         }
+        val cookbook = cookbookRepository.getCookbook()
+        binding.cookbookText.text = cookbook.name
 
         binding.cookbookViewModel = cookbookViewModel
         /** binding.addRecipe.setOnClickListener { findNavController().navigate(R.id.action_cookbookFragment_to_inputrecipeFragment) } **/
@@ -100,6 +102,9 @@ class CookBookFragment : Fragment() {
         setupTracker(adapter, binding)
 
         return binding.root
+
+
+
     }
 
     private fun setupTracker(adapter: CookBookAdapter, binding: FragmentCookbookBinding) {

@@ -12,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import de.fherfurt.onlyoneegg.databinding.ItemRecipeBinding
 import de.fherfurt.onlyoneegg.model.Recipe
 
+/*
+* CookBookAdapter class
+* */
 class CookBookAdapter : ListAdapter<Recipe, CookBookAdapter.ViewHolder>(RecipeDiffCallback()) {
 
     var tracker: SelectionTracker<Long>? = null

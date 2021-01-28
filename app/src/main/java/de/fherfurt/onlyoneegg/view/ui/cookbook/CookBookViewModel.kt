@@ -5,7 +5,9 @@ import androidx.lifecycle.AndroidViewModel
 import de.fherfurt.onlyoneegg.storage.CookbookRepository
 import de.fherfurt.onlyoneegg.storage.RecipeRepository
 
-
+/*
+* CookBookViewModel class tracks all recipes and uses RecipeRepository
+* */
 class CookBookViewModel(
     application: Application, recipeRepository: RecipeRepository,
     cookbookRepository: CookbookRepository, cookbookId: Long

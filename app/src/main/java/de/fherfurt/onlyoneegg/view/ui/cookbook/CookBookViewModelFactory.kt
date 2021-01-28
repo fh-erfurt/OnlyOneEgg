@@ -6,6 +6,9 @@ import androidx.lifecycle.ViewModelProvider
 import de.fherfurt.onlyoneegg.storage.CookbookRepository
 import de.fherfurt.onlyoneegg.storage.RecipeRepository
 
+/*
+* class used to create cookbook view model
+* */
 
 class CookBookViewModelFactory (
     private val application: Application,
