@@ -3,49 +3,68 @@ package de.fherfurt.onlyoneegg.view.ui.cookbook
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.Navigation.findNavController
-
+import androidx.recyclerview.selection.ItemDetailsLookup
+import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-
 import de.fherfurt.onlyoneegg.databinding.ItemRecipeBinding
 import de.fherfurt.onlyoneegg.model.Recipe
 
 /*
-* CookBook Recycle View implementation class
-* is used to list all recipes of the application
-*
+* CookBookAdapter class
 * */
-
 class CookBookAdapter : ListAdapter<Recipe, CookBookAdapter.ViewHolder>(RecipeDiffCallback()) {
 
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.bind(item)
+    var tracker: SelectionTracker<Long>? = null
+    var positionsSelected: MutableList<Int> = mutableListOf()
+
+    init {
+        setHasStableIds(true)
     }
 
-    // when a new child object is necessary and no other one is available
+    fun getAllSelectedIds(): MutableList<Long> {
+        var ids: MutableList<Long> = mutableListOf()
+
+        positionsSelected.forEach { position ->
+            ids.add(getItem(position).id)
+        }
+        positionsSelected = mutableListOf()
+        return ids
+    }
+
+    override fun getItemId(position: Int): Long = position.toLong()
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = getItem(position)
+        tracker?.let {
+            holder.bind(item, it.isSelected(position.toLong()))
+        }
+    }
+
+    // If a new child is needed and there is no old one available for reuse
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder private constructor(val binding: ItemRecipeBinding ) : RecyclerView.ViewHolder(binding.root){
+    class ViewHolder private constructor(val binding: ItemRecipeBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
 
-        fun bind(item: Recipe) {
+        fun bind(item: Recipe, isActivated: Boolean = false) {
             binding.recipe = item
+            itemView.isActivated = isActivated
             binding.executePendingBindings()
         }
 
-        // set click listener to each recipe
-        init{
-            binding.root.setOnClickListener{ v: View ->
-                val position : Long? = binding.recipe?.id
-                if(position != null) {
-                    val action = CookBookFragmentDirections.actionCookbookFragmentToRecipeFragment(position)
-                        findNavController( binding.root).navigate(action)
+        init {
+            binding.root.setOnClickListener { v: View ->
+                val position: Long? = binding.recipe?.id
+                if (position != null) {
+                    val action =
+                        CookBookFragmentDirections.actionCookbookFragmentToRecipeFragment(position)
+                    findNavController(binding.root).navigate(action)
                 }
                 //Toast.makeText(itemView.context,"you clicked # ${position }",Toast.LENGTH_LONG).show()
             }
@@ -58,6 +77,12 @@ class CookBookAdapter : ListAdapter<Recipe, CookBookAdapter.ViewHolder>(RecipeDi
                 return ViewHolder(binding)
             }
         }
+
+        fun getItemDetails(): ItemDetailsLookup.ItemDetails<Long> =
+            object : ItemDetailsLookup.ItemDetails<Long>() {
+                override fun getPosition(): Int = adapterPosition
+                override fun getSelectionKey(): Long? = itemId
+            }
     }
 }
 
