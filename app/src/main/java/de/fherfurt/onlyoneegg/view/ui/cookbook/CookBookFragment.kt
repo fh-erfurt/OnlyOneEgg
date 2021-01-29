@@ -111,12 +111,9 @@ class CookBookFragment : Fragment() {
             }
             println(recipeList)
 
-            val jsonObject: String = Gson().toJson(recipeList)
-            val parser = JsonParser()
-            val json: JsonObject = parser.parse(jsonObject).getAsJsonObject()
 
             val gson = GsonBuilder().setPrettyPrinting().create()
-            val prettyJson = gson.toJson(json)
+            val prettyJson = gson.toJson(recipeList)
 
 
             if (StorageUtils.isExternalStorageWritable()) {
