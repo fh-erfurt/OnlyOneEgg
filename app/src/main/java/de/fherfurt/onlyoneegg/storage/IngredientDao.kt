@@ -27,5 +27,7 @@ interface IngredientDao {
     @Query("SELECT * from ingredient_table where recipeId = :recipeId ORDER BY id ASC")
     fun getAllIngredientsFromRecipe( recipeId: Long): LiveData<List<Ingredient>>
 
+    @Query("SELECT * from ingredient_table where recipeId = :recipeId ORDER BY id ASC")
+    fun getAllIngredientsFromCertainRecipeList(recipeId: Long): List<Ingredient>
 
 }

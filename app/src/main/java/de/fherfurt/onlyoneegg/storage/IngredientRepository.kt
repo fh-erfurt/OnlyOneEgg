@@ -22,4 +22,8 @@ class IngredientRepository(private val ingredientDao: IngredientDao) {
         return ingredientDao.getAllIngredientsFromRecipe(recipeId )
     }
 
+    fun getAllIngredientsFromCertainRecipeList(recipeId : Long): List<Ingredient>{
+        return ingredientDao.getAllIngredientsFromCertainRecipeList(recipeId )
+    }
+
 }

@@ -16,7 +16,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import de.fherfurt.onlyoneegg.R
 import de.fherfurt.onlyoneegg.`interface`.ViewModelCustom
 import de.fherfurt.onlyoneegg.databinding.FragmentCookbookBinding
+import de.fherfurt.onlyoneegg.model.ExportRecipe
+import de.fherfurt.onlyoneegg.model.Ingredient
+import de.fherfurt.onlyoneegg.model.Recipe
 import de.fherfurt.onlyoneegg.storage.CookbookRepository
+import de.fherfurt.onlyoneegg.storage.IngredientRepository
 import de.fherfurt.onlyoneegg.storage.OOEDatabase
 import de.fherfurt.onlyoneegg.storage.RecipeRepository
 
@@ -47,11 +51,12 @@ class CookBookFragment : Fragment(){
         )
 
         val application = requireNotNull(this.activity).application
-
+        val ingredientDao = OOEDatabase.getInstance(application).ingredientDao
         val recipeDao = OOEDatabase.getInstance(application).recipeDao
         val cookbookDao = OOEDatabase.getInstance(application).cookbookDao
 
         val recipeRepository = RecipeRepository(recipeDao)
+        val ingredientRepository = IngredientRepository(ingredientDao)
         val cookbookRepository = CookbookRepository(cookbookDao)
         val viewModelFactory =
             CookBookViewModelFactory(application, recipeRepository, cookbookRepository, cookbookId)
@@ -73,6 +78,24 @@ class CookBookFragment : Fragment(){
             cookbookViewModel.removeCookbook(cookbookId, recipeRepository, cookbookRepository);
             findNavController().navigate(R.id.action_cookbookFragment_to_dashboardFragment)
         }
+
+        binding.exportRecipes.setOnClickListener {
+            var recipes: List<Recipe> = cookbookViewModel.recipeRepository.getAllRecipesFromCertainCookbookList(cookbookId);
+
+            //ingredientRepository.getAllIngredients(recipes[0].id)
+
+            var recipeList = ArrayList<ExportRecipe>()
+
+           // println( ingredientRepository.getAllIngredientsAsList(recipes[0].id))
+            recipes.forEach{
+                val exportRecipe : ExportRecipe = ExportRecipe( it,ingredientRepository.getAllIngredientsFromCertainRecipeList(it.id ))
+                //println(exportRecipe)
+                recipeList.add(exportRecipe)
+
+            }
+            println(recipeList)
+        }
+
 
 
         binding.cookbookViewModel = cookbookViewModel

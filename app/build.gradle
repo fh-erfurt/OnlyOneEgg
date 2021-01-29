@@ -4,6 +4,8 @@ plugins {
     id 'kotlin-kapt'
 }
 
+
+
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
@@ -72,5 +74,8 @@ dependencies {
     // recycle view
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0-rc03"
+
+    // Gson Library to parse Json into Data Class and the opposite
+    implementation 'com.google.code.gson:gson:2.8.5'
 
 }
