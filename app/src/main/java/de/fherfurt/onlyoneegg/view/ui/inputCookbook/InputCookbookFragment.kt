@@ -21,7 +21,6 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import de.fherfurt.onlyoneegg.R
 import de.fherfurt.onlyoneegg.databinding.FragmentInputCookbookBinding
@@ -42,7 +41,7 @@ class InputCookbookFragment : Fragment() {
 
     lateinit var uri: String
 
-    var addPhotoClicked=false;
+    var addPhotoClicked = false;
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -62,7 +61,7 @@ class InputCookbookFragment : Fragment() {
         val cookbookRepository = CookbookRepository(cookbookDao)
 
         // create viewModel
-        val inputCookbookViewModel =InputCookbookViewModel(application, cookbookRepository)
+        val inputCookbookViewModel = InputCookbookViewModel(application, cookbookRepository)
 
         binding.inputCookbookViewModel = inputCookbookViewModel
         // bind input field with the variable
@@ -77,11 +76,10 @@ class InputCookbookFragment : Fragment() {
                 } else {
                     cookbook.name = cookbookNameEdit.text.toString()
                 }
-                if(addPhotoClicked){
+                if (addPhotoClicked) {
                     val uri = saveImageToInternalStorage(binding.imageCookbook.drawable)
                     cookbook.uri = uri.toString()
-                }
-                else{
+                } else {
                     cookbook.uri = ""
                 }
                 inputCookbookViewModel.insertCookbook(cookbook)
@@ -114,13 +112,14 @@ class InputCookbookFragment : Fragment() {
                 // system OS is <= Marshmallow
                 pickImageFromGallery();
             }
+            addPhotoClicked = true
         }
         return binding.root
     }
+
     // Method to save an image to internal storage
     private fun saveImageToInternalStorage(drawable: Drawable): Uri {
         // Get the bitmap from drawable object
-        addPhotoClicked=true
         val bitmap = (drawable as BitmapDrawable).bitmap
 
         // Get the context wrapper instance
@@ -146,7 +145,7 @@ class InputCookbookFragment : Fragment() {
 
             // Close stream
             stream.close()
-        } catch (e: IOException){ // Catch the exception
+        } catch (e: IOException) { // Catch the exception
             e.printStackTrace()
         }
 
