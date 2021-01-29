@@ -10,7 +10,7 @@ class IngredientRepository(private val ingredientDao: IngredientDao) {
     // off the main thread.
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insert(ingredient: Ingredient) {
+     fun insert(ingredient: Ingredient) {
         ingredientDao.insert(ingredient)
     }
 
@@ -20,6 +20,10 @@ class IngredientRepository(private val ingredientDao: IngredientDao) {
     
     fun getAllIngredients(recipeId : Long): LiveData<List<Ingredient>> {
         return ingredientDao.getAllIngredientsFromRecipe(recipeId )
+    }
+
+    fun getAllIngredientsFromCertainRecipeList(recipeId : Long): List<Ingredient>{
+        return ingredientDao.getAllIngredientsFromCertainRecipeList(recipeId )
     }
 
 }

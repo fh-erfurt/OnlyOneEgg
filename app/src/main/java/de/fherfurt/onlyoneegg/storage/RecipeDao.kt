@@ -40,6 +40,7 @@ interface RecipeDao {
     @Query("SELECT * FROM recipe_table WHERE cookbookId= :cookbookId ORDER BY id DESC")
     fun getAllRecipesFromCertainCookbookList(cookbookId:Long): List<Recipe>
 
+
     @Query("SELECT id FROM recipe_table ORDER BY created DESC LIMIT 1")
     fun getLastId(): Long
 

@@ -27,7 +27,15 @@
     <string name="searchText">Search</string>
     <string name="zutaten">Zutaten</string>
     <string name="remove">Remove</string>
+    <string name="exportRecipe">Export Recipe</string>
+    <string name="exportRecipes">Export Recipes</string>
+    <string name="importRecipes">Import Recipes</string>
+
     <string name="dish">dish</string>
+    <string name="error_happened">There is an error with read/write the File</string>
+    <string name="saved">the file is saved</string>
+    <string name="external_storage_impossible_create_file">t  external storage impossible create file</string>
+
 
 
 </resources>

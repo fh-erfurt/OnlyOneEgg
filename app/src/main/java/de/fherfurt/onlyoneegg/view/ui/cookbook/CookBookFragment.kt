@@ -2,9 +2,11 @@ package de.fherfurt.onlyoneegg.view.ui.cookbook
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -16,9 +18,17 @@ import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StableIdKeyProvider
 import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
+import com.google.gson.reflect.TypeToken
 import de.fherfurt.onlyoneegg.R
 import de.fherfurt.onlyoneegg.databinding.FragmentCookbookBinding
+import de.fherfurt.onlyoneegg.model.*
+
 import de.fherfurt.onlyoneegg.storage.CookbookRepository
+import de.fherfurt.onlyoneegg.storage.IngredientRepository
 import de.fherfurt.onlyoneegg.storage.OOEDatabase
 import de.fherfurt.onlyoneegg.storage.RecipeRepository
 
@@ -28,6 +38,7 @@ import de.fherfurt.onlyoneegg.storage.RecipeRepository
 *
 * */
 class CookBookFragment : Fragment() {
+
     private var tracker: SelectionTracker<Long>? = null
 
     override fun onCreateView(
@@ -36,6 +47,10 @@ class CookBookFragment : Fragment() {
 
         // set the Fragment as only Portrait
         getActivity()?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+
+
+
 
         //initialize a cookbookId from nav args
         val args: CookBookFragmentArgs by navArgs()
@@ -48,11 +63,12 @@ class CookBookFragment : Fragment() {
         )
 
         val application = requireNotNull(this.activity).application
-
+        val ingredientDao = OOEDatabase.getInstance(application).ingredientDao
         val recipeDao = OOEDatabase.getInstance(application).recipeDao
         val cookbookDao = OOEDatabase.getInstance(application).cookbookDao
 
         val recipeRepository = RecipeRepository(recipeDao)
+        val ingredientRepository = IngredientRepository(ingredientDao)
         val cookbookRepository = CookbookRepository(cookbookDao)
 
 
@@ -76,6 +92,109 @@ class CookBookFragment : Fragment() {
             findNavController().navigate(R.id.action_cookbookFragment_to_dashboardFragment)
         }
 
+
+        binding.exportRecipes.setOnClickListener {
+            var recipes: List<Recipe> =
+                cookbookViewModel.recipeRepository.getAllRecipesFromCertainCookbookList(cookbookId);
+            var recipeList = ArrayList<ExportRecipe>()
+
+            recipes.forEach {
+                var ingredientList = ArrayList<ExportIngredient>()
+                val ingredients: List<Ingredient> =
+                    ingredientRepository.getAllIngredientsFromCertainRecipeList(it.id)
+                ingredients.forEach {
+                    val exportIngredient: ExportIngredient = ExportIngredient(it)
+                    ingredientList.add(exportIngredient)
+                }
+                val exportRecipe: ExportRecipe = ExportRecipe(it, ingredientList)
+                recipeList.add(exportRecipe)
+            }
+            println(recipeList)
+
+            val jsonObject: String = Gson().toJson(recipeList)
+            val parser = JsonParser()
+            val json: JsonObject = parser.parse(jsonObject).getAsJsonObject()
+
+            val gson = GsonBuilder().setPrettyPrinting().create()
+            val prettyJson = gson.toJson(json)
+
+
+            if (StorageUtils.isExternalStorageWritable()) {
+
+                context?.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)?.let {
+                    this.context?.let { it1 ->
+                        StorageUtils.setTextInStorage(
+                            it,
+                            it1,
+
+                            cookbookRepository.getCookbook().name + "RecipeList.json",
+                            cookbookRepository.getCookbook().name,
+                            prettyJson
+                        )
+
+                    }
+                }
+
+            } else {
+
+                Toast.makeText(
+                    this.context, getString(R.string.external_storage_impossible_create_file),
+                    Toast.LENGTH_LONG
+                ).show()
+
+            }
+        }
+
+
+        binding.importRecipes.setOnClickListener {
+            var gson = Gson()
+            val recipe = Recipe()
+
+            // to import a Json
+            if (StorageUtils.isExternalStorageReadable()) {
+                // EXTERNAL
+
+                var recipeList: String? = this.context?.let {
+                    context?.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)?.let { it1 ->
+                        StorageUtils.getTextFromStorage(
+                            it1,
+                            it,
+                            cookbookRepository.getCookbook().name + "RecipeList.json",
+                            cookbookRepository.getCookbook().name
+                        )
+                    }
+                }
+                val arrayRecipe = object : TypeToken<Array<ExportRecipe>>() {}.type
+
+                var recipes: Array<ExportRecipe> = gson.fromJson(recipeList, arrayRecipe)
+                recipes.forEachIndexed { idx, rec ->
+                    recipe.name = rec.name
+                    recipe.cookbookId = cookbookId
+                    recipe.cooktime = rec.cooktime
+                    recipe.description = rec.description
+                    recipe.difficulty = rec.difficulty
+                    val recipeId = recipeRepository.insert(recipe)
+
+                    rec.ingredient.forEach {
+                        val ingredient = Ingredient()
+                        ingredient.measurement = it.measurement
+                        ingredient.name = it.name
+                        ingredient.recipeId = recipeId
+                        ingredient.value = it.value
+
+                        ingredientRepository.insert(ingredient)
+                    }
+
+                }
+
+            } else {
+                println("The file was not found")
+            }
+        }
+
+
+
+
         // click listener for removing selected recipes
         binding.remove.setOnClickListener {
             var ids = adapter.getAllSelectedIds()
@@ -83,6 +202,7 @@ class CookBookFragment : Fragment() {
         }
         val cookbook = cookbookRepository.getCookbook()
         binding.cookbookText.text = cookbook.name
+
 
         binding.cookbookViewModel = cookbookViewModel
         /** binding.addRecipe.setOnClickListener { findNavController().navigate(R.id.action_cookbookFragment_to_inputrecipeFragment) } **/
