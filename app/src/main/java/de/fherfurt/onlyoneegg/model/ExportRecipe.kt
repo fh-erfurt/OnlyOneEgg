@@ -1,7 +1,7 @@
 package de.fherfurt.onlyoneegg.model
 
 
-
+//Data class to combine the important attributes from Recipes and Ingredients for Exporting a file
 data class  ExportRecipe(
 
     var name: String,

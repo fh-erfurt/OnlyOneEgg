@@ -92,7 +92,7 @@ class CookBookFragment : Fragment() {
             findNavController().navigate(R.id.action_cookbookFragment_to_dashboardFragment)
         }
 
-
+        // click Listener to export a cookbook with the Recipes inside
         binding.exportRecipes.setOnClickListener {
             var recipes: List<Recipe> =
                 cookbookViewModel.recipeRepository.getAllRecipesFromCertainCookbookList(cookbookId);
@@ -142,7 +142,7 @@ class CookBookFragment : Fragment() {
             }
         }
 
-
+        // click Listener to import a cookbook with the all Recipes inside
         binding.importRecipes.setOnClickListener {
             var gson = Gson()
             val recipe = Recipe()

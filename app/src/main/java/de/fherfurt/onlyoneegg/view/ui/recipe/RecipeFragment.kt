@@ -26,7 +26,9 @@ import de.fherfurt.onlyoneegg.storage.OOEDatabase
 import org.json.JSONObject
 
 
-
+/*
+* Recipe Fragment shows the recipe view with its ingredients
+* */
 class RecipeFragment : Fragment() {
 
     // 1 - FILE MANAGEMENT
@@ -38,6 +40,7 @@ class RecipeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        //initialize a recipeId from nav args
         val args : RecipeFragmentArgs by navArgs()
         val recipeId = args.recipeId
 

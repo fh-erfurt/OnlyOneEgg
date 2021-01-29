@@ -10,6 +10,10 @@ import de.fherfurt.onlyoneegg.storage.OOEDatabase
 import de.fherfurt.onlyoneegg.storage.RecipeRepository
 import kotlinx.coroutines.launch
 
+
+/*
+* RecipeViewModel class fetches the recipes with their respective ingredients from the database
+* */
 class RecipeViewModel (application: Application, ingredientRepository: IngredientRepository, recipeID : Long ): AndroidViewModel(application) {
 
 

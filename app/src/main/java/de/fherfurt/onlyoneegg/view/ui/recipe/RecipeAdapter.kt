@@ -9,6 +9,10 @@ import de.fherfurt.onlyoneegg.databinding.ItemIngredientBinding
 import de.fherfurt.onlyoneegg.model.Cookbook
 import de.fherfurt.onlyoneegg.model.Ingredient
 
+
+/*
+* RecipeAdapter class
+* */
 class RecipeAdapter : ListAdapter<Ingredient, RecipeAdapter.ViewHolder>(IngredientDiffCallback()) {
 
 
@@ -17,6 +21,7 @@ class RecipeAdapter : ListAdapter<Ingredient, RecipeAdapter.ViewHolder>(Ingredie
         holder.bind(item)
     }
 
+    // If a new child is needed and there is no old one available for reuse
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
