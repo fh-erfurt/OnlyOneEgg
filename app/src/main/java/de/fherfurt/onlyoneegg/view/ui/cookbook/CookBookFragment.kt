@@ -54,13 +54,10 @@ class CookBookFragment : Fragment() {
 
         val recipeRepository = RecipeRepository(recipeDao)
         val cookbookRepository = CookbookRepository(cookbookDao)
-        val viewModelFactory =
-            CookBookViewModelFactory(application, recipeRepository, cookbookRepository, cookbookId)
 
-        val cookbookViewModel =
-            ViewModelProvider(
-                this, viewModelFactory
-            ).get(CookBookViewModel::class.java)
+
+        val cookbookViewModel =CookBookViewModel(application, recipeRepository, cookbookRepository, cookbookId)
+
         // click listener to navigate to the addRecipeFragment with cookbookId as argument
         binding.addRecipe.setOnClickListener {
 

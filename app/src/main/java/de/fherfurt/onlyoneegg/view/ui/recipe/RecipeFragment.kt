@@ -41,11 +41,8 @@ class RecipeFragment : Fragment() {
 
         val ingredientDao = OOEDatabase.getInstance(application).ingredientDao;
         val ingredientRepository = IngredientRepository(ingredientDao)
-        val viewModelFactory = RecipeViewModelFactory(application,ingredientRepository,recipeId)
 
-        val recipeViewModel =
-            ViewModelProvider(
-                this, viewModelFactory).get(RecipeViewModel::class.java)
+        val recipeViewModel =RecipeViewModel(application, ingredientRepository, recipeId )
 
         binding.lifecycleOwner = this
 

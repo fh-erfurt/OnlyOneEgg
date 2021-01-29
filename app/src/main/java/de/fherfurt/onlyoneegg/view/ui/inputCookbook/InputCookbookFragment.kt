@@ -60,12 +60,10 @@ class InputCookbookFragment : Fragment() {
         val recipeDao = OOEDatabase.getInstance(application).recipeDao
 
         val cookbookRepository = CookbookRepository(cookbookDao)
-        val viewModelFactory = InputCookbookViewModelFactory(application, cookbookRepository)
+
         // create viewModel
-        val inputCookbookViewModel =
-            ViewModelProvider(
-                this, viewModelFactory
-            ).get(InputCookbookViewModel::class.java)
+        val inputCookbookViewModel =InputCookbookViewModel(application, cookbookRepository)
+
         binding.inputCookbookViewModel = inputCookbookViewModel
         // bind input field with the variable
         cookbookNameEdit = binding.cookbookName

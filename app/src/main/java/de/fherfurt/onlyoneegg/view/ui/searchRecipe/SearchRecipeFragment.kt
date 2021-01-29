@@ -38,12 +38,8 @@ class SearchRecipeFragment : Fragment() {
         val application = requireNotNull(this.activity).application
         val recipeDao = OOEDatabase.getInstance(application).recipeDao
         val recipeRepository = RecipeRepository(recipeDao)
-        val viewModelFactory = SearchRecipeViewModelFactory(application, recipeRepository)
 
-        val searchRecipeViewModel =
-            ViewModelProvider(
-                this, viewModelFactory
-            ).get(SearchRecipeViewModel::class.java)
+        val searchRecipeViewModel =SearchRecipeViewModel(application, recipeRepository)
 
         binding.lifecycleOwner = this
 

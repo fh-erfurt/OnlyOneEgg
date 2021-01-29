@@ -56,18 +56,9 @@ class DashboardFragment : Fragment() {
 
         val cookbookRepository=CookbookRepository(cookbookDao)
         val recipeRepository=RecipeRepository(recipeDao)
-        // create view model factory
-        val viewModelFactory = DashboardViewModelFactory(
-            application,
-            cookbookRepository,
-            recipeRepository
-        )
 
         // create view model for dashboard
-        val dashboardViewModel =
-            ViewModelProvider(
-                this, viewModelFactory
-            ).get(DashboardViewModel::class.java)
+        val dashboardViewModel = DashboardViewModel(application, cookbookRepository, recipeRepository)
 
         binding.dashboardViewModel = dashboardViewModel
         binding.setLifecycleOwner(this)
