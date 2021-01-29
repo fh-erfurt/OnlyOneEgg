@@ -34,7 +34,7 @@ import de.fherfurt.onlyoneegg.storage.RecipeRepository
 * is used to list all recipes of the certain cookbook
 *
 * */
-class CookBookFragment : Fragment(){
+class CookBookFragment : Fragment() {
 
     override fun onCreateView(
 
@@ -85,17 +85,19 @@ class CookBookFragment : Fragment(){
         }
 
         binding.exportRecipes.setOnClickListener {
-            var recipes: List<Recipe> = cookbookViewModel.recipeRepository.getAllRecipesFromCertainCookbookList(cookbookId);
+            var recipes: List<Recipe> =
+                cookbookViewModel.recipeRepository.getAllRecipesFromCertainCookbookList(cookbookId);
             var recipeList = ArrayList<ExportRecipe>()
 
-            recipes.forEach{
+            recipes.forEach {
                 var ingredientList = ArrayList<ExportIngredient>()
-                val ingredients : List<Ingredient> = ingredientRepository.getAllIngredientsFromCertainRecipeList(it.id )
-                ingredients.forEach{
-                    val exportIngredient : ExportIngredient= ExportIngredient(it)
+                val ingredients: List<Ingredient> =
+                    ingredientRepository.getAllIngredientsFromCertainRecipeList(it.id)
+                ingredients.forEach {
+                    val exportIngredient: ExportIngredient = ExportIngredient(it)
                     ingredientList.add(exportIngredient)
                 }
-                val exportRecipe : ExportRecipe = ExportRecipe( it, ingredientList)
+                val exportRecipe: ExportRecipe = ExportRecipe(it, ingredientList)
                 recipeList.add(exportRecipe)
             }
             println(recipeList)
@@ -111,14 +113,17 @@ class CookBookFragment : Fragment(){
                             it,
                             it1,
                             cookbookRepository.getCookbook().name + "RecipeList.json",
-                            cookbookRepository.getCookbook().name ,
-                            prettyJson)
+                            cookbookRepository.getCookbook().name,
+                            prettyJson
+                        )
                     }
                 }
 
             } else {
-                Toast.makeText(this.context, getString(R.string.external_storage_impossible_create_file),
-                    Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this.context, getString(R.string.external_storage_impossible_create_file),
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
 
@@ -127,48 +132,44 @@ class CookBookFragment : Fragment(){
             var gson = Gson()
             val recipe = Recipe()
 
-
             // to import a Json
-          if (StorageUtils.isExternalStorageReadable()) {
+            if (StorageUtils.isExternalStorageReadable()) {
                 // EXTERNAL
 
-                var recipeList : String? = this.context?.let {
+                var recipeList: String? = this.context?.let {
                     context?.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)?.let { it1 ->
                         StorageUtils.getTextFromStorage(
-                            it1, it, cookbookRepository.getCookbook().name + "RecipeList.json", cookbookRepository.getCookbook().name)
+                            it1,
+                            it,
+                            cookbookRepository.getCookbook().name + "RecipeList.json",
+                            cookbookRepository.getCookbook().name
+                        )
                     }
                 }
-              val arrayRecipe = object : TypeToken<Array<ExportRecipe>>() {}.type
+                val arrayRecipe = object : TypeToken<Array<ExportRecipe>>() {}.type
 
-              var recipes: Array<ExportRecipe> = gson.fromJson(recipeList, arrayRecipe)
-              recipes.forEachIndexed  { idx, rec -> //println("> Item ${idx}:\n${tut}")
-                  recipe.name = rec.name
-                  recipe.cookbookId = cookbookId
-                  recipe.cooktime = rec.cooktime
-                  recipe.description = rec.description
-                  recipe.difficulty = rec.difficulty
-                 val recipeId  = recipeRepository.insert(recipe)
+                var recipes: Array<ExportRecipe> = gson.fromJson(recipeList, arrayRecipe)
+                recipes.forEachIndexed { idx, rec ->
+                    recipe.name = rec.name
+                    recipe.cookbookId = cookbookId
+                    recipe.cooktime = rec.cooktime
+                    recipe.description = rec.description
+                    recipe.difficulty = rec.difficulty
+                    val recipeId = recipeRepository.insert(recipe)
 
-                  rec.ingredient.forEach{
-                      val ingredient = Ingredient()
-                      ingredient.measurement = it.measurement
-                      ingredient.name = it.name
-                      ingredient.recipeId = recipeId
-                      ingredient.value = it.value
+                    rec.ingredient.forEach {
+                        val ingredient = Ingredient()
+                        ingredient.measurement = it.measurement
+                        ingredient.name = it.name
+                        ingredient.recipeId = recipeId
+                        ingredient.value = it.value
 
-                      ingredientRepository.insert(ingredient)
-                  }
+                        ingredientRepository.insert(ingredient)
+                    }
 
+                }
 
-
-
-
-              }
-
-
-
-
-            }else {
+            } else {
                 println("The file was not found")
             }
         }

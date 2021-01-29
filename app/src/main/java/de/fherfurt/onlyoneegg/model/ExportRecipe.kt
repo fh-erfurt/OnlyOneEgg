@@ -2,19 +2,19 @@ package de.fherfurt.onlyoneegg.model
 
 
 
-data class  ExportRecipe (
+data class  ExportRecipe(
 
-    var name: String ,
+    var name: String,
 
     var description: String,
 
-    var cooktime: Float ,
+    var cooktime: Float,
 
-    var difficulty: Difficulty ,
+    var difficulty: Difficulty,
 
-    var ingredient:List<ExportIngredient>
+    var ingredient: List<ExportIngredient>
 
-    )
+)
 {
 
     constructor(recipe:Recipe, ingredient: ArrayList<ExportIngredient>)
