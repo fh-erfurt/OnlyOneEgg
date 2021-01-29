@@ -42,6 +42,7 @@ class InputCookbookFragment : Fragment() {
 
     lateinit var uri: String
 
+    var addPhotoClicked=false;
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -78,10 +79,13 @@ class InputCookbookFragment : Fragment() {
                 } else {
                     cookbook.name = cookbookNameEdit.text.toString()
                 }
-
-                val uri = saveImageToInternalStorage(binding.imageCookbook.drawable)
-                cookbook.uri = uri.toString()
-
+                if(addPhotoClicked){
+                    val uri = saveImageToInternalStorage(binding.imageCookbook.drawable)
+                    cookbook.uri = uri.toString()
+                }
+                else{
+                    cookbook.uri = ""
+                }
                 inputCookbookViewModel.insertCookbook(cookbook)
                 hideKeyboard()
                 findNavController().navigate(R.id.action_inputCookbookFragment_to_dashboardFragment)
@@ -92,7 +96,9 @@ class InputCookbookFragment : Fragment() {
 
         //Add picture
         // Button Click
+
         binding.addPicture.setOnClickListener {
+
             // check runtime permission
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (checkSelfPermission(it.context, Manifest.permission.READ_EXTERNAL_STORAGE) ==
@@ -116,6 +122,7 @@ class InputCookbookFragment : Fragment() {
     // Method to save an image to internal storage
     private fun saveImageToInternalStorage(drawable: Drawable): Uri {
         // Get the bitmap from drawable object
+        addPhotoClicked=true
         val bitmap = (drawable as BitmapDrawable).bitmap
 
         // Get the context wrapper instance
@@ -154,6 +161,7 @@ class InputCookbookFragment : Fragment() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         startActivityForResult(intent, IMAGE_PICK_CODE)
+
     }
 
     companion object {
