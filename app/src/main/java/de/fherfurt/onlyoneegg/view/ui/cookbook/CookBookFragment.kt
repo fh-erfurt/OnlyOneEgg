@@ -21,9 +21,9 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.google.gson.reflect.TypeToken
 import de.fherfurt.onlyoneegg.R
-import de.fherfurt.onlyoneegg.`interface`.ViewModelCustom
 import de.fherfurt.onlyoneegg.databinding.FragmentCookbookBinding
 import de.fherfurt.onlyoneegg.model.*
+
 import de.fherfurt.onlyoneegg.storage.CookbookRepository
 import de.fherfurt.onlyoneegg.storage.IngredientRepository
 import de.fherfurt.onlyoneegg.storage.OOEDatabase
@@ -36,6 +36,9 @@ import de.fherfurt.onlyoneegg.storage.RecipeRepository
 * */
 class CookBookFragment : Fragment() {
 
+
+    // 1 - FILE MANAGEMENT
+
     override fun onCreateView(
 
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,6 +47,10 @@ class CookBookFragment : Fragment() {
 
         // set the Fragment as only Portrait
         getActivity()?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+
+
+
 
         //initialize a cookbookId from nav args
         val args: CookBookFragmentArgs by navArgs()
@@ -102,8 +109,13 @@ class CookBookFragment : Fragment() {
             }
             println(recipeList)
 
+            val jsonObject: String = Gson().toJson(recipeList)
+            val parser = JsonParser()
+            val json: JsonObject = parser.parse(jsonObject).getAsJsonObject()
+
             val gson = GsonBuilder().setPrettyPrinting().create()
-            val prettyJson = gson.toJson(recipeList)
+            val prettyJson = gson.toJson(json)
+
 
             if (StorageUtils.isExternalStorageWritable()) {
 
@@ -112,18 +124,22 @@ class CookBookFragment : Fragment() {
                         StorageUtils.setTextInStorage(
                             it,
                             it1,
+
                             cookbookRepository.getCookbook().name + "RecipeList.json",
                             cookbookRepository.getCookbook().name,
                             prettyJson
                         )
+
                     }
                 }
 
             } else {
+
                 Toast.makeText(
                     this.context, getString(R.string.external_storage_impossible_create_file),
                     Toast.LENGTH_LONG
                 ).show()
+
             }
         }
 
