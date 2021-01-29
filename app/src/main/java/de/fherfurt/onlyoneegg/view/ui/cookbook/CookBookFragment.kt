@@ -183,9 +183,18 @@ class CookBookFragment : Fragment() {
                     }
 
                 }
+                Toast.makeText(
+                    this.context, getString(R.string.imported),
+                    Toast.LENGTH_LONG
+                ).show()
 
             } else {
-                println("The file was not found")
+
+                Toast.makeText(
+                    this.context, getString(R.string.Error),
+                    Toast.LENGTH_LONG
+                ).show()
+
             }
         }
 

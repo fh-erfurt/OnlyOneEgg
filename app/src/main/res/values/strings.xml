@@ -33,8 +33,12 @@
 
     <string name="dish">dish</string>
     <string name="error_happened">There is an error with read/write the File</string>
-    <string name="saved">the file is saved</string>
-    <string name="external_storage_impossible_create_file">t  external storage impossible create file</string>
+    <string name="saved">the file is exported</string>
+    <string name="imported">the file is imported</string>
+    <string name="external_storage_impossible_create_file">  external storage impossible create file</string>
+    <string name="Error"> The file was not found</string>
+
+
 
 
 
