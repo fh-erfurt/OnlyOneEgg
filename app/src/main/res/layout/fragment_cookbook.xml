@@ -76,9 +76,19 @@
             android:id="@+id/exportRecipes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="608dp"
+            android:layout_marginTop="568dp"
             android:layout_marginEnd="4dp"
             android:text="@string/exportRecipes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/importRecipes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="616dp"
+            android:layout_marginEnd="4dp"
+            android:text="@string/importRecipes"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

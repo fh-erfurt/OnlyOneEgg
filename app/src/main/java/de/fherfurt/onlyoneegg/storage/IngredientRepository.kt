@@ -10,7 +10,7 @@ class IngredientRepository(private val ingredientDao: IngredientDao) {
     // off the main thread.
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insert(ingredient: Ingredient) {
+     fun insert(ingredient: Ingredient) {
         ingredientDao.insert(ingredient)
     }
 

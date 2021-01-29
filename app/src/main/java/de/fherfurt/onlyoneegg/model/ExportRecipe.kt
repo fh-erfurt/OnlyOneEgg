@@ -12,12 +12,12 @@ data class  ExportRecipe (
 
     var difficulty: Difficulty ,
 
-    var ingredient:List<Ingredient>
+    var ingredient:List<ExportIngredient>
 
     )
 {
 
-    constructor(recipe:Recipe, ingredient: List<Ingredient>)
+    constructor(recipe:Recipe, ingredient: ArrayList<ExportIngredient>)
             : this(recipe.name, recipe.description, recipe.cooktime, recipe.difficulty, ingredient) {
 
     }

@@ -7,7 +7,7 @@ import de.fherfurt.onlyoneegg.model.Ingredient
 @Dao
 interface IngredientDao {
     @Insert
-    suspend fun insert(ingredient: Ingredient)
+     fun insert(ingredient: Ingredient)
 
     @Insert
     suspend fun insertArrayList(ingredients: ArrayList<Ingredient>)

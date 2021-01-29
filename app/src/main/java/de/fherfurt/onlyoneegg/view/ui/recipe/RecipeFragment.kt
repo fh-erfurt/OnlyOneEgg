@@ -30,7 +30,7 @@ import org.json.JSONObject
 class RecipeFragment : Fragment() {
 
     // 1 - FILE MANAGEMENT
-    private val FILENAME = "Recipe.txt"
+    private val FILENAME = "Recipe.json"
     private val FOLDERNAME = "OnlyOneegg"
 
     override fun onCreateView(

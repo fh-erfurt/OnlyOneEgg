@@ -29,6 +29,7 @@
     <string name="remove">Remove</string>
     <string name="exportRecipe">Export Recipe</string>
     <string name="exportRecipes">Export Recipes</string>
+    <string name="importRecipes">Import Recipes</string>
 
     <string name="dish">dish</string>
     <string name="error_happened">There is an error with read/write the File</string>
