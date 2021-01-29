@@ -3,8 +3,13 @@ package de.fherfurt.onlyoneegg.view.ui.inputCookbook
 import android.Manifest
 import android.app.Activity
 import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,6 +28,11 @@ import de.fherfurt.onlyoneegg.databinding.FragmentInputCookbookBinding
 import de.fherfurt.onlyoneegg.model.Cookbook
 import de.fherfurt.onlyoneegg.storage.CookbookRepository
 import de.fherfurt.onlyoneegg.storage.OOEDatabase
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.OutputStream
+import java.util.*
 
 class InputCookbookFragment : Fragment() {
 
@@ -32,6 +42,7 @@ class InputCookbookFragment : Fragment() {
 
     lateinit var uri: String
 
+    var addPhotoClicked=false;
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,12 +60,10 @@ class InputCookbookFragment : Fragment() {
         val recipeDao = OOEDatabase.getInstance(application).recipeDao
 
         val cookbookRepository = CookbookRepository(cookbookDao)
-        val viewModelFactory = InputCookbookViewModelFactory(application, cookbookRepository)
+
         // create viewModel
-        val inputCookbookViewModel =
-            ViewModelProvider(
-                this, viewModelFactory
-            ).get(InputCookbookViewModel::class.java)
+        val inputCookbookViewModel =InputCookbookViewModel(application, cookbookRepository)
+
         binding.inputCookbookViewModel = inputCookbookViewModel
         // bind input field with the variable
         cookbookNameEdit = binding.cookbookName
@@ -68,9 +77,13 @@ class InputCookbookFragment : Fragment() {
                 } else {
                     cookbook.name = cookbookNameEdit.text.toString()
                 }
-
-                cookbook.uri = uri
-
+                if(addPhotoClicked){
+                    val uri = saveImageToInternalStorage(binding.imageCookbook.drawable)
+                    cookbook.uri = uri.toString()
+                }
+                else{
+                    cookbook.uri = ""
+                }
                 inputCookbookViewModel.insertCookbook(cookbook)
                 hideKeyboard()
                 findNavController().navigate(R.id.action_inputCookbookFragment_to_dashboardFragment)
@@ -81,7 +94,9 @@ class InputCookbookFragment : Fragment() {
 
         //Add picture
         // Button Click
+
         binding.addPicture.setOnClickListener {
+
             // check runtime permission
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (checkSelfPermission(it.context, Manifest.permission.READ_EXTERNAL_STORAGE) ==
@@ -102,12 +117,49 @@ class InputCookbookFragment : Fragment() {
         }
         return binding.root
     }
+    // Method to save an image to internal storage
+    private fun saveImageToInternalStorage(drawable: Drawable): Uri {
+        // Get the bitmap from drawable object
+        addPhotoClicked=true
+        val bitmap = (drawable as BitmapDrawable).bitmap
+
+        // Get the context wrapper instance
+        val wrapper = ContextWrapper(context)
+
+        // Initializing a new file
+        // The bellow line return a directory in internal storage
+        var file = wrapper.getDir("images", Context.MODE_PRIVATE)
+
+
+        // Create a file to save the image
+        file = File(file, "${UUID.randomUUID()}.jpg")
+
+        try {
+            // Get the file output stream
+            val stream: OutputStream = FileOutputStream(file)
+
+            // Compress bitmap
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+
+            // Flush the stream
+            stream.flush()
+
+            // Close stream
+            stream.close()
+        } catch (e: IOException){ // Catch the exception
+            e.printStackTrace()
+        }
+
+        // Return the saved image uri
+        return Uri.parse(file.absolutePath)
+    }
 
     private fun pickImageFromGallery() {
         //Intent to pick image
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         startActivityForResult(intent, IMAGE_PICK_CODE)
+
     }
 
     companion object {

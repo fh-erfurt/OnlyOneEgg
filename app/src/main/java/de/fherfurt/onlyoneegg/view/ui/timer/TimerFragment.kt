@@ -32,13 +32,9 @@ class TimerFragment : Fragment() {
         // Get the application
         val application = requireNotNull(this.activity).application
 
-        // Spawn the viewModelFactory
-        val viewModelFactory = TimerViewModelFactory(application)
 
-        val timerViewModel =
-            ViewModelProvider(
-                this, viewModelFactory
-            ).get(TimerViewModel::class.java)
+
+        val timerViewModel =TimerViewModel(application)
 
         binding.timerViewModel = timerViewModel
         binding.setLifecycleOwner(this)

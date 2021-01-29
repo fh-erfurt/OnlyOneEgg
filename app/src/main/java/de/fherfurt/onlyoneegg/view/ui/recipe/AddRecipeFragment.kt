@@ -23,7 +23,7 @@ import de.fherfurt.onlyoneegg.model.Measurement
 import de.fherfurt.onlyoneegg.model.Recipe
 import de.fherfurt.onlyoneegg.view.ui.recipe.AddRecipeAdapter
 import de.fherfurt.onlyoneegg.view.ui.recipe.AddRecipeViewModel
-import de.fherfurt.onlyoneegg.view.ui.recipe.AddRecipeViewModelFactory
+
 
 class AddRecipeFragment : Fragment() {
 
@@ -47,11 +47,8 @@ class AddRecipeFragment : Fragment() {
         val application = requireNotNull(this.activity).application
 
         // Setup ViewModel
-        val viewModelFactory = AddRecipeViewModelFactory(application)
-        val addRecipeViewModel =
-            ViewModelProvider(
-                this, viewModelFactory
-            ).get(AddRecipeViewModel::class.java)
+
+        val addRecipeViewModel =AddRecipeViewModel(application)
 
         binding.addRecipeViewModel = addRecipeViewModel
         binding.setLifecycleOwner(this)

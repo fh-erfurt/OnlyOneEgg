@@ -4,4 +4,6 @@
 <resources>
     <dimen name="icon_size">150dp</dimen>
     <dimen name="inputHeight">42dp</dimen>
+    <dimen name="floatindButtonAddMargin">20dp</dimen>
+    <dimen name="numberOfItems">20dp</dimen>
 </resources>

@@ -47,20 +47,16 @@ class RecipeFragment : Fragment() {
         val binding : FragmentRecipeBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_recipe, container, false
         )
+      val application = requireNotNull(this.activity).application
+      
+      val recipeDao = OOEDatabase.getInstance(application).recipeDao;
+       
+      val ingredientDao = OOEDatabase.getInstance(application).ingredientDao;
+       
+      val ingredientRepository = IngredientRepository(ingredientDao)
+      
+      val recipeViewModel =RecipeViewModel(application, ingredientRepository, recipeId )
 
-
-
-        val application = requireNotNull(this.activity).application
-        val recipeDao = OOEDatabase.getInstance(application).recipeDao;
-
-        val ingredientDao = OOEDatabase.getInstance(application).ingredientDao;
-        val ingredientRepository = IngredientRepository(ingredientDao)
-        val viewModelFactory = RecipeViewModelFactory(application, ingredientRepository, recipeId)
-
-        val recipeViewModel =
-            ViewModelProvider(
-                this, viewModelFactory
-            ).get(RecipeViewModel::class.java)
 
         binding.lifecycleOwner = this
 
@@ -89,13 +85,6 @@ class RecipeFragment : Fragment() {
         recipeViewModel.recipe.observe(
             viewLifecycleOwner,
             Observer { newRecipe -> binding.recipeDescription.text = newRecipe.description })
-
-
-
-
-
-
-
 
 
         binding.removeRecipe.setOnClickListener {
@@ -173,4 +162,3 @@ class RecipeFragment : Fragment() {
     }
 
 }
-//recipeViewModel.recipe.observe(viewLifecycleOwner, Observer { newRecipe -> Log.i("RecipeFragment", newRecipe )   })
