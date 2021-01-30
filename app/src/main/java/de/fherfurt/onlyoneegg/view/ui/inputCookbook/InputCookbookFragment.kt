@@ -39,9 +39,8 @@ class InputCookbookFragment : Fragment() {
 
     lateinit var binding: FragmentInputCookbookBinding
 
-    lateinit var uri: String
+    var uri: String = ""
 
-    var addPhotoClicked = false;
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -76,7 +75,7 @@ class InputCookbookFragment : Fragment() {
                 } else {
                     cookbook.name = cookbookNameEdit.text.toString()
                 }
-                if (addPhotoClicked) {
+                if (uri.trim().isNotEmpty()) {
                     val uri = saveImageToInternalStorage(binding.imageCookbook.drawable)
                     cookbook.uri = uri.toString()
                 } else {
@@ -112,7 +111,6 @@ class InputCookbookFragment : Fragment() {
                 // system OS is <= Marshmallow
                 pickImageFromGallery();
             }
-            addPhotoClicked = true
         }
         return binding.root
     }
