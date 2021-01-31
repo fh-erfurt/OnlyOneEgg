@@ -16,13 +16,17 @@
         android:paddingTop="50dp"
        >
         <!--android:background="@color/white"-->
-        <Button
+        <ImageView
             android:id="@+id/btnPopUpMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Popup Menu"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="10dp"
+
+            android:backgroundTint="@color/black"
+            android:src="@drawable/ic_baseline_more_vert_24"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
         <TextView
             android:id="@+id/numberOfItemsSelected"
@@ -51,18 +55,20 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-
-
         <TextView
             android:id="@+id/cookbookText"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:fontFamily="sans-serif-medium"
+            android:gravity="center"
             android:text=""
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@+id/recipe_list"
+            app:layout_constraintEnd_toStartOf="@+id/btnPopUpMenu"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -77,38 +83,6 @@
             app:layout_constraintTop_toBottomOf="@+id/btnPopUpMenu"
             tools:listitem="@layout/item_recipe" />
 
-
-        <Button
-            android:id="@+id/removeCookbook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:backgroundTint="@color/yellow"
-            android:text="@string/cookbook_removeCookbook"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addRecipe" />
-
-
-        <Button
-            android:id="@+id/exportRecipes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="568dp"
-            android:layout_marginEnd="4dp"
-            android:text="@string/exportRecipes"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/importRecipes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="616dp"
-            android:layout_marginEnd="4dp"
-            android:text="@string/importRecipes"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/addRecipe"
