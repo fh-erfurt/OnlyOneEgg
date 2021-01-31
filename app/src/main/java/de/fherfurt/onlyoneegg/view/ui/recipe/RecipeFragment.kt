@@ -31,10 +31,6 @@ import org.json.JSONObject
 * */
 class RecipeFragment : Fragment() {
 
-    // 1 - FILE MANAGEMENT
-    private val FILENAME = "Recipe.json"
-    private val FOLDERNAME = "OnlyOneegg"
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -101,61 +97,6 @@ class RecipeFragment : Fragment() {
             if (action != null) {
                 Navigation.findNavController(binding.root).navigate(action)
             }
-        }
-
-
-        // Json-Datai in externer Storage speichern
-        binding.exportRecipe?.setOnClickListener {
-
-            recipeViewModel.recipe.observe(viewLifecycleOwner, Observer { newRecipe ->
-
-                recipeViewModel.ingredients.observe(viewLifecycleOwner, {
-                    it?.let {
-
-
-                        val jsonObject: String = Gson().toJson(newRecipe)
-                        val parser = JsonParser()
-                        val json: JsonObject = parser.parse(jsonObject).getAsJsonObject()
-
-                        val gson = GsonBuilder().setPrettyPrinting().create()
-                        val prettyJson = gson.toJson(json)
-
-                        if (StorageUtils.isExternalStorageWritable()) {
-
-                            context?.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)?.let {
-                                this.context?.let { it1 ->
-                                    StorageUtils.setTextInStorage(
-                                        it,
-                                        it1,
-                                        //newRecipe.name + ".json",
-                                        FILENAME,
-                                        FOLDERNAME,
-                                        prettyJson)
-                                }
-                            }
-
-                        } else {
-                            Toast.makeText(this.context, getString(R.string.external_storage_impossible_create_file),
-                                Toast.LENGTH_LONG).show()
-                        }
-                    }
-                })
-            })
-            // to import a Json
-            if (StorageUtils.isExternalStorageReadable()) {
-                // EXTERNAL
-
-                println(this.context?.let {
-                    context?.getExternalFilesDir("content://com.android.providers.media.documents/document/documents_root")?.let { it1 ->
-                        StorageUtils.getTextFromStorage(
-                                it1, it, FILENAME, FOLDERNAME)
-                    }
-                })
-
-            }else {
-                println("test")
-            }
-
         }
 
 
