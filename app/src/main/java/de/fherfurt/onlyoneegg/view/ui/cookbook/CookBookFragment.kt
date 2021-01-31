@@ -171,9 +171,13 @@ class CookBookFragment : Fragment() {
                         binding.remove.visibility = View.VISIBLE
                         binding.numberOfItemsSelected.visibility = View.VISIBLE
                         binding.numberOfItemsSelected.text = items.toString()
+                        binding.btnPopUpMenu.visibility=View.INVISIBLE
+                        binding.cookbookText.visibility=View.INVISIBLE
                     } else {
                         binding.remove.visibility = View.INVISIBLE
                         binding.numberOfItemsSelected.visibility = View.INVISIBLE
+                        binding.btnPopUpMenu.visibility=View.VISIBLE
+                        binding.cookbookText.visibility=View.VISIBLE
                     }
 
                     //reset selected list
