@@ -3,9 +3,8 @@ package de.fherfurt.onlyoneegg.view.ui.cookbook
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.Environment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -43,7 +42,6 @@ class CookBookFragment : Fragment() {
 
         // set the Fragment as only Portrait
         getActivity()?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
 
         //initialize a cookbookId from nav args
         val args: CookBookFragmentArgs by navArgs()
@@ -190,6 +188,30 @@ class CookBookFragment : Fragment() {
             }
         }
 
+        // set options menu click listener
+        binding.btnPopUpMenu.setOnClickListener {
+
+            val popup = PopupMenu(this.context, binding.btnPopUpMenu)
+            //Inflating the Popup using xml file
+
+            
+            popup.menuInflater.inflate(R.menu.options_menu_cookbook_no_export, popup.menu)
+
+            popup.setOnMenuItemClickListener {
+                if (it.itemId == R.id.action_import) {
+                    binding.btnPopUpMenu.text="Import"
+                } else {
+                    binding.btnPopUpMenu.text="Else"
+
+                }
+                true
+            }
+
+            popup.show()//showing popup menu
+
+        }
+
+
 
         // click listener for removing selected recipes
         binding.remove.setOnClickListener {
@@ -273,4 +295,5 @@ class CookBookFragment : Fragment() {
             }
         )
     }
+
 }

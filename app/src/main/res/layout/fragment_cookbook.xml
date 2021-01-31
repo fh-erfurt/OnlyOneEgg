@@ -13,9 +13,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="50dp">
+        android:paddingTop="50dp"
+       >
         <!--android:background="@color/white"-->
-
+        <Button
+            android:id="@+id/btnPopUpMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Popup Menu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
         <TextView
             android:id="@+id/numberOfItemsSelected"
             android:layout_width="wrap_content"
@@ -42,6 +50,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
+
+
         <TextView
             android:id="@+id/cookbookText"
             android:layout_width="0dp"
@@ -55,18 +66,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/recipeText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="70dp"
-            android:text="My Recipes"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recipe_list"
             android:layout_width="0dp"
@@ -75,21 +74,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recipeText"
             tools:listitem="@layout/item_recipe" />
 
-
-        <Button
-            android:id="@+id/addRecipe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/yellow"
-            android:text="@string/cookbook_addRecipe"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/removeCookbook"
@@ -122,6 +108,19 @@
             android:text="@string/importRecipes"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addRecipe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/floatindButtonAddMargin"
+            android:layout_marginBottom="@dimen/floatindButtonAddMargin"
+            android:backgroundTint="@color/yellow"
+            android:clickable="true"
+            android:contentDescription="Add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_action_add" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
