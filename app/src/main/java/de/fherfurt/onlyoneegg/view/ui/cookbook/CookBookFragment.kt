@@ -2,7 +2,9 @@ package de.fherfurt.onlyoneegg.view.ui.cookbook
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.os.Debug
 import android.os.Environment
+import android.util.Log
 import android.view.*
 import android.widget.PopupMenu
 import android.widget.Toast
@@ -171,13 +173,13 @@ class CookBookFragment : Fragment() {
                         binding.remove.visibility = View.VISIBLE
                         binding.numberOfItemsSelected.visibility = View.VISIBLE
                         binding.numberOfItemsSelected.text = items.toString()
-                        binding.btnPopUpMenu.visibility=View.INVISIBLE
-                        binding.cookbookText.visibility=View.INVISIBLE
+                        binding.btnPopUpMenu.visibility = View.INVISIBLE
+                        binding.cookbookText.visibility = View.INVISIBLE
                     } else {
                         binding.remove.visibility = View.INVISIBLE
                         binding.numberOfItemsSelected.visibility = View.INVISIBLE
-                        binding.btnPopUpMenu.visibility=View.VISIBLE
-                        binding.cookbookText.visibility=View.VISIBLE
+                        binding.btnPopUpMenu.visibility = View.VISIBLE
+                        binding.cookbookText.visibility = View.VISIBLE
                     }
 
                     //reset selected list
@@ -225,42 +227,55 @@ class CookBookFragment : Fragment() {
                     )
                 }
             }
-            val arrayRecipe = object : TypeToken<Array<ExportRecipe>>() {}.type
+            
+            if (recipeList != null) {
 
-            var recipes: Array<ExportRecipe> = gson.fromJson(recipeList, arrayRecipe)
-            recipes.forEachIndexed { idx, rec ->
-                recipe.name = rec.name
-                recipe.cookbookId = cookbookId
-                recipe.cooktime = rec.cooktime
-                recipe.description = rec.description
-                recipe.difficulty = rec.difficulty
-                val recipeId = recipeRepository.insert(recipe)
+                if (!recipeList.isEmpty()) {
 
-                rec.ingredient.forEach {
-                    val ingredient = Ingredient()
-                    ingredient.measurement = it.measurement
-                    ingredient.name = it.name
-                    ingredient.recipeId = recipeId
-                    ingredient.value = it.value
+                    Log.d("Import", recipeList.isEmpty().toString())
 
-                    ingredientRepository.insert(ingredient)
+                    val arrayRecipe = object : TypeToken<Array<ExportRecipe>>() {}.type
+                    var recipes: Array<ExportRecipe> = gson.fromJson(recipeList, arrayRecipe)
+
+                    recipes.forEachIndexed { idx, rec ->
+                        recipe.name = rec.name
+                        recipe.cookbookId = cookbookId
+                        recipe.cooktime = rec.cooktime
+                        recipe.description = rec.description
+                        recipe.difficulty = rec.difficulty
+                        val recipeId = recipeRepository.insert(recipe)
+
+                        rec.ingredient.forEach {
+                            val ingredient = Ingredient()
+                            ingredient.measurement = it.measurement
+                            ingredient.name = it.name
+                            ingredient.recipeId = recipeId
+                            ingredient.value = it.value
+
+                            ingredientRepository.insert(ingredient)
+                        }
+                    }
+
+                    Toast.makeText(
+                        this.context, getString(R.string.imported),
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else {
+
+                    Toast.makeText(
+                        this.context, getString(R.string.Error),
+                        Toast.LENGTH_LONG
+                    ).show()
+
                 }
-
             }
-            Toast.makeText(
-                this.context, getString(R.string.imported),
-                Toast.LENGTH_LONG
-            ).show()
 
-        } else {
-
-            Toast.makeText(
-                this.context, getString(R.string.Error),
-                Toast.LENGTH_LONG
-            ).show()
 
         }
+
+
     }
+
 
     fun export(
         cookbookViewModel: CookBookViewModel, cookbookId: Long,
