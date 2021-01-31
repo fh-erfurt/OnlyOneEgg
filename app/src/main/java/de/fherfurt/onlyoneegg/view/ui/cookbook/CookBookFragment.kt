@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -20,13 +19,10 @@ import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.google.gson.JsonObject
-import com.google.gson.JsonParser
 import com.google.gson.reflect.TypeToken
 import de.fherfurt.onlyoneegg.R
 import de.fherfurt.onlyoneegg.databinding.FragmentCookbookBinding
 import de.fherfurt.onlyoneegg.model.*
-
 import de.fherfurt.onlyoneegg.storage.CookbookRepository
 import de.fherfurt.onlyoneegg.storage.IngredientRepository
 import de.fherfurt.onlyoneegg.storage.OOEDatabase
@@ -49,9 +45,6 @@ class CookBookFragment : Fragment() {
         getActivity()?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 
-
-
-
         //initialize a cookbookId from nav args
         val args: CookBookFragmentArgs by navArgs()
         val cookbookId = args.cookbookId
@@ -72,7 +65,8 @@ class CookBookFragment : Fragment() {
         val cookbookRepository = CookbookRepository(cookbookDao)
 
 
-        val cookbookViewModel =CookBookViewModel(application, recipeRepository, cookbookRepository, cookbookId)
+        val cookbookViewModel =
+            CookBookViewModel(application, recipeRepository, cookbookRepository, cookbookId)
 
         // click listener to navigate to the addRecipeFragment with cookbookId as argument
         binding.addRecipe.setOnClickListener {
@@ -109,8 +103,6 @@ class CookBookFragment : Fragment() {
                 val exportRecipe: ExportRecipe = ExportRecipe(it, ingredientList)
                 recipeList.add(exportRecipe)
             }
-            println(recipeList)
-
 
             val gson = GsonBuilder().setPrettyPrinting().create()
             val prettyJson = gson.toJson(recipeList)
@@ -199,8 +191,6 @@ class CookBookFragment : Fragment() {
         }
 
 
-
-
         // click listener for removing selected recipes
         binding.remove.setOnClickListener {
             var ids = adapter.getAllSelectedIds()
@@ -225,7 +215,6 @@ class CookBookFragment : Fragment() {
         setupTracker(adapter, binding)
 
         return binding.root
-
 
 
     }
