@@ -23,5 +23,6 @@ class CookBookViewModel(
         ids.forEach { id->
             recipeRepository.deleteRecipeWithIngredients(id);
         }
+
     }
 }

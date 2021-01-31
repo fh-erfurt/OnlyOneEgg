@@ -78,115 +78,6 @@ class CookBookFragment : Fragment() {
         val adapter = CookBookAdapter()
         binding.recipeList.adapter = adapter
 
-        // click listener for removing of entire cookbook
-        binding.removeCookbook.setOnClickListener {
-            cookbookViewModel.removeCookbook(cookbookId, recipeRepository, cookbookRepository);
-            findNavController().navigate(R.id.action_cookbookFragment_to_dashboardFragment)
-        }
-
-        // click Listener to export a cookbook with the Recipes inside
-        binding.exportRecipes.setOnClickListener {
-            var recipes: List<Recipe> =
-                cookbookViewModel.recipeRepository.getAllRecipesFromCertainCookbookList(cookbookId);
-            var recipeList = ArrayList<ExportRecipe>()
-
-            recipes.forEach {
-                var ingredientList = ArrayList<ExportIngredient>()
-                val ingredients: List<Ingredient> =
-                    ingredientRepository.getAllIngredientsFromCertainRecipeList(it.id)
-                ingredients.forEach {
-                    val exportIngredient: ExportIngredient = ExportIngredient(it)
-                    ingredientList.add(exportIngredient)
-                }
-                val exportRecipe: ExportRecipe = ExportRecipe(it, ingredientList)
-                recipeList.add(exportRecipe)
-            }
-
-            val gson = GsonBuilder().setPrettyPrinting().create()
-            val prettyJson = gson.toJson(recipeList)
-
-
-            if (StorageUtils.isExternalStorageWritable()) {
-
-                context?.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)?.let {
-                    this.context?.let { it1 ->
-                        StorageUtils.setTextInStorage(
-                            it,
-                            it1,
-
-                            cookbookRepository.getCookbook().name + "RecipeList.json",
-                            cookbookRepository.getCookbook().name,
-                            prettyJson
-                        )
-
-                    }
-                }
-
-            } else {
-
-                Toast.makeText(
-                    this.context, getString(R.string.external_storage_impossible_create_file),
-                    Toast.LENGTH_LONG
-                ).show()
-
-            }
-        }
-
-        // click Listener to import a cookbook with the all Recipes inside
-        binding.importRecipes.setOnClickListener {
-            var gson = Gson()
-            val recipe = Recipe()
-
-            // to import a Json
-            if (StorageUtils.isExternalStorageReadable()) {
-                // EXTERNAL
-
-                var recipeList: String? = this.context?.let {
-                    context?.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)?.let { it1 ->
-                        StorageUtils.getTextFromStorage(
-                            it1,
-                            it,
-                            cookbookRepository.getCookbook().name + "RecipeList.json",
-                            cookbookRepository.getCookbook().name
-                        )
-                    }
-                }
-                val arrayRecipe = object : TypeToken<Array<ExportRecipe>>() {}.type
-
-                var recipes: Array<ExportRecipe> = gson.fromJson(recipeList, arrayRecipe)
-                recipes.forEachIndexed { idx, rec ->
-                    recipe.name = rec.name
-                    recipe.cookbookId = cookbookId
-                    recipe.cooktime = rec.cooktime
-                    recipe.description = rec.description
-                    recipe.difficulty = rec.difficulty
-                    val recipeId = recipeRepository.insert(recipe)
-
-                    rec.ingredient.forEach {
-                        val ingredient = Ingredient()
-                        ingredient.measurement = it.measurement
-                        ingredient.name = it.name
-                        ingredient.recipeId = recipeId
-                        ingredient.value = it.value
-
-                        ingredientRepository.insert(ingredient)
-                    }
-
-                }
-                Toast.makeText(
-                    this.context, getString(R.string.imported),
-                    Toast.LENGTH_LONG
-                ).show()
-
-            } else {
-
-                Toast.makeText(
-                    this.context, getString(R.string.Error),
-                    Toast.LENGTH_LONG
-                ).show()
-
-            }
-        }
 
         // set options menu click listener
         binding.btnPopUpMenu.setOnClickListener {
@@ -194,15 +85,28 @@ class CookBookFragment : Fragment() {
             val popup = PopupMenu(this.context, binding.btnPopUpMenu)
             //Inflating the Popup using xml file
 
-            
-            popup.menuInflater.inflate(R.menu.options_menu_cookbook_no_export, popup.menu)
+            // no export if no items
+            if (cookbookViewModel.recipes.value?.size == 0) {
+                popup.menuInflater.inflate(R.menu.options_menu_cookbook_no_export, popup.menu)
+            } else {
+                popup.menuInflater.inflate(R.menu.options_menu_cookbook, popup.menu)
 
+            }
+            // listeners for options button
             popup.setOnMenuItemClickListener {
+                // click Listener to import a cookbook with the all Recipes inside
                 if (it.itemId == R.id.action_import) {
-                    binding.btnPopUpMenu.text="Import"
-                } else {
-                    binding.btnPopUpMenu.text="Else"
+                    import(cookbookRepository, cookbookId, recipeRepository, ingredientRepository)
 
+                }
+                // click Listener to export a cookbook with the Recipes inside
+                else if (it.itemId == R.id.action_export) {
+                    export(cookbookViewModel, cookbookId, cookbookRepository, ingredientRepository)
+
+                }
+                // click listener for removing of entire cookbook
+                else {
+                    remove(cookbookViewModel, cookbookId, recipeRepository, cookbookRepository)
                 }
                 true
             }
@@ -210,7 +114,6 @@ class CookBookFragment : Fragment() {
             popup.show()//showing popup menu
 
         }
-
 
 
         // click listener for removing selected recipes
@@ -296,4 +199,127 @@ class CookBookFragment : Fragment() {
         )
     }
 
+    fun import(
+        cookbookRepository: CookbookRepository, cookbookId: Long,
+        recipeRepository: RecipeRepository,
+        ingredientRepository: IngredientRepository
+    ) {
+        var gson = Gson()
+        val recipe = Recipe()
+
+        // to import a Json
+        if (StorageUtils.isExternalStorageReadable()) {
+            // EXTERNAL
+
+            var recipeList: String? = this.context?.let {
+                context?.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)?.let { it1 ->
+                    StorageUtils.getTextFromStorage(
+                        it1,
+                        it,
+                        cookbookRepository.getCookbook().name + "RecipeList.json",
+                        cookbookRepository.getCookbook().name
+                    )
+                }
+            }
+            val arrayRecipe = object : TypeToken<Array<ExportRecipe>>() {}.type
+
+            var recipes: Array<ExportRecipe> = gson.fromJson(recipeList, arrayRecipe)
+            recipes.forEachIndexed { idx, rec ->
+                recipe.name = rec.name
+                recipe.cookbookId = cookbookId
+                recipe.cooktime = rec.cooktime
+                recipe.description = rec.description
+                recipe.difficulty = rec.difficulty
+                val recipeId = recipeRepository.insert(recipe)
+
+                rec.ingredient.forEach {
+                    val ingredient = Ingredient()
+                    ingredient.measurement = it.measurement
+                    ingredient.name = it.name
+                    ingredient.recipeId = recipeId
+                    ingredient.value = it.value
+
+                    ingredientRepository.insert(ingredient)
+                }
+
+            }
+            Toast.makeText(
+                this.context, getString(R.string.imported),
+                Toast.LENGTH_LONG
+            ).show()
+
+        } else {
+
+            Toast.makeText(
+                this.context, getString(R.string.Error),
+                Toast.LENGTH_LONG
+            ).show()
+
+        }
+    }
+
+    fun export(
+        cookbookViewModel: CookBookViewModel, cookbookId: Long,
+        cookbookRepository: CookbookRepository,
+        ingredientRepository: IngredientRepository
+    ) {
+        var recipes: List<Recipe> =
+            cookbookViewModel.recipeRepository.getAllRecipesFromCertainCookbookList(cookbookId);
+        var recipeList = ArrayList<ExportRecipe>()
+
+        recipes.forEach {
+            var ingredientList = ArrayList<ExportIngredient>()
+            val ingredients: List<Ingredient> =
+                ingredientRepository.getAllIngredientsFromCertainRecipeList(it.id)
+            ingredients.forEach {
+                val exportIngredient: ExportIngredient = ExportIngredient(it)
+                ingredientList.add(exportIngredient)
+            }
+            val exportRecipe: ExportRecipe = ExportRecipe(it, ingredientList)
+            recipeList.add(exportRecipe)
+        }
+
+        val gson = GsonBuilder().setPrettyPrinting().create()
+        val prettyJson = gson.toJson(recipeList)
+
+
+        if (StorageUtils.isExternalStorageWritable()) {
+
+            context?.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)?.let {
+                this.context?.let { it1 ->
+                    StorageUtils.setTextInStorage(
+                        it,
+                        it1,
+
+                        cookbookRepository.getCookbook().name + "RecipeList.json",
+                        cookbookRepository.getCookbook().name,
+                        prettyJson
+                    )
+
+                }
+            }
+
+        } else {
+
+            Toast.makeText(
+                this.context, getString(R.string.external_storage_impossible_create_file),
+                Toast.LENGTH_LONG
+            ).show()
+
+        }
+    }
+
+    fun remove(
+        cookbookViewModel: CookBookViewModel,
+        cookbookId: Long,
+        recipeRepository: RecipeRepository,
+        cookbookRepository: CookbookRepository
+    ) {
+        cookbookViewModel.removeCookbook(
+            cookbookId,
+            recipeRepository,
+            cookbookRepository
+        );
+        findNavController().navigate(R.id.action_cookbookFragment_to_dashboardFragment)
+    }
 }
