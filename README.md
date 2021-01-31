@@ -5,13 +5,9 @@
 ### Projektbeschreibung:
 - Kochbuch-App für Android
 - Rezeptlisten und Rezepte hinzufügen
-- Rezepte sharen und runterladen
-- Rezeptfinder nach Zutaten
+- Rezeptfinder nach Rezeptnamen
 - Timer für Ofen/Ruhezeit etc.
-- Interaktive Rezepte
-- (Rezeptexport als PDF, JSON)
-- (Voicecontrol)
-- (Gruppen und Einladen von Freunden)
+- Rezeptimport/export als JSON
 
 ### Room-Datenbankklassen
 
