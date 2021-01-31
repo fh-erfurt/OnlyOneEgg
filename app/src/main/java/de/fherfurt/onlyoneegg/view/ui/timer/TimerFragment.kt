@@ -3,15 +3,16 @@ package de.fherfurt.onlyoneegg.view.ui.timer
 import android.app.Activity
 import android.content.Context
 import android.content.pm.ActivityInfo
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import de.fherfurt.onlyoneegg.R
 import de.fherfurt.onlyoneegg.databinding.FragmentTimerBinding
 
@@ -32,18 +33,14 @@ class TimerFragment : Fragment() {
         // Get the application
         val application = requireNotNull(this.activity).application
 
-
-
         val timerViewModel =TimerViewModel(application)
-
         binding.timerViewModel = timerViewModel
         binding.setLifecycleOwner(this)
-
 
         var START_MILLI_SECONDS = 0L
 
         lateinit var countdown_timer: CountDownTimer
-        var isRunning: Boolean = false;
+        var isRunning: Boolean = false
         var time_in_milli_seconds = 0L
 
         fun hideKeyboard(context: Context, view: View) {
@@ -52,7 +49,6 @@ class TimerFragment : Fragment() {
         }
 
         fun pauseTimer() {
-
             binding.button.text = getString(R.string.timer_start)
             countdown_timer.cancel()
             isRunning = false
@@ -75,7 +71,10 @@ class TimerFragment : Fragment() {
         fun startTimer(time_in_seconds: Long) {
             countdown_timer = object : CountDownTimer(time_in_seconds, 1000) {
                 override fun onFinish() {
-                    // TODO do something after timer finishes
+                    Toast.makeText(context, "Timer finished", Toast.LENGTH_SHORT).show()
+                    var mPlayer = MediaPlayer.create(context, R.raw.alarmclock)
+                    mPlayer.setVolume(200f,200f)
+                    mPlayer.start()
                 }
 
                 override fun onTick(p0: Long) {
@@ -88,7 +87,6 @@ class TimerFragment : Fragment() {
             isRunning = true
             binding.button.text = getString(R.string.timer_pause)
             binding.reset.visibility = View.INVISIBLE
-
         }
 
         binding.button.setOnClickListener {
