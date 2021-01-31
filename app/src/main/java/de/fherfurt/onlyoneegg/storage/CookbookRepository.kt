@@ -22,8 +22,12 @@ class CookbookRepository(private val cookbookDao: CookbookDao) {
     fun getCookbook(): Cookbook {
         return cookbookDao.getCookbook()
     }
+    fun getCookbook(cookbookId: Long): Cookbook {
+        return cookbookDao.getCookbook(cookbookId)
+    }
 
      fun delete(cookbookId:Long){
          cookbookDao.delete(cookbookDao.getCookbook(cookbookId))
      }
+
 }

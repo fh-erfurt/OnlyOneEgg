@@ -121,7 +121,7 @@ class CookBookFragment : Fragment() {
             var ids = adapter.getAllSelectedIds()
             cookbookViewModel.removeAllSelectedRecipes(ids)
         }
-        val cookbook = cookbookRepository.getCookbook()
+        val cookbook = cookbookRepository.getCookbook(cookbookId)
         binding.cookbookText.text = cookbook.name
 
 
