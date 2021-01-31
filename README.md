@@ -26,7 +26,7 @@
   - [x] Eigene Kochbücher anzeigen
   - [x] Neues Kochbuch hinzufügen
 	  - [x] Name
-    - [ ] Bild
+    - [x] Bild
 - [x] Kochbuchansicht
   - [x] Liste von Rezepten
   - [x] Rezept hinzufügen
@@ -35,7 +35,6 @@
 - [x] Rezeptansicht
   - [x] Liste von Zutaten
   - [x] Kochanleitung
-  - [ ] Ändern
   - [x] Löschen
 - [x] Rezeptfinder
   - [x] Eingabe
