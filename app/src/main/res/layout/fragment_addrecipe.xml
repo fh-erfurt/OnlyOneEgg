@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="addRecipeViewModel"
             type="de.fherfurt.onlyoneegg.view.ui.recipe.AddRecipeViewModel" />
@@ -21,61 +22,50 @@
             android:layout_height="@dimen/inputHeight"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:autofillHints="the name of the recipe"
             android:ems="10"
-            android:hint="RecipeName"
+            android:hint="@string/edit_recipe_name_text"
             android:inputType="textPersonName"
             android:textAlignment="center"
             app:layout_constraintRight_toLeftOf="@id/saveRecipeButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/saveRecipeButton"
             android:layout_width="0dp"
-            android:layout_height="@dimen/inputHeight"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/saveAddRecipe"
-            android:textSize="12sp"
+            android:backgroundTint="@color/yellow"
+            android:contentDescription="@string/save_the_recipe_button_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toRightOf="@id/editRecipeNameText"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_save_24" />
 
-        <EditText
+        <com.tobiasschuerg.prefixsuffix.PrefixSuffixEditText
             android:id="@+id/editRecipeCooktime"
             android:layout_width="0dp"
             android:layout_height="@dimen/inputHeight"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:ems="10"
-            android:hint="Cooktime in minutes"
+            android:hint="@string/edit_cooktime_in_hint"
             android:inputType="number"
-            android:textAlignment="center"
-            app:layout_constraintRight_toLeftOf="@id/minuteText"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editRecipeNameText" />
-
-        <TextView
-            android:id="@+id/minuteText"
-            android:layout_width="40dp"
-            android:layout_height="@dimen/inputHeight"
-            android:layout_marginTop="16dp"
-            android:ems="10"
-            android:text="@string/minutesText"
-            android:textAlignment="center"
-            android:textSize="18sp"
-            app:layout_constraintLeft_toRightOf="@id/editRecipeCooktime"
             app:layout_constraintRight_toLeftOf="@id/difficultySpinner"
-            app:layout_constraintTop_toBottomOf="@+id/editRecipeNameText" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editRecipeNameText"
+            app:suffix="minutes" />
 
         <Spinner
             android:id="@+id/difficultySpinner"
             android:layout_width="0dp"
-            android:layout_height="@dimen/inputHeight"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/minuteText"
+            app:layout_constraintLeft_toRightOf="@id/editRecipeCooktime"
             app:layout_constraintTop_toBottomOf="@+id/editRecipeNameText" />
 
         <EditText
@@ -85,34 +75,39 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:autofillHints="Description of your recipe"
             android:ems="10"
             android:gravity="start|top"
-            android:hint="Description of your recipe"
+            android:hint="@string/edit_description_of_your_recipe_hint"
             android:inputType="textMultiLine"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editRecipeCooktime" />
 
-        <Button
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/addIngredientButton"
-            android:layout_width="@dimen/inputHeight"
-            android:layout_height="@dimen/inputHeight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:text="@string/plus"
+            android:backgroundTint="@color/yellow"
+            android:contentDescription="@string/add_ingredient_to_list_button_description"
             app:layout_constraintRight_toLeftOf="@id/editIngredientNameText"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editRecipeDescriptionText" />
+            app:layout_constraintTop_toBottomOf="@+id/editRecipeDescriptionText"
+            app:srcCompat="@drawable/ic_action_add" />
 
         <EditText
             android:id="@+id/editIngredientNameText"
             android:layout_width="0dp"
             android:layout_height="@dimen/inputHeight"
             android:layout_marginTop="16dp"
+            android:autofillHints="name of the ingredient"
             android:ems="10"
-            android:hint="Ingredient name"
+            android:hint="@string/ingredient_name_hint"
             android:inputType="textPersonName"
             android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/addIngredientButton"
             app:layout_constraintLeft_toRightOf="@id/addIngredientButton"
             app:layout_constraintRight_toLeftOf="@id/editIngredientAmountText"
             app:layout_constraintTop_toBottomOf="@+id/editRecipeDescriptionText" />
@@ -122,10 +117,12 @@
             android:layout_width="100dp"
             android:layout_height="@dimen/inputHeight"
             android:layout_marginTop="16dp"
+            android:autofillHints="amount of the ingredient"
             android:ems="10"
-            android:hint="amount"
+            android:hint="@string/amount_text"
             android:inputType="number"
             android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/addIngredientButton"
             app:layout_constraintLeft_toRightOf="@id/editIngredientNameText"
             app:layout_constraintRight_toLeftOf="@id/measurementSpinner"
             app:layout_constraintTop_toBottomOf="@+id/editRecipeDescriptionText" />
@@ -136,6 +133,7 @@
             android:layout_height="@dimen/inputHeight"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/addIngredientButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toRightOf="@id/editIngredientAmountText"
             app:layout_constraintTop_toBottomOf="@+id/editRecipeDescriptionText" />
