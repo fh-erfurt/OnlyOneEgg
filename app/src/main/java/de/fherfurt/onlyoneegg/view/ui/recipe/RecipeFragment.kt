@@ -3,29 +3,20 @@ package de.fherfurt.onlyoneegg.view.ui.recipe
 import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import com.google.gson.JsonObject
-import com.google.gson.JsonParser
 import de.fherfurt.onlyoneegg.R
 import de.fherfurt.onlyoneegg.databinding.FragmentRecipeBinding
-import de.fherfurt.onlyoneegg.model.StorageUtils
 import de.fherfurt.onlyoneegg.storage.IngredientRepository
 import de.fherfurt.onlyoneegg.storage.OOEDatabase
-import de.fherfurt.onlyoneegg.view.ui.dashboard.setRecipeImage
-import org.json.JSONObject
+
 
 
 /*
@@ -81,9 +72,18 @@ class RecipeFragment : Fragment() {
 
 
 
-        recipeViewModel.recipe.observe(
+       recipeViewModel.recipe.observe(
             viewLifecycleOwner,
             Observer { newRecipe -> binding.recipeName.text = newRecipe.name })
+
+
+       recipeViewModel.recipe.observe(
+            viewLifecycleOwner,
+            Observer { newRecipe -> binding.difficulty!!.text = newRecipe.difficulty.toString() })
+
+        recipeViewModel.recipe.observe(
+            viewLifecycleOwner,
+            Observer { newRecipe -> binding.recipeCooktime!!.text = newRecipe.cooktime.toString() })
 
         recipeViewModel.recipe.observe(
             viewLifecycleOwner,

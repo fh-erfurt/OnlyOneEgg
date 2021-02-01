@@ -44,6 +44,17 @@ fun TextView.setRecipeName(item: Recipe) {
     text = item.name
 }
 
+@BindingAdapter("recipeCooktime")
+fun TextView.setRecipeCooktime(item: Recipe) {
+    text = item.cooktime.toString()
+}
+
+@BindingAdapter("difficulty")
+fun TextView.setRecipeDifficulty(item: Recipe) {
+    text = item.difficulty.toString()
+}
+
+
 @BindingAdapter("recipeImage")
 fun ImageView.setRecipeImage(item: Recipe) {
     setImageResource(R.drawable.chicken)

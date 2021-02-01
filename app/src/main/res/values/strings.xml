@@ -36,6 +36,8 @@
     <string name="imported">the file is imported</string>
     <string name="external_storage_impossible_create_file">  external storage impossible create file</string>
     <string name="Error"> No file was found</string>
+    <string name="difficultyTitle">  Difficulty </string>
+    <string name="Cooktime">  Cooktime </string>
 
     <string name="action_export">Export Cookbook</string>
     <string name="action_import">Import Cookbook</string>
