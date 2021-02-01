@@ -22,7 +22,6 @@
             android:layout_height="300dp"
             android:contentDescription="@string/recipeImage"
             android:scaleType="centerCrop"
-            android:src="@drawable/chicken"
             app:layout_constraintBottom_toTopOf="@+id/recipeDescription"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

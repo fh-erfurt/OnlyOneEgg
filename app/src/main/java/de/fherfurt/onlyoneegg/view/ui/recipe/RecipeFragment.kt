@@ -1,6 +1,7 @@
 package de.fherfurt.onlyoneegg.view.ui.recipe
 
 import android.content.pm.ActivityInfo
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.view.LayoutInflater
@@ -23,6 +24,7 @@ import de.fherfurt.onlyoneegg.databinding.FragmentRecipeBinding
 import de.fherfurt.onlyoneegg.model.StorageUtils
 import de.fherfurt.onlyoneegg.storage.IngredientRepository
 import de.fherfurt.onlyoneegg.storage.OOEDatabase
+import de.fherfurt.onlyoneegg.view.ui.dashboard.setRecipeImage
 import org.json.JSONObject
 
 
@@ -51,6 +53,8 @@ class RecipeFragment : Fragment() {
       val recipeDao = OOEDatabase.getInstance(application).recipeDao;
        
       val ingredientDao = OOEDatabase.getInstance(application).ingredientDao;
+
+      val cookbookDao = OOEDatabase.getInstance(application).cookbookDao
        
       val ingredientRepository = IngredientRepository(ingredientDao)
       
@@ -85,6 +89,16 @@ class RecipeFragment : Fragment() {
             viewLifecycleOwner,
             Observer { newRecipe -> binding.recipeDescription.text = newRecipe.description })
 
+
+        // to set the Recipe Image as the Cookbook Image
+        if(!recipeDao.getRecipe(recipeId)?.let { cookbookDao.getCookbook(it.cookbookId).uri.isEmpty() }!!)
+        {binding.imageView2.setImageURI(Uri.parse(recipeDao.getRecipe(recipeId)?.let {
+             cookbookDao.getCookbook(
+                 it.cookbookId).uri
+         }))  }
+        else {
+            binding.imageView2.setImageResource(R.drawable.chicken)
+        }
 
         binding.removeRecipe.setOnClickListener {
 

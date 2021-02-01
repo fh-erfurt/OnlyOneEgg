@@ -2,6 +2,7 @@ package de.fherfurt.onlyoneegg.storage
 
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
+import de.fherfurt.onlyoneegg.model.Cookbook
 import de.fherfurt.onlyoneegg.model.Recipe
 
 class RecipeRepository(private val recipeDao: RecipeDao) {
@@ -37,6 +38,11 @@ class RecipeRepository(private val recipeDao: RecipeDao) {
     suspend fun getLastId(): Long {
         return recipeDao.getLastId()
     }
+
+     fun getRecipe(recipeId: Long): Recipe? {
+        return recipeDao.getRecipe(recipeId)
+    }
+
 
     fun getAllRecipesFromCertainCookbookList(cookbookId: Long):List<Recipe>{
         return recipeDao.getAllRecipesFromCertainCookbookList(cookbookId)
