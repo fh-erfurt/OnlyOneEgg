@@ -9,101 +9,208 @@ import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
+import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import de.fherfurt.onlyoneegg.R
 import de.fherfurt.onlyoneegg.databinding.FragmentTimerBinding
+import java.util.*
 
+/*
+* A Fragment for our Timer
+* Where you can input the minutes:seconds
+* With a start, pause and stop button
+* */
 class TimerFragment : Fragment() {
+
+    enum class TimerState {
+        Stopped, Paused, Running
+    }
+
+    private lateinit var timer: CountDownTimer
+    private var timerLengthSeconds: Long = 0
+    var timerState = TimerState.Stopped
+    private var secondsRemaining: Long = 0
+
+    private var startWasAlreadyPressed: Boolean = false
+
+    private lateinit var binding: FragmentTimerBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
         // set the Fragment as only Portrait
-        getActivity()?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 
         // Get a reference to the binding object and inflate the fragment views.
-        val binding: FragmentTimerBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_timer, container, false
         )
 
         // Get the application
         val application = requireNotNull(this.activity).application
 
-        val timerViewModel =TimerViewModel(application)
+        // Setup the viewModel and binding
+        val timerViewModel = TimerViewModel(application)
         binding.timerViewModel = timerViewModel
         binding.setLifecycleOwner(this)
 
-        var START_MILLI_SECONDS = 0L
-
-        lateinit var countdown_timer: CountDownTimer
-        var isRunning: Boolean = false
-        var time_in_milli_seconds = 0L
-
+        // Helper Function for hiding the keyboard
         fun hideKeyboard(context: Context, view: View) {
             val imm = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
 
-        fun pauseTimer() {
-            binding.button.text = getString(R.string.timer_start)
-            countdown_timer.cancel()
-            isRunning = false
-            binding.reset.visibility = View.VISIBLE
-        }
-
-        fun updateTextUI() {
-            val minute = (time_in_milli_seconds / 1000) / 60
-            val seconds = (time_in_milli_seconds / 1000) % 60
-
-            binding.timer.text = "$minute:$seconds"
-        }
-
-        fun resetTimer() {
-            time_in_milli_seconds = START_MILLI_SECONDS
-            updateTextUI()
-            binding.reset.visibility = View.INVISIBLE
-        }
-
-        fun startTimer(time_in_seconds: Long) {
-            countdown_timer = object : CountDownTimer(time_in_seconds, 1000) {
-                override fun onFinish() {
-                    Toast.makeText(context, "Timer finished", Toast.LENGTH_SHORT).show()
-                    var mPlayer = MediaPlayer.create(context, R.raw.alarmclock)
-                    mPlayer.setVolume(200f,200f)
-                    mPlayer.start()
-                }
-
-                override fun onTick(p0: Long) {
-                    time_in_milli_seconds = p0
-                    updateTextUI()
-                }
+        // If the user clicks ok on the keyboard -> close it
+        binding.editTextTime.setOnEditorActionListener(OnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                hideKeyboard(requireContext(), requireView())
+                return@OnEditorActionListener true
             }
-            countdown_timer.start()
+            false
+        })
 
-            isRunning = true
-            binding.button.text = getString(R.string.timer_pause)
-            binding.reset.visibility = View.INVISIBLE
-        }
+        // The user presses the start timer button
+        binding.startButton.setOnClickListener {
+            // Check if the user has even inputted something
+            if (binding.editTextTime.text.toString().trim().isNotEmpty()) {
+                // We need to check if the edit field is visible else the timer should not reset/update
+                if (binding.editTextTime.visibility == Button.VISIBLE) {
+                    binding.timer.text = binding.editTextTime.text
 
-        binding.button.setOnClickListener {
-            if (isRunning) {
-                pauseTimer()
-            } else {
-                val time = binding.timeEditText.text.toString()
-                time_in_milli_seconds = time.toLong() * 60000L
-                startTimer(time_in_milli_seconds)
+                    // Set the time in the text field
+                    val time = binding.editTextTime.text.toString().split(":").toList()
+                    secondsRemaining = time.first().toLong() * 60
+                    if (time.size == 2) {
+                        secondsRemaining += time.last().toLong()
+                    }
+
+                    switchEditAndTextView()
+
+                    context?.let { view?.let { it1 -> hideKeyboard(it, it1) } }
+                }
+                startTimer()
+                timerState = TimerState.Running
+                updateButtons()
+                startWasAlreadyPressed = true
             }
-            hideKeyboard(this.requireContext(), it)
+            else { // If the user has not written any time in the edit field
+               Toast.makeText(context, "Please input a time", Toast.LENGTH_SHORT).show()
+            }
         }
 
-        binding.reset.setOnClickListener {
-            resetTimer()
+        // The user presses the pause button
+        binding.pauseButton.setOnClickListener {
+            startWasAlreadyPressed = false
+            timer.cancel()
+            timerState = TimerState.Paused
+            updateButtons()
+        }
+
+        // The user presses the stop button
+        binding.stopButton.setOnClickListener {
+            startWasAlreadyPressed = false
+            timer.cancel()
+            onTimerFinished()
+            switchEditAndTextView()
         }
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        initTimer()
+    }
+
+    private fun initTimer() {
+        //we don't want to change the length of the timer which is already running
+        //if the length was changed in settings while it was backgrounded
+        if (timerState == TimerState.Stopped) {
+            secondsRemaining = timerLengthSeconds
+        }
+
+        if (secondsRemaining <= 0)
+            onTimerFinished()
+        else if (timerState == TimerState.Running)
+            startTimer()
+
+        updateButtons()
+        updateCountdownUI()
+    }
+
+    private fun onTimerFinished() {
+        timerState = TimerState.Stopped
+        if (startWasAlreadyPressed) {
+            // play a alarm sound for the user
+            val mp: MediaPlayer = MediaPlayer.create(context, R.raw.alarmclock)
+            mp.start()
+        }
+        secondsRemaining = timerLengthSeconds
+
+        updateButtons()
+        updateCountdownUI()
+    }
+
+    private fun startTimer() {
+        timerState = TimerState.Running
+
+        //  setup our timer with needed function overrides
+        timer = object : CountDownTimer(secondsRemaining * 1000, 1000) {
+            override fun onFinish() = onTimerFinished()
+
+            override fun onTick(millisUntilFinished: Long) {
+                secondsRemaining = millisUntilFinished / 1000
+                updateCountdownUI()
+            }
+        }.start()
+    }
+
+    private fun updateCountdownUI() {
+        val minutesUntilFinished = secondsRemaining / 60
+        val secondsInMinuteUntilFinished = secondsRemaining - minutesUntilFinished * 60
+        val secondsStr = secondsInMinuteUntilFinished.toString()
+        binding.timer.text =
+            "$minutesUntilFinished:${if (secondsStr.length == 2) secondsStr else "0" + secondsStr}"
+    }
+
+    // Switch the visibility of the edit field and the text view
+    private fun switchEditAndTextView() {
+        if (binding.editTextTime.visibility == Button.INVISIBLE) {
+            binding.editTextTime.visibility = Button.VISIBLE
+        } else {
+            binding.editTextTime.visibility = Button.INVISIBLE
+        }
+        if (binding.timer.visibility == Button.INVISIBLE) {
+            binding.timer.visibility = Button.VISIBLE
+        } else {
+            binding.timer.visibility = Button.INVISIBLE
+        }
+    }
+
+    private fun updateButtons() {
+        when (timerState) {
+            TimerState.Running -> {
+                binding.startButton.isEnabled = false
+                binding.pauseButton.isEnabled = true
+                binding.stopButton.isEnabled = true
+            }
+            TimerState.Stopped -> {
+                binding.startButton.isEnabled = true
+                binding.pauseButton.isEnabled = false
+                binding.stopButton.isEnabled = false
+            }
+            TimerState.Paused -> {
+                binding.startButton.isEnabled = true
+                binding.pauseButton.isEnabled = false
+                binding.stopButton.isEnabled = true
+            }
+        }
     }
 }
