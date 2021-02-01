@@ -13,6 +13,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.TextView.OnEditorActionListener
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import de.fherfurt.onlyoneegg.R
@@ -98,6 +99,9 @@ class TimerFragment : Fragment() {
                 timerState = TimerState.Running
                 updateButtons()
                 startWasAlreadyPressed = true
+            }
+            else { // If the user has not written any time in the edit field
+               Toast.makeText(context, "Please input a time", Toast.LENGTH_SHORT).show()
             }
         }
 
