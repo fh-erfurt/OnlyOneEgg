@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,7 +23,11 @@ import de.fherfurt.onlyoneegg.model.Recipe
 import de.fherfurt.onlyoneegg.view.ui.recipe.AddRecipeAdapter
 import de.fherfurt.onlyoneegg.view.ui.recipe.AddRecipeViewModel
 
-
+/*
+* Fragment for adding a new Recipe to the clicked cookbook
+* Letting the user input all the information needed
+* including all the ingredients
+* */
 class AddRecipeFragment : Fragment() {
 
     override fun onCreateView(
@@ -47,9 +50,7 @@ class AddRecipeFragment : Fragment() {
         val application = requireNotNull(this.activity).application
 
         // Setup ViewModel
-
-        val addRecipeViewModel =AddRecipeViewModel(application)
-
+        val addRecipeViewModel = AddRecipeViewModel(application)
         binding.addRecipeViewModel = addRecipeViewModel
         binding.setLifecycleOwner(this)
 
@@ -65,15 +66,21 @@ class AddRecipeFragment : Fragment() {
             val ingredient = Ingredient(id = 0)
 
             when {
+                // No name was given
                 binding.editIngredientNameText.text.toString().trim().isEmpty() -> {
                     Toast.makeText(it.context, "Please input a ingredient name", Toast.LENGTH_SHORT)
                         .show()
                 }
+                // No amount was given
                 binding.editIngredientAmountText.text.toString().trim().isEmpty() -> {
-                    Toast.makeText(it.context, "Please input a ingredient amount", Toast.LENGTH_SHORT)
+                    Toast.makeText(
+                        it.context,
+                        "Please input a ingredient amount",
+                        Toast.LENGTH_SHORT
+                    )
                         .show()
                 }
-                else -> {
+                else -> { // user has written everything -> save the ingredient and empty the fields for the next input
                     ingredient.name = binding.editIngredientNameText.text.toString()
                     binding.editIngredientNameText.text.clear()
 
@@ -84,6 +91,7 @@ class AddRecipeFragment : Fragment() {
                         Measurement.valueOf(binding.measurementSpinner.selectedItem.toString())
 
                     ingredients.add(ingredient)
+                    // update the recycler view of ingredients
                     adapter.notifyDataSetChanged()
                 }
             }
@@ -115,23 +123,35 @@ class AddRecipeFragment : Fragment() {
             recipe.cookbookId = cookbookId
 
             when {
+                // No name was given
                 binding.editRecipeNameText.text.toString().trim().isEmpty() -> {
                     Toast.makeText(it.context, "Please input a recipe name", Toast.LENGTH_SHORT)
                         .show()
                 }
+                // No cooktime was given
                 binding.editRecipeCooktime.text.toString().trim().isEmpty() -> {
                     Toast.makeText(it.context, "Please input a recipe cooktime", Toast.LENGTH_SHORT)
                         .show()
                 }
+                // No description was given
                 binding.editRecipeDescriptionText.text.toString().trim().isEmpty() -> {
-                    Toast.makeText(it.context, "Please input a recipe description", Toast.LENGTH_SHORT)
+                    Toast.makeText(
+                        it.context,
+                        "Please input a recipe description",
+                        Toast.LENGTH_SHORT
+                    )
                         .show()
                 }
+                // No ingredient was added
                 ingredients.isEmpty() -> {
-                    Toast.makeText(it.context, "Please add atleast one ingredient", Toast.LENGTH_SHORT)
+                    Toast.makeText(
+                        it.context,
+                        "Please add at least one ingredient",
+                        Toast.LENGTH_SHORT
+                    )
                         .show()
                 }
-                else -> {
+                else -> { // user has written everything -> save the whole recipe and redirect to the cookbook
                     recipe.name = binding.editRecipeNameText.text.toString()
                     recipe.cooktime = binding.editRecipeCooktime.text.toString().toFloat()
                     recipe.description = binding.editRecipeDescriptionText.text.toString()
@@ -151,16 +171,23 @@ class AddRecipeFragment : Fragment() {
 
                     hideKeyboard(this.requireContext(), it)
                     // show a popup that the insertion worked
-                    Toast.makeText(application.applicationContext, "Added Recipe", Toast.LENGTH_SHORT)
+                    Toast.makeText(
+                        application.applicationContext,
+                        "Added Recipe",
+                        Toast.LENGTH_SHORT
+                    )
                         .show()
                     // navigate back to the cookbook
                     val action =
-                        AddRecipeFragmentDirections.actionAddRecipeFragmentToCookbookFragment(cookbookId)
+                        AddRecipeFragmentDirections.actionAddRecipeFragmentToCookbookFragment(
+                            cookbookId
+                        )
                     Navigation.findNavController(binding.root).navigate(action)
                 }
             }
         }
 
+        // Set the Layout for the recyclerView
         val manager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         binding.ingredientList.layoutManager = manager
 
