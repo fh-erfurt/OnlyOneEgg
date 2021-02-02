@@ -5,7 +5,10 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-
+/*
+* Entity class Cookbook stores all information to the cookbook object
+*
+* */
 @Entity(tableName = "cookbook_table")
 data class Cookbook(
 

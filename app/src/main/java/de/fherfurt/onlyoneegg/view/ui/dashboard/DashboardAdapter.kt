@@ -37,10 +37,7 @@ class DashboardAdapter : ListAdapter<Cookbook, DashboardAdapter.ViewHolder>(Cook
     }
     override fun getItemId(position: Int): Long = position.toLong()
 
-    /*override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.bind(item)
-    }*/
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
         tracker?.let {
@@ -59,10 +56,7 @@ class DashboardAdapter : ListAdapter<Cookbook, DashboardAdapter.ViewHolder>(Cook
             itemView.isActivated = isActivated
             binding.executePendingBindings()
         }
-       /*fun bind(item: Cookbook) {
-           binding.cookbook = item
-           binding.executePendingBindings()
-       }*/
+
         // set click listener to each cookbook
         // item as navigation component to list of recipes
         init{

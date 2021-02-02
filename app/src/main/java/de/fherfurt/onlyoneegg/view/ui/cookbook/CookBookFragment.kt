@@ -55,6 +55,8 @@ class CookBookFragment : Fragment() {
             inflater, R.layout.fragment_cookbook, container, false
         )
 
+        //instantiate all classes needed
+
         val application = requireNotNull(this.activity).application
         val ingredientDao = OOEDatabase.getInstance(application).ingredientDao
         val recipeDao = OOEDatabase.getInstance(application).recipeDao

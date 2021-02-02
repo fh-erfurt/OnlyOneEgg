@@ -8,7 +8,9 @@ import de.fherfurt.onlyoneegg.R
 import de.fherfurt.onlyoneegg.model.Cookbook
 import de.fherfurt.onlyoneegg.model.Ingredient
 import de.fherfurt.onlyoneegg.model.Recipe
-
+/*
+* this file holds mapping of binding adapter to the values
+* */
 
 @BindingAdapter("cookbookImage")
 fun ImageView.setCookbookImage(item: Cookbook) {

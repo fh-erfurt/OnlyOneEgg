@@ -4,7 +4,10 @@ import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import de.fherfurt.onlyoneegg.model.Cookbook
 
-
+/*
+* Uses CookbookDao and manages the access to it
+*
+* */
 class CookbookRepository(private val cookbookDao: CookbookDao) {
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
