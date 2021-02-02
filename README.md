@@ -3,11 +3,20 @@
 ### Mitglieder: Bilal Alnaani, Olga Klassen, Franziska Schmidt, Tom Käppler
 
 ### Projektbeschreibung:
-- Kochbuch-App für Android
-- Rezeptlisten und Rezepte hinzufügen
-- Rezeptfinder nach Rezeptnamen
-- Timer für Ofen/Ruhezeit etc.
-- Rezeptimport/export als JSON
+Mit der App "OnlyoneEgg" kannst du deine vergilbten und befleckten Kochbücher vergessen. Erstelle dir einfach ein eigenes Kochbuch, lege Rezepte an und verwalte sie.
+Füge zu jedem Kochbuch ein eigenes Foto aus deiner Gallerie des Smartphones hinzu und speichere deine Lieblingsrezepte darunter ab. 
+Ein Kochbuch kann dabei mehrere oder auch kein Rezept enthalten.
+
+Um nicht alle deine Kochbücher nach einem bestimmten Rezept einzeln durchsuchen zu müssen, kannst du einfach den praktischen Rezeptfinder nutzen. 
+Er durchsucht selbstständig alle Kochbücher und zeigt dir die Ergebnisse an.
+
+Solltest du gerade keine Eieruhr zur Hand haben, hilft dir der integrierte Timer weiter. Stell die gewünschte Zeit ein und warte auf den Signalton. So kann garantiert nichts mehr anbrennen.
+
+Möchtest du deine Rezepte mit Freunden teilen, ist auch das kein Problem. Die App ermöglicht es dir deine Rezepte in eine JSON-Datei zu exportieren. 
+Deine Freunde brauchen diese nur noch zu importieren und können alles nachkochen.
+
+Wir wünschen dir viel Spaß!
+
 
 ### Room-Datenbankklassen
 
@@ -40,7 +49,7 @@
 ### Lessons Learned:
 
 - Android/Kotlin Fundamentals Kurs war sehr hilfreich
-- Wöchentliche Meetings durch Online-Tools. Austausch über Fortschritt und anstehende Aufgaben 
+- Wöchentliche Meetings durch Online-Tools. Austausch über Fortschritt, beendete und anstehende Aufgaben 
 - Allgemein Fragen stellen und bei Schwierigkeiten aktiv Hilfe suchen: Lieber einmal mehr Fragen als einmal zu wenig.
 - Arbeitstrennung nach Seiten/Packages/Fragmenten sehr angenehm (Jeder macht Frontend + Backend, Absprachen untereinander)
-- Bilals Essensgewohnheiten in Bild und Ton
+- öfter mal den Elefanten drücken (sync gradle)
