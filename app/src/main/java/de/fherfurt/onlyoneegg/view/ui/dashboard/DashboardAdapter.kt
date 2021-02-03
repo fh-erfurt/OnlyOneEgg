@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.fherfurt.onlyoneegg.databinding.ItemCookbookBinding
 import de.fherfurt.onlyoneegg.model.Cookbook
-import de.fherfurt.onlyoneegg.view.ui.cookbook.CookBookFragmentDirections
 /*
 * Dashboard Recycle View implementation class
 * is used to list all cookbooks of the application
@@ -37,10 +36,7 @@ class DashboardAdapter : ListAdapter<Cookbook, DashboardAdapter.ViewHolder>(Cook
     }
     override fun getItemId(position: Int): Long = position.toLong()
 
-    /*override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.bind(item)
-    }*/
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
         tracker?.let {
@@ -59,10 +55,7 @@ class DashboardAdapter : ListAdapter<Cookbook, DashboardAdapter.ViewHolder>(Cook
             itemView.isActivated = isActivated
             binding.executePendingBindings()
         }
-       /*fun bind(item: Cookbook) {
-           binding.cookbook = item
-           binding.executePendingBindings()
-       }*/
+
         // set click listener to each cookbook
         // item as navigation component to list of recipes
         init{

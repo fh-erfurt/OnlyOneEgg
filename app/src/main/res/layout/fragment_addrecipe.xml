@@ -7,7 +7,7 @@
 
         <variable
             name="addRecipeViewModel"
-            type="de.fherfurt.onlyoneegg.view.ui.recipe.AddRecipeViewModel" />
+            type="de.fherfurt.onlyoneegg.view.ui.inputRecipe.InputRecipeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

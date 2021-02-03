@@ -13,9 +13,11 @@ import de.fherfurt.onlyoneegg.databinding.ItemRecipeBinding
 import de.fherfurt.onlyoneegg.model.Recipe
 
 /*
-* CookBookAdapter class
+* Cookbook Recycle View implementation class
+* is used to list all recipes of the application
+*
 * */
-class CookBookAdapter : ListAdapter<Recipe, CookBookAdapter.ViewHolder>(RecipeDiffCallback()) {
+class CookbookAdapter : ListAdapter<Recipe, CookbookAdapter.ViewHolder>(RecipeDiffCallback()) {
 
     var tracker: SelectionTracker<Long>? = null
     var positionsSelected: MutableList<Int> = mutableListOf()
@@ -63,7 +65,7 @@ class CookBookAdapter : ListAdapter<Recipe, CookBookAdapter.ViewHolder>(RecipeDi
                 val position: Long? = binding.recipe?.id
                 if (position != null) {
                     val action =
-                        CookBookFragmentDirections.actionCookbookFragmentToRecipeFragment(position)
+                        CookbookFragmentDirections.actionCookbookFragmentToRecipeFragment(position)
                     findNavController(binding.root).navigate(action)
                 }
                 //Toast.makeText(itemView.context,"you clicked # ${position }",Toast.LENGTH_LONG).show()

@@ -44,7 +44,7 @@
     <string name="action_remove_cookbook">Remove Cookbook</string>
     <string name="edit_recipe_name_text">Recipe name</string>
     <string name="save_the_recipe_button_text">save the recipe</string>
-    <string name="edit_cooktime_in_hint">Cooktime in</string>
+    <string name="edit_cooktime_in_hint">Cooktime in </string>
     <string name="edit_description_of_your_recipe_hint">Description of your recipe</string>
     <string name="add_ingredient_to_list_button_description">add ingredient to list</string>
     <string name="ingredient_name_hint">Ingredient name</string>

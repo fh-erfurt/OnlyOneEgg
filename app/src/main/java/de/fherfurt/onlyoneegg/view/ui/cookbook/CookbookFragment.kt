@@ -2,10 +2,11 @@ package de.fherfurt.onlyoneegg.view.ui.cookbook
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.os.Debug
 import android.os.Environment
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -23,7 +24,11 @@ import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import de.fherfurt.onlyoneegg.R
 import de.fherfurt.onlyoneegg.databinding.FragmentCookbookBinding
-import de.fherfurt.onlyoneegg.model.*
+import de.fherfurt.onlyoneegg.export.ExportIngredient
+import de.fherfurt.onlyoneegg.export.ExportRecipe
+import de.fherfurt.onlyoneegg.model.Ingredient
+import de.fherfurt.onlyoneegg.model.Recipe
+import de.fherfurt.onlyoneegg.model.StorageUtils
 import de.fherfurt.onlyoneegg.storage.CookbookRepository
 import de.fherfurt.onlyoneegg.storage.IngredientRepository
 import de.fherfurt.onlyoneegg.storage.OOEDatabase
@@ -34,7 +39,7 @@ import de.fherfurt.onlyoneegg.storage.RecipeRepository
 * is used to list all recipes of the certain cookbook
 *
 * */
-class CookBookFragment : Fragment() {
+class CookbookFragment : Fragment() {
 
     private var tracker: SelectionTracker<Long>? = null
 
@@ -46,7 +51,7 @@ class CookBookFragment : Fragment() {
         getActivity()?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         //initialize a cookbookId from nav args
-        val args: CookBookFragmentArgs by navArgs()
+        val args: CookbookFragmentArgs by navArgs()
         val cookbookId = args.cookbookId
 
 
@@ -54,6 +59,8 @@ class CookBookFragment : Fragment() {
         val binding: FragmentCookbookBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_cookbook, container, false
         )
+
+        //instantiate all classes needed
 
         val application = requireNotNull(this.activity).application
         val ingredientDao = OOEDatabase.getInstance(application).ingredientDao
@@ -66,18 +73,18 @@ class CookBookFragment : Fragment() {
 
 
         val cookbookViewModel =
-            CookBookViewModel(application, recipeRepository, cookbookRepository, cookbookId)
+            CookbookViewModel(application, recipeRepository, cookbookRepository, cookbookId)
 
         // click listener to navigate to the addRecipeFragment with cookbookId as argument
         binding.addRecipe.setOnClickListener {
 
             val action =
-                CookBookFragmentDirections.actionCookbookFragmentToAddRecipeFragment2(cookbookId)
+                CookbookFragmentDirections.actionCookbookFragmentToAddRecipeFragment2(cookbookId)
             Navigation.findNavController(binding.root).navigate(action)
 
         }
 
-        val adapter = CookBookAdapter()
+        val adapter = CookbookAdapter()
         binding.recipeList.adapter = adapter
 
 
@@ -146,7 +153,7 @@ class CookBookFragment : Fragment() {
 
     }
 
-    private fun setupTracker(adapter: CookBookAdapter, binding: FragmentCookbookBinding) {
+    private fun setupTracker(adapter: CookbookAdapter, binding: FragmentCookbookBinding) {
         tracker = SelectionTracker.Builder<Long>(
             "mySelection",
             binding.recipeList,
@@ -161,7 +168,7 @@ class CookBookFragment : Fragment() {
         adapter.tracker = tracker
     }
 
-    private fun addCallbacksToTracker(adapter: CookBookAdapter, binding: FragmentCookbookBinding) {
+    private fun addCallbacksToTracker(adapter: CookbookAdapter, binding: FragmentCookbookBinding) {
         tracker?.addObserver(
             object : SelectionTracker.SelectionObserver<Long>() {
                 override fun onSelectionChanged() {
@@ -278,7 +285,7 @@ class CookBookFragment : Fragment() {
 
 
     fun export(
-        cookbookViewModel: CookBookViewModel, cookbookId: Long,
+        cookbookViewModel: CookbookViewModel, cookbookId: Long,
         cookbookRepository: CookbookRepository,
         ingredientRepository: IngredientRepository
     ) {
@@ -329,7 +336,7 @@ class CookBookFragment : Fragment() {
     }
 
     fun remove(
-        cookbookViewModel: CookBookViewModel,
+        cookbookViewModel: CookbookViewModel,
         cookbookId: Long,
         recipeRepository: RecipeRepository,
         cookbookRepository: CookbookRepository

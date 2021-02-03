@@ -3,13 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="searchRecipeViewModel"
-            type="de.fherfurt.onlyoneegg.view.ui.searchRecipe.SearchRecipeViewModel" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -31,7 +24,9 @@
             android:id="@+id/buttonSearch"
             android:layout_width="158dp"
             android:layout_height="43dp"
+            android:backgroundTint="@color/yellow"
             android:text="@string/searchButton"
+            android:textColor="#000000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

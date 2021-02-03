@@ -27,10 +27,12 @@ import java.util.*
 * */
 class TimerFragment : Fragment() {
 
+    // Enum used for saving the state of the timer
     enum class TimerState {
         Stopped, Paused, Running
     }
 
+    // Define variables that are needed in the whole fragment
     private lateinit var timer: CountDownTimer
     private var timerLengthSeconds: Long = 0
     var timerState = TimerState.Stopped

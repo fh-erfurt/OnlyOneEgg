@@ -18,7 +18,6 @@ import de.fherfurt.onlyoneegg.storage.IngredientRepository
 import de.fherfurt.onlyoneegg.storage.OOEDatabase
 
 
-
 /*
 * Recipe Fragment shows the recipe view with its ingredients
 * */
@@ -30,27 +29,26 @@ class RecipeFragment : Fragment() {
     ): View? {
 
         //initialize a recipeId from nav args
-        val args : RecipeFragmentArgs by navArgs()
+        val args: RecipeFragmentArgs by navArgs()
         val recipeId = args.recipeId
 
         getActivity()?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 
         // Get a reference to the binding object and inflate the fragment views.
-        val binding : FragmentRecipeBinding = DataBindingUtil.inflate(
+        val binding: FragmentRecipeBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_recipe, container, false
         )
-      val application = requireNotNull(this.activity).application
-      
-      val recipeDao = OOEDatabase.getInstance(application).recipeDao;
-       
-      val ingredientDao = OOEDatabase.getInstance(application).ingredientDao;
+        val application = requireNotNull(this.activity).application
 
-      val cookbookDao = OOEDatabase.getInstance(application).cookbookDao
-       
-      val ingredientRepository = IngredientRepository(ingredientDao)
-      
-      val recipeViewModel =RecipeViewModel(application, ingredientRepository, recipeId )
+        val recipeDao = OOEDatabase.getInstance(application).recipeDao;
 
+        val ingredientDao = OOEDatabase.getInstance(application).ingredientDao;
+
+        val cookbookDao = OOEDatabase.getInstance(application).cookbookDao
+
+        val ingredientRepository = IngredientRepository(ingredientDao)
+
+        val recipeViewModel = RecipeViewModel(application, ingredientRepository, recipeId)
 
         binding.lifecycleOwner = this
 
@@ -58,8 +56,6 @@ class RecipeFragment : Fragment() {
 
         val adapter = RecipeAdapter()
         binding.ingredientList.adapter = adapter
-
-
 
         recipeViewModel.ingredients.observe(viewLifecycleOwner, {
             it?.let {
@@ -70,14 +66,12 @@ class RecipeFragment : Fragment() {
         val manager = GridLayoutManager(activity, 1, GridLayoutManager.VERTICAL, false)
         binding.ingredientList.layoutManager = manager
 
-
-
-       recipeViewModel.recipe.observe(
+        recipeViewModel.recipe.observe(
             viewLifecycleOwner,
             Observer { newRecipe -> binding.recipeName.text = newRecipe.name })
 
 
-       recipeViewModel.recipe.observe(
+        recipeViewModel.recipe.observe(
             viewLifecycleOwner,
             Observer { newRecipe -> binding.difficulty!!.text = newRecipe.difficulty.toString() })
 
@@ -91,12 +85,15 @@ class RecipeFragment : Fragment() {
 
 
         // to set the Recipe Image as the Cookbook Image
-        if(!recipeDao.getRecipe(recipeId)?.let { cookbookDao.getCookbook(it.cookbookId).uri.isEmpty() }!!)
-        {binding.imageView2.setImageURI(Uri.parse(recipeDao.getRecipe(recipeId)?.let {
-             cookbookDao.getCookbook(
-                 it.cookbookId).uri
-         }))  }
-        else {
+        if (!recipeDao.getRecipe(recipeId)
+                ?.let { cookbookDao.getCookbook(it.cookbookId).uri.isEmpty() }!!
+        ) {
+            binding.imageView2.setImageURI(Uri.parse(recipeDao.getRecipe(recipeId)?.let {
+                cookbookDao.getCookbook(
+                    it.cookbookId
+                ).uri
+            }))
+        } else {
             binding.imageView2.setImageResource(R.drawable.chicken)
         }
 
@@ -113,10 +110,6 @@ class RecipeFragment : Fragment() {
             }
         }
 
-
-            return binding.root
-
-
+        return binding.root
     }
-
 }

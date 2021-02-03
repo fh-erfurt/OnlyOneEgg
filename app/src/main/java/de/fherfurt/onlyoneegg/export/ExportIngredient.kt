@@ -1,4 +1,7 @@
-package de.fherfurt.onlyoneegg.model
+package de.fherfurt.onlyoneegg.export
+
+import de.fherfurt.onlyoneegg.model.Ingredient
+import de.fherfurt.onlyoneegg.model.Measurement
 
 
 // Data class to minimize the Ingredient class

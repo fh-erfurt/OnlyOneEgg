@@ -1,4 +1,4 @@
-package de.fherfurt.onlyoneegg.view.ui.recipe
+package de.fherfurt.onlyoneegg.view.ui.inputRecipe
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -10,7 +10,10 @@ import de.fherfurt.onlyoneegg.storage.OOEDatabase
 import de.fherfurt.onlyoneegg.storage.RecipeRepository
 import kotlinx.coroutines.launch
 
-class AddRecipeViewModel(application: Application) : AndroidViewModel(application) {
+/*
+* AddRecipeViewModel class uses the recipe/ingredient repository
+* */
+class InputRecipeViewModel(application: Application) : AndroidViewModel(application) {
     val recipeDao = OOEDatabase.getInstance(application).recipeDao;
     val recipeRepository = RecipeRepository(recipeDao)
 
