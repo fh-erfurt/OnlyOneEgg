@@ -52,6 +52,7 @@ xmlns:tools="http://schemas.android.com/tools">
             android:text="@string/title_dashboard"
             android:textColor="@color/black"
             android:textSize="30sp"
+            android:fontFamily="sans-serif-medium"
             app:layout_constraintBottom_toTopOf="@+id/cookbook_list"
             app:layout_constraintEnd_toEndOf="@+id/cookbook_list"
             app:layout_constraintStart_toStartOf="@+id/cookbook_list"

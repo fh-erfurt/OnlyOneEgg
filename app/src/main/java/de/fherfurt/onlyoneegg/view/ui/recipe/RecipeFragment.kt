@@ -68,16 +68,16 @@ class RecipeFragment : Fragment() {
 
         recipeViewModel.recipe.observe(
             viewLifecycleOwner,
-            Observer { newRecipe -> binding.recipeName!!.text = newRecipe.name })
+            Observer { newRecipe -> binding.recipeName.text = newRecipe.name })
 
 
         recipeViewModel.recipe.observe(
             viewLifecycleOwner,
-            Observer { newRecipe -> binding.difficulty!!.text = newRecipe.difficulty.toString() })
+            Observer { newRecipe -> binding.difficulty.text = newRecipe.difficulty.toString() })
 
         recipeViewModel.recipe.observe(
             viewLifecycleOwner,
-            Observer { newRecipe -> binding.recipeCooktime!!.text = newRecipe.cooktime.toString() })
+            Observer { newRecipe -> binding.recipeCooktime.text = newRecipe.cooktime.toString() })
 
         recipeViewModel.recipe.observe(
             viewLifecycleOwner,
