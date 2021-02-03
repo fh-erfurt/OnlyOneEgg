@@ -35,9 +35,10 @@ Wir wünschen dir viel Spaß!
 - [x] Kochbuchansicht
   - [x] Liste von Rezepten
   - [x] Rezept hinzufügen
-  	- [x] Name, Bild(er), Zutaten, Anleitung, Schwierigkeit, Dauer
+  	- [x] Name, Zutaten, Anleitung, Schwierigkeit, Dauer
   - [x] Rezept löschen
 - [x] Rezeptansicht
+  - [x] Kochbuchbild
   - [x] Liste von Zutaten
   - [x] Kochanleitung
   - [x] Löschen
