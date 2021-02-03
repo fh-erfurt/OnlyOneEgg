@@ -31,7 +31,9 @@
             android:id="@+id/buttonSearch"
             android:layout_width="158dp"
             android:layout_height="43dp"
+            android:backgroundTint="@color/yellow"
             android:text="@string/searchButton"
+            android:textColor="#000000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
