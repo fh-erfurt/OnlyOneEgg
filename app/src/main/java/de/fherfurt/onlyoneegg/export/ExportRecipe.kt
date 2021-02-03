@@ -1,4 +1,7 @@
-package de.fherfurt.onlyoneegg.model
+package de.fherfurt.onlyoneegg.export
+
+import de.fherfurt.onlyoneegg.model.Difficulty
+import de.fherfurt.onlyoneegg.model.Recipe
 
 
 //Data class to combine the important attributes from Recipes and Ingredients for Exporting a file
@@ -17,7 +20,7 @@ data class  ExportRecipe(
 )
 {
 
-    constructor(recipe:Recipe, ingredient: ArrayList<ExportIngredient>)
+    constructor(recipe: Recipe, ingredient: ArrayList<ExportIngredient>)
             : this(recipe.name, recipe.description, recipe.cooktime, recipe.difficulty, ingredient) {
 
     }
