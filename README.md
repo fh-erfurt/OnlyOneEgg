@@ -1,4 +1,4 @@
-# <img src="egg.svg" alt="egg" width="50"/> OnlyOneEgg <img src="egg.svg" alt="egg" width="50"/>
+# <img src="docs/egg.svg" alt="egg" width="50"/> OnlyOneEgg <img src="docs/egg.svg" alt="egg" width="50"/>
 
 ### Mitglieder: Bilal Alnaani, Olga Klassen, Franziska Schmidt, Tom Käppler
 
@@ -20,11 +20,11 @@ Wir wünschen dir viel Spaß!
 
 ### Room-Datenbankklassen
 
-![DatabaseSchema](PMEDatabaseSchema.png)
+![DatabaseSchema](docs/PMEDatabaseSchema.png)
 
 ### Projektstruktur
 
-![DatabaseSchema](Structure.png)
+![DatabaseSchema](docs/Structure.png)
 
 ### Seiten:
 - [x] Startseite/Dashboard
