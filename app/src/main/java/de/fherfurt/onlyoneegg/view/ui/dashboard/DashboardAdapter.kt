@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.fherfurt.onlyoneegg.databinding.ItemCookbookBinding
 import de.fherfurt.onlyoneegg.model.Cookbook
-import de.fherfurt.onlyoneegg.view.ui.cookbook.CookBookFragmentDirections
 /*
 * Dashboard Recycle View implementation class
 * is used to list all cookbooks of the application

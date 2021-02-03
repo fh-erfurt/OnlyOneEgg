@@ -40,7 +40,7 @@
 
     <fragment
         android:id="@+id/cookbookFragment"
-        android:name="de.fherfurt.onlyoneegg.view.ui.cookbook.CookBookFragment"
+        android:name="de.fherfurt.onlyoneegg.view.ui.cookbook.CookbookFragment"
         android:label="CookBook"
         tools:layout="@layout/fragment_cookbook">
         <action
