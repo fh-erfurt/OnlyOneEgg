@@ -59,5 +59,5 @@ fun TextView.setRecipeDifficulty(item: Recipe) {
 
 @BindingAdapter("recipeImage")
 fun ImageView.setRecipeImage(item: Recipe) {
-    setImageResource(R.drawable.chicken)
+    setImageResource(R.drawable.egg_yellow)
 }
