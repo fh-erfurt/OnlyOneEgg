@@ -9,6 +9,9 @@ import de.fherfurt.onlyoneegg.storage.CookbookRepository
 import de.fherfurt.onlyoneegg.storage.OOEDatabase
 import kotlinx.coroutines.launch
 
+/*
+* DashboardViewModel uses cookbookRepository to insert new cookbooks
+* */
 class InputCookbookViewModel(application: Application, cookbookRepository: CookbookRepository): AndroidViewModel(application) {
 
     val cookbookRepository=cookbookRepository
