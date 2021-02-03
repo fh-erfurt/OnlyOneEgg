@@ -32,7 +32,10 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
 import java.util.*
-
+/*
+*
+* class used to insert new cookbook
+* */
 class InputCookbookFragment : Fragment() {
 
     lateinit var cookbookNameEdit: EditText
