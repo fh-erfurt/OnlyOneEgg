@@ -1,3 +1,5 @@
+package de.fherfurt.onlyoneegg.view.ui.inputRecipe
+
 import android.app.Activity
 import android.content.Context
 import android.content.pm.ActivityInfo
@@ -20,15 +22,13 @@ import de.fherfurt.onlyoneegg.model.Difficulty
 import de.fherfurt.onlyoneegg.model.Ingredient
 import de.fherfurt.onlyoneegg.model.Measurement
 import de.fherfurt.onlyoneegg.model.Recipe
-import de.fherfurt.onlyoneegg.view.ui.recipe.AddRecipeAdapter
-import de.fherfurt.onlyoneegg.view.ui.recipe.AddRecipeViewModel
 
 /*
 * Fragment for adding a new Recipe to the clicked cookbook
 * Letting the user input all the information needed
 * including all the ingredients
 * */
-class AddRecipeFragment : Fragment() {
+class InputRecipeFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +39,7 @@ class AddRecipeFragment : Fragment() {
         getActivity()?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         //initialize a cookbookId from nav args
-        val args: AddRecipeFragmentArgs by navArgs()
+        val args: InputRecipeFragmentArgs by navArgs()
         val cookbookId = args.cookbookId
 
         // Get a reference to the binding object and inflate the fragment views.
@@ -50,13 +50,13 @@ class AddRecipeFragment : Fragment() {
         val application = requireNotNull(this.activity).application
 
         // Setup ViewModel
-        val addRecipeViewModel = AddRecipeViewModel(application)
+        val addRecipeViewModel = InputRecipeViewModel(application)
         binding.addRecipeViewModel = addRecipeViewModel
         binding.setLifecycleOwner(this)
 
         // Setup the recycler View for further usage
         val ingredients = ArrayList<Ingredient>()
-        val adapter = AddRecipeAdapter(ingredients)
+        val adapter = InputRecipeAdapter(ingredients)
         binding.ingredientList.adapter = adapter
         binding.ingredientList.layoutManager =
             LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
@@ -179,7 +179,7 @@ class AddRecipeFragment : Fragment() {
                         .show()
                     // navigate back to the cookbook
                     val action =
-                        AddRecipeFragmentDirections.actionAddRecipeFragmentToCookbookFragment(
+                        InputRecipeFragmentDirections.actionAddRecipeFragmentToCookbookFragment(
                             cookbookId
                         )
                     Navigation.findNavController(binding.root).navigate(action)

@@ -1,4 +1,4 @@
-package de.fherfurt.onlyoneegg.view.ui.recipe
+package de.fherfurt.onlyoneegg.view.ui.inputRecipe
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,13 +6,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.fherfurt.onlyoneegg.databinding.ItemIngredientBinding
 import de.fherfurt.onlyoneegg.model.Ingredient
+import de.fherfurt.onlyoneegg.view.ui.recipe.IngredientDiffCallback
 
 /*
 * AddRecipe ingredient-recyclerView implementation
 * is used to list all added ingredients while adding a new recipe
 * */
-class AddRecipeAdapter(val ingredientList: ArrayList<Ingredient>) :
-    ListAdapter<Ingredient, AddRecipeAdapter.ViewHolder>(IngredientDiffCallback()) {
+class InputRecipeAdapter(val ingredientList: ArrayList<Ingredient>) :
+    ListAdapter<Ingredient, InputRecipeAdapter.ViewHolder>(IngredientDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = ingredientList[position]

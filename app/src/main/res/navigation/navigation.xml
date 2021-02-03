@@ -68,7 +68,7 @@
 
     <fragment
         android:id="@+id/addRecipeFragment"
-        android:name="AddRecipeFragment"
+        android:name="de.fherfurt.onlyoneegg.view.ui.inputRecipe.InputRecipeFragment"
         android:label="AddRecipeFragment"
         tools:layout="@layout/fragment_addrecipe">
         <action
