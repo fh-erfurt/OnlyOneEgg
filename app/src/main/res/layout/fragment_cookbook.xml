@@ -13,19 +13,21 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="50dp"
-       >
+        android:paddingTop="50dp">
+
         <ImageView
             android:id="@+id/btnPopUpMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:paddingBottom="10dp"
-            android:backgroundTint="@color/black"
             android:src="@drawable/ic_baseline_more_vert_24"
+            app:layout_constraintBottom_toTopOf="@+id/recipe_list"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/cookbookText" />
+
         <TextView
             android:id="@+id/numberOfItemsSelected"
             android:layout_width="wrap_content"
@@ -36,7 +38,7 @@
             android:textStyle="bold"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/cookbookText" />
 
 
         <ImageView
@@ -50,7 +52,7 @@
             android:src="@drawable/ic_baseline_delete_24"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/cookbookText" />
 
 
         <TextView
@@ -61,13 +63,11 @@
             android:layout_marginTop="10dp"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
-            android:text=""
             android:textColor="@color/black"
             android:textSize="30sp"
             app:layout_constraintEnd_toStartOf="@+id/btnPopUpMenu"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Excellc dddddddddddddddddddddddddddddddddddent!" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recipe_list"
