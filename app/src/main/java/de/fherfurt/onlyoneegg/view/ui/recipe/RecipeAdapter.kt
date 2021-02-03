@@ -11,7 +11,8 @@ import de.fherfurt.onlyoneegg.model.Ingredient
 
 
 /*
-* RecipeAdapter class
+* Recipe ingredient-recyclerView show class
+* is used to list all the ingredients of one Recipe with the Recipe  it self
 * */
 class RecipeAdapter : ListAdapter<Ingredient, RecipeAdapter.ViewHolder>(IngredientDiffCallback()) {
 
@@ -26,7 +27,8 @@ class RecipeAdapter : ListAdapter<Ingredient, RecipeAdapter.ViewHolder>(Ingredie
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder private constructor(val binding: ItemIngredientBinding) : RecyclerView.ViewHolder(binding.root){
+    class ViewHolder private constructor(val binding: ItemIngredientBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Ingredient) {
             binding.ingredient = item

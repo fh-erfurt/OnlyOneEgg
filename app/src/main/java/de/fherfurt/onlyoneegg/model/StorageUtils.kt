@@ -7,6 +7,10 @@ import de.fherfurt.onlyoneegg.R
 import java.io.File
 import java.io.IOException
 
+/*
+*  Cookbook import export class+
+* is used to import or export a cookbook with there recipes
+* */
 object StorageUtils {
 
 
@@ -22,7 +26,7 @@ object StorageUtils {
     }
 
     // ----------------------------------
-    // READ & WRITE STORAGE
+    // Read a file
     // ----------------------------------
     private fun readFile(context: Context, file: File): String {
 
@@ -48,7 +52,9 @@ object StorageUtils {
         return sb.toString()
     }
 
-    // ---
+    // ----------------------------------
+    //  Write a file
+    // ----------------------------------
     private fun writeFile(context: Context, text: String, file: File) {
 
         try {
@@ -65,6 +71,9 @@ object StorageUtils {
         Toast.makeText(context, context.getString(R.string.saved), Toast.LENGTH_LONG).show()
     }
 
+    // ----------------------------------
+    // Read a file from the phone storage
+    // ----------------------------------
     fun getTextFromStorage(
         rootDestination: File,
         context: Context,
@@ -74,6 +83,10 @@ object StorageUtils {
         val file = createOrGetFile(rootDestination, fileName, folderName)
         return readFile(context, file)
     }
+
+    // ----------------------------------
+    // Write a file from the phone storage
+    // ----------------------------------
 
     fun setTextInStorage(
         rootDestination: File,

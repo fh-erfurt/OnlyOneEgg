@@ -9,7 +9,7 @@ import de.fherfurt.onlyoneegg.model.Ingredient
 import de.fherfurt.onlyoneegg.view.ui.recipe.IngredientDiffCallback
 
 /*
-* AddRecipe ingredient-recyclerView implementation
+* AddAddRecipe ingredient-recyclerView implementation
 * is used to list all added ingredients while adding a new recipe
 * */
 class InputRecipeAdapter(val ingredientList: ArrayList<Ingredient>) :

@@ -32,28 +32,37 @@ class RecipeFragment : Fragment() {
         val args: RecipeFragmentArgs by navArgs()
         val recipeId = args.recipeId
 
+        // Show the Fragment in Landscape or Portrait Modes
         getActivity()?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 
         // Get a reference to the binding object and inflate the fragment views.
         val binding: FragmentRecipeBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_recipe, container, false
         )
+
+        // Get a Reference to the Appliction
         val application = requireNotNull(this.activity).application
 
+        // Get a reference to recipe/ingredient/cookbook Dao
         val recipeDao = OOEDatabase.getInstance(application).recipeDao;
 
         val ingredientDao = OOEDatabase.getInstance(application).ingredientDao;
 
         val cookbookDao = OOEDatabase.getInstance(application).cookbookDao
 
+        // Get a reference to ingredient Repository
         val ingredientRepository = IngredientRepository(ingredientDao)
 
+        // Setup  ViewModel
         val recipeViewModel = RecipeViewModel(application, ingredientRepository, recipeId)
 
+        // Catch changes on LiveData
         binding.lifecycleOwner = this
 
+        // Bind the Recipe Fragment with the RecipeViewModel
         binding.recipeViewModel = recipeViewModel
 
+        // Fetch the ingredient list from the adapter to the Recipe Fragment
         val adapter = RecipeAdapter()
         binding.ingredientList.adapter = adapter
 
@@ -63,28 +72,32 @@ class RecipeFragment : Fragment() {
             }
         })
 
+        // Set the Layout to the recyclerview
         val manager = GridLayoutManager(activity, 1, GridLayoutManager.VERTICAL, false)
         binding.ingredientList.layoutManager = manager
 
+        // Show the Recipe Name
         recipeViewModel.recipe.observe(
             viewLifecycleOwner,
             Observer { newRecipe -> binding.recipeName.text = newRecipe.name })
 
-
+        // Show the Recipe Difficulty
         recipeViewModel.recipe.observe(
             viewLifecycleOwner,
             Observer { newRecipe -> binding.difficulty.text = newRecipe.difficulty.toString() })
 
+        // Show the Recipe Cooktime
         recipeViewModel.recipe.observe(
             viewLifecycleOwner,
             Observer { newRecipe -> binding.recipeCooktime.text = newRecipe.cooktime.toString() })
 
+        // Show the Recipe Description
         recipeViewModel.recipe.observe(
             viewLifecycleOwner,
             Observer { newRecipe -> binding.recipeDescription.text = newRecipe.description })
 
 
-        // to set the Recipe Image as the Cookbook Image
+        // Set the Recipe Image as the Cookbook Image
         if (!recipeDao.getRecipe(recipeId)
                 ?.let { cookbookDao.getCookbook(it.cookbookId).uri.isEmpty() }!!
         ) {
@@ -97,6 +110,7 @@ class RecipeFragment : Fragment() {
             binding.imageView2.setImageResource(R.drawable.chicken)
         }
 
+        // ClickListner for recipe remove
         binding.removeRecipe.setOnClickListener {
 
             val action = recipeViewModel.recipe.value?.let { it1 ->

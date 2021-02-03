@@ -68,7 +68,7 @@ class CookbookAdapter : ListAdapter<Recipe, CookbookAdapter.ViewHolder>(RecipeDi
                         CookbookFragmentDirections.actionCookbookFragmentToRecipeFragment(position)
                     findNavController(binding.root).navigate(action)
                 }
-                //Toast.makeText(itemView.context,"you clicked # ${position }",Toast.LENGTH_LONG).show()
+
             }
         }
 
