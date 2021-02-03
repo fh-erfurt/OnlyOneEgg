@@ -15,7 +15,7 @@ import de.fherfurt.onlyoneegg.model.Recipe
 @BindingAdapter("cookbookImage")
 fun ImageView.setCookbookImage(item: Cookbook) {
     if (item.uri.isEmpty()) {
-        setImageResource(R.drawable.egg)
+        setImageResource(R.drawable.egg_yellow)
     } else {
         setImageURI(Uri.parse(item.uri))
     }
