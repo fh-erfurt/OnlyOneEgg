@@ -68,7 +68,7 @@ class RecipeFragment : Fragment() {
 
         recipeViewModel.recipe.observe(
             viewLifecycleOwner,
-            Observer { newRecipe -> binding.recipeName.text = newRecipe.name })
+            Observer { newRecipe -> binding.recipeName!!.text = newRecipe.name })
 
 
         recipeViewModel.recipe.observe(
