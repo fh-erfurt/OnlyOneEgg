@@ -6,7 +6,6 @@ import de.fherfurt.onlyoneegg.model.Cookbook
 
 /*
 * Uses CookbookDao and manages the access to it
-*
 * */
 class CookbookRepository(private val cookbookDao: CookbookDao) {
     @Suppress("RedundantSuspendModifier")
@@ -15,9 +14,10 @@ class CookbookRepository(private val cookbookDao: CookbookDao) {
         cookbookDao.insert(cookbook)
     }
 
-    fun getLastCookbookId():Long{
-       return cookbookDao.lastCookbookId()
+    fun getLastCookbookId(): Long {
+        return cookbookDao.lastCookbookId()
     }
+
     fun getAllCookbooks(): LiveData<List<Cookbook>> {
         return cookbookDao.getAllCookbooks()
     }
@@ -25,12 +25,12 @@ class CookbookRepository(private val cookbookDao: CookbookDao) {
     fun getCookbook(): Cookbook {
         return cookbookDao.getCookbook()
     }
+
     fun getCookbook(cookbookId: Long): Cookbook {
         return cookbookDao.getCookbook(cookbookId)
     }
 
-     fun delete(cookbookId:Long){
-         cookbookDao.delete(cookbookDao.getCookbook(cookbookId))
-     }
-
+    fun delete(cookbookId: Long) {
+        cookbookDao.delete(cookbookDao.getCookbook(cookbookId))
+    }
 }

@@ -26,9 +26,9 @@ import de.fherfurt.onlyoneegg.R
 import de.fherfurt.onlyoneegg.databinding.FragmentCookbookBinding
 import de.fherfurt.onlyoneegg.export.ExportIngredient
 import de.fherfurt.onlyoneegg.export.ExportRecipe
+import de.fherfurt.onlyoneegg.export.StorageUtils
 import de.fherfurt.onlyoneegg.model.Ingredient
 import de.fherfurt.onlyoneegg.model.Recipe
-import de.fherfurt.onlyoneegg.model.StorageUtils
 import de.fherfurt.onlyoneegg.storage.CookbookRepository
 import de.fherfurt.onlyoneegg.storage.IngredientRepository
 import de.fherfurt.onlyoneegg.storage.OOEDatabase
@@ -45,15 +45,14 @@ class CookbookFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         // set the Fragment as only Portrait
-        getActivity()?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 
         //initialize a cookbookId from nav args
         val args: CookbookFragmentArgs by navArgs()
         val cookbookId = args.cookbookId
-
 
         // Get a reference to the binding object and inflate the fragment views.
         val binding: FragmentCookbookBinding = DataBindingUtil.inflate(
@@ -61,7 +60,6 @@ class CookbookFragment : Fragment() {
         )
 
         //instantiate all classes needed
-
         val application = requireNotNull(this.activity).application
         val ingredientDao = OOEDatabase.getInstance(application).ingredientDao
         val recipeDao = OOEDatabase.getInstance(application).recipeDao
@@ -70,7 +68,6 @@ class CookbookFragment : Fragment() {
         val recipeRepository = RecipeRepository(recipeDao)
         val ingredientRepository = IngredientRepository(ingredientDao)
         val cookbookRepository = CookbookRepository(cookbookDao)
-
 
         val cookbookViewModel =
             CookbookViewModel(application, recipeRepository, cookbookRepository, cookbookId)
@@ -81,12 +78,10 @@ class CookbookFragment : Fragment() {
             val action =
                 CookbookFragmentDirections.actionCookbookFragmentToAddRecipeFragment2(cookbookId)
             Navigation.findNavController(binding.root).navigate(action)
-
         }
 
         val adapter = CookbookAdapter()
         binding.recipeList.adapter = adapter
-
 
         // set options menu click listener
         binding.btnPopUpMenu.setOnClickListener {
@@ -104,39 +99,44 @@ class CookbookFragment : Fragment() {
             // listeners for options button
             popup.setOnMenuItemClickListener {
                 // click Listener to import a cookbook with the all Recipes inside
-                if (it.itemId == R.id.action_import) {
-                    import(cookbookRepository, cookbookId, recipeRepository, ingredientRepository)
-
-                }
-                // click Listener to export a cookbook with the Recipes inside
-                else if (it.itemId == R.id.action_export) {
-                    export(cookbookViewModel, cookbookId, cookbookRepository, ingredientRepository)
-
-                }
-                // click listener for removing of entire cookbook
-                else {
-                    remove(cookbookViewModel, cookbookId, recipeRepository, cookbookRepository)
+                when (it.itemId) {
+                    R.id.action_import -> {
+                        import(
+                            cookbookRepository,
+                            cookbookId,
+                            recipeRepository,
+                            ingredientRepository
+                        )
+                    }
+                    // click Listener to export a cookbook with the Recipes inside
+                    R.id.action_export -> {
+                        export(
+                            cookbookViewModel,
+                            cookbookId,
+                            cookbookRepository,
+                            ingredientRepository
+                        )
+                    }
+                    // click listener for removing of entire cookbook
+                    else -> {
+                        remove(cookbookViewModel, cookbookId, recipeRepository, cookbookRepository)
+                    }
                 }
                 true
             }
-
             popup.show()//showing popup menu
-
         }
-
 
         // click listener for removing selected recipes
         binding.remove.setOnClickListener {
-            var ids = adapter.getAllSelectedIds()
+            val ids = adapter.getAllSelectedIds()
             cookbookViewModel.removeAllSelectedRecipes(ids)
         }
         val cookbook = cookbookRepository.getCookbook(cookbookId)
         binding.cookbookText.text = cookbook.name
 
-
         binding.cookbookViewModel = cookbookViewModel
-        /** binding.addRecipe.setOnClickListener { findNavController().navigate(R.id.action_cookbookFragment_to_inputrecipeFragment) } **/
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
 
         cookbookViewModel.recipes.observe(viewLifecycleOwner, {
             it?.let {
@@ -149,10 +149,9 @@ class CookbookFragment : Fragment() {
         setupTracker(adapter, binding)
 
         return binding.root
-
-
     }
 
+    // Setup a tracker for the selected recipes
     private fun setupTracker(adapter: CookbookAdapter, binding: FragmentCookbookBinding) {
         tracker = SelectionTracker.Builder<Long>(
             "mySelection",
@@ -168,6 +167,7 @@ class CookbookFragment : Fragment() {
         adapter.tracker = tracker
     }
 
+    // Update UI when selection changed
     private fun addCallbacksToTracker(adapter: CookbookAdapter, binding: FragmentCookbookBinding) {
         tracker?.addObserver(
             object : SelectionTracker.SelectionObserver<Long>() {
@@ -212,19 +212,20 @@ class CookbookFragment : Fragment() {
         )
     }
 
+    // implementation of JSON-Import of a cookbook
     fun import(
         cookbookRepository: CookbookRepository, cookbookId: Long,
         recipeRepository: RecipeRepository,
         ingredientRepository: IngredientRepository
     ) {
-        var gson = Gson()
+        val gson = Gson()
         val recipe = Recipe()
 
         // to import a Json
         if (StorageUtils.isExternalStorageReadable()) {
             // EXTERNAL
 
-            var recipeList: String? = this.context?.let {
+            val recipeList: String? = this.context?.let {
                 context?.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)?.let { it1 ->
                     StorageUtils.getTextFromStorage(
                         it1,
@@ -234,15 +235,13 @@ class CookbookFragment : Fragment() {
                     )
                 }
             }
-            
+
             if (recipeList != null) {
-
-                if (!recipeList.isEmpty()) {
-
+                if (recipeList.isNotEmpty()) {
                     Log.d("Import", recipeList.isEmpty().toString())
 
                     val arrayRecipe = object : TypeToken<Array<ExportRecipe>>() {}.type
-                    var recipes: Array<ExportRecipe> = gson.fromJson(recipeList, arrayRecipe)
+                    val recipes: Array<ExportRecipe> = gson.fromJson(recipeList, arrayRecipe)
 
                     recipes.forEachIndexed { idx, rec ->
                         recipe.name = rec.name
@@ -268,33 +267,28 @@ class CookbookFragment : Fragment() {
                         Toast.LENGTH_LONG
                     ).show()
                 } else {
-
                     Toast.makeText(
                         this.context, getString(R.string.Error),
                         Toast.LENGTH_LONG
                     ).show()
-
                 }
             }
-
-
         }
-
-
     }
 
-
+    // implementation of JSON-Export of a cookbook
     fun export(
         cookbookViewModel: CookbookViewModel, cookbookId: Long,
         cookbookRepository: CookbookRepository,
         ingredientRepository: IngredientRepository
     ) {
-        var recipes: List<Recipe> =
+        val recipes: List<Recipe> =
             cookbookViewModel.recipeRepository.getAllRecipesFromCertainCookbookList(cookbookId);
-        var recipeList = ArrayList<ExportRecipe>()
+        val recipeList = ArrayList<ExportRecipe>()
 
+        // go through all recipes in the json and add them
         recipes.forEach {
-            var ingredientList = ArrayList<ExportIngredient>()
+            val ingredientList = ArrayList<ExportIngredient>()
             val ingredients: List<Ingredient> =
                 ingredientRepository.getAllIngredientsFromCertainRecipeList(it.id)
             ingredients.forEach {
@@ -308,33 +302,27 @@ class CookbookFragment : Fragment() {
         val gson = GsonBuilder().setPrettyPrinting().create()
         val prettyJson = gson.toJson(recipeList)
 
-
         if (StorageUtils.isExternalStorageWritable()) {
-
             context?.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)?.let {
                 this.context?.let { it1 ->
                     StorageUtils.setTextInStorage(
                         it,
                         it1,
-
                         cookbookRepository.getCookbook().name + "RecipeList.json",
                         cookbookRepository.getCookbook().name,
                         prettyJson
                     )
-
                 }
             }
 
         } else {
-
             Toast.makeText(
                 this.context, getString(R.string.external_storage_impossible_create_file),
                 Toast.LENGTH_LONG
             ).show()
-
         }
     }
-
+    
     fun remove(
         cookbookViewModel: CookbookViewModel,
         cookbookId: Long,

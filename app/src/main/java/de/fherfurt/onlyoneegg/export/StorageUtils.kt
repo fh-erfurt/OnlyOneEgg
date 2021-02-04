@@ -1,4 +1,4 @@
-package de.fherfurt.onlyoneegg.model
+package de.fherfurt.onlyoneegg.export
 
 import android.content.Context
 import android.os.Environment
@@ -13,7 +13,6 @@ import java.io.IOException
 * */
 object StorageUtils {
 
-
     private fun createOrGetFile(
         destination: File,      // e.g., /storage/emulated/0/Android/data/
         fileName: String,       // e.g., tripBook.txt
@@ -21,7 +20,7 @@ object StorageUtils {
     )     // e.g., bookTrip
             : File {
         val folder = File(destination, folderName)
-        // file path = /storage/emulated/0/Android/data/dh.fherfurt.onlyoneegg/files/documents/onlyoneei/
+        // file path = /storage/emulated/0/Android/data/dh.fherfurt.onlyoneegg/files/documents/onlyonegg/
         return File(folder, fileName)
     }
 
@@ -85,7 +84,7 @@ object StorageUtils {
     }
 
     // ----------------------------------
-    // Write a file from the phone storage
+    // Write a file to the phone storage
     // ----------------------------------
 
     fun setTextInStorage(

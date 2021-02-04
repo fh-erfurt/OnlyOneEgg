@@ -27,4 +27,4 @@ data class Cookbook(
 
     @ColumnInfo(name = "uri")
     var uri: String = "",
-    )
+)

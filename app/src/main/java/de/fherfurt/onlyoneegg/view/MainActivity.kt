@@ -18,15 +18,14 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         setContentView(R.layout.activity_main)
-        this.getSupportActionBar()?.hide();
+        this.supportActionBar?.hide();
         val navView = findViewById<BottomNavigationView>(R.id.nav_view)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration.Builder(
             R.id.dashboardFragment,
             R.id.timerFragment,
-            R.id.searchRecipeFragment,
-            R.id.cookbookFragment
+            R.id.searchRecipeFragment
         )
             .build()
 

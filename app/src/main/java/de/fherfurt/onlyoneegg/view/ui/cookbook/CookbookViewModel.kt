@@ -17,12 +17,9 @@ class CookbookViewModel(
     val recipeRepository = recipeRepository
     val recipes = recipeRepository.getAllRecipesFromCertainCookbook(cookbookId)
 
-
-
-    fun removeAllSelectedRecipes(ids: MutableList<Long>){
-        ids.forEach { id->
+    fun removeAllSelectedRecipes(ids: MutableList<Long>) {
+        ids.forEach { id ->
             recipeRepository.deleteRecipeWithIngredients(id);
         }
-
     }
 }

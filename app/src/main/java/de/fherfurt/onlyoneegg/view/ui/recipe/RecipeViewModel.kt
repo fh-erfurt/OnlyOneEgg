@@ -19,7 +19,6 @@ class RecipeViewModel(
     recipeID: Long
 ) : AndroidViewModel(application) {
 
-
     var recipe = MutableLiveData<Recipe>()
 
     val recipeDao = OOEDatabase.getInstance(application).recipeDao;
@@ -28,7 +27,6 @@ class RecipeViewModel(
 
     init {
         initializeRecipe(recipeID)
-
     }
 
     // Initialize a recipe
@@ -46,11 +44,8 @@ class RecipeViewModel(
         return recipe
     }
 
-
     fun removeRecipe(recipeId: Long) {
         recipeRepository.deleteRecipeWithIngredients(recipeId)
     }
-
-
 }
 

@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.fherfurt.onlyoneegg.databinding.ItemIngredientBinding
-import de.fherfurt.onlyoneegg.model.Cookbook
 import de.fherfurt.onlyoneegg.model.Ingredient
 
 
@@ -15,7 +14,6 @@ import de.fherfurt.onlyoneegg.model.Ingredient
 * is used to list all the ingredients of one Recipe with the Recipe  it self
 * */
 class RecipeAdapter : ListAdapter<Ingredient, RecipeAdapter.ViewHolder>(IngredientDiffCallback()) {
-
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
@@ -51,11 +49,8 @@ class IngredientDiffCallback : DiffUtil.ItemCallback<Ingredient>() {
     override fun areItemsTheSame(oldItem: Ingredient, newItem: Ingredient): Boolean {
         return oldItem.id == newItem.id
     }
-
-
+    
     override fun areContentsTheSame(oldItem: Ingredient, newItem: Ingredient): Boolean {
         return oldItem == newItem
     }
-
-
 }

@@ -1,4 +1,4 @@
-package de.fherfurt.onlyoneegg.view.ui.dashboard
+package de.fherfurt.onlyoneegg.view.ui
 
 import android.net.Uri
 import android.widget.ImageView
@@ -8,6 +8,7 @@ import de.fherfurt.onlyoneegg.R
 import de.fherfurt.onlyoneegg.model.Cookbook
 import de.fherfurt.onlyoneegg.model.Ingredient
 import de.fherfurt.onlyoneegg.model.Recipe
+
 /*
 * this file holds mapping of binding adapter to the values
 * */
@@ -55,7 +56,6 @@ fun TextView.setRecipeCooktime(item: Recipe) {
 fun TextView.setRecipeDifficulty(item: Recipe) {
     text = item.difficulty.toString()
 }
-
 
 @BindingAdapter("recipeImage")
 fun ImageView.setRecipeImage(item: Recipe) {

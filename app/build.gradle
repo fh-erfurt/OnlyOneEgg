@@ -5,7 +5,6 @@ plugins {
 }
 
 
-
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {

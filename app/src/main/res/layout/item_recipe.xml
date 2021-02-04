@@ -5,9 +5,10 @@
 
     <!--// build clean, rebuild-->
     <data>
+
         <variable
             name="recipe"
-            type="de.fherfurt.onlyoneegg.model.Recipe"/>
+            type="de.fherfurt.onlyoneegg.model.Recipe" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,13 +25,13 @@
             android:paddingTop="6dp"
             android:paddingEnd="6dp"
             android:paddingBottom="6dp"
-            app:recipeImage="@{recipe}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
+            app:recipeImage="@{recipe}"
             tools:srcCompat="@drawable/salad" />
 
         <TextView
@@ -39,15 +40,15 @@
             android:layout_height="40dp"
             android:layout_marginEnd="16dp"
             android:textAlignment="center"
-            android:textSize="18sp"
-            app:recipeName="@{recipe}"
             android:textColor="@color/black"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recipe_image"
             app:layout_constraintVertical_bias="0.0"
+            app:recipeName="@{recipe}"
             tools:text="Excellent!" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -32,8 +32,8 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
 import java.util.*
+
 /*
-*
 * class used to insert new cookbook
 * */
 class InputCookbookFragment : Fragment() {
@@ -47,7 +47,7 @@ class InputCookbookFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         // Get a reference to the binding object and inflate the fragment views.
         binding = DataBindingUtil.inflate(
@@ -72,7 +72,7 @@ class InputCookbookFragment : Fragment() {
         // add click listener to insert new cookbook
         binding.doneAddCookbook.setOnClickListener {
             binding.apply {
-                var cookbook = Cookbook()
+                val cookbook = Cookbook()
                 if (cookbookNameEdit.text.toString().isEmpty()) {
                     cookbook.name = "Cookbook " + inputCookbookViewModel.getLastCookbookId() + 1;
                 } else {
@@ -89,12 +89,9 @@ class InputCookbookFragment : Fragment() {
                 findNavController().navigate(R.id.action_inputCookbookFragment_to_dashboardFragment)
             }
         }
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
 
-
-        //Add picture
-        // Button Click
-
+        // Click listener for pressing addPicture button
         binding.addPicture.setOnClickListener {
 
             // check runtime permission
@@ -130,7 +127,6 @@ class InputCookbookFragment : Fragment() {
         // The bellow line return a directory in internal storage
         var file = wrapper.getDir("images", Context.MODE_PRIVATE)
 
-
         // Create a file to save the image
         file = File(file, "${UUID.randomUUID()}.jpg")
 
@@ -159,7 +155,6 @@ class InputCookbookFragment : Fragment() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         startActivityForResult(intent, IMAGE_PICK_CODE)
-
     }
 
     companion object {
@@ -199,7 +194,6 @@ class InputCookbookFragment : Fragment() {
         }
     }
 
-
     fun Context.hideKeyboard(view: View) {
         val inputMethodManager =
             getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -209,5 +203,4 @@ class InputCookbookFragment : Fragment() {
     fun Fragment.hideKeyboard() {
         view?.let { activity?.hideKeyboard(it) }
     }
-
 }

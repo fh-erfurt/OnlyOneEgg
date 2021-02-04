@@ -9,10 +9,10 @@ import androidx.room.PrimaryKey
 * Enum for defining the difficulty of a recipe
 * */
 enum class Difficulty() {
-        easy,
-        middle,
-        hard,
-        complex,
+    easy,
+    middle,
+    hard,
+    complex,
 }
 
 /*
@@ -21,34 +21,32 @@ enum class Difficulty() {
 @Entity(tableName = "recipe_table")
 data class Recipe(
 
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0L,
 
-        @PrimaryKey(autoGenerate = true)
-        var id: Long = 0L,
+    @ColumnInfo(name = "created")
+    val created: Long = System.currentTimeMillis(),
 
-        @ColumnInfo(name = "created")
-        val created: Long = System.currentTimeMillis(),
+    @ColumnInfo(name = "updated")
+    var updated: Long = created,
 
-        @ColumnInfo(name = "updated")
-        var updated: Long = created,
+    @NonNull
+    @ColumnInfo(name = "name")
+    var name: String = "",
 
-        @NonNull
-        @ColumnInfo(name = "name")
-        var name: String = "",
+    @NonNull
+    @ColumnInfo(name = "description")
+    var description: String = "",
 
+    @NonNull
+    @ColumnInfo(name = "cooktime")
+    var cooktime: Float = 0F,
 
-        @NonNull
-        @ColumnInfo(name = "description")
-        var description: String = "",
+    @NonNull
+    @ColumnInfo(name = "difficulty")
+    var difficulty: Difficulty = Difficulty.easy,
 
-        @NonNull
-        @ColumnInfo(name = "cooktime")
-        var cooktime: Float = 0F,
-
-        @NonNull
-        @ColumnInfo(name = "difficulty")
-        var difficulty: Difficulty = Difficulty.easy,
-
-        @NonNull
-        @ColumnInfo(name = "cookbookId")
-        var cookbookId: Long = 1,
+    @NonNull
+    @ColumnInfo(name = "cookbookId")
+    var cookbookId: Long = 1,
 )

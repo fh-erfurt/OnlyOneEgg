@@ -11,12 +11,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.fherfurt.onlyoneegg.databinding.ItemCookbookBinding
 import de.fherfurt.onlyoneegg.model.Cookbook
+
 /*
 * Dashboard Recycle View implementation class
 * is used to list all cookbooks of the application
-*
 * */
-class DashboardAdapter : ListAdapter<Cookbook, DashboardAdapter.ViewHolder>(CookbookDiffCallback()) {
+class DashboardAdapter :
+    ListAdapter<Cookbook, DashboardAdapter.ViewHolder>(CookbookDiffCallback()) {
 
     var tracker: SelectionTracker<Long>? = null
 
@@ -25,17 +26,18 @@ class DashboardAdapter : ListAdapter<Cookbook, DashboardAdapter.ViewHolder>(Cook
     init {
         setHasStableIds(true)
     }
-    fun getAllSelectedIds():MutableList<Long>{
-        var ids: MutableList<Long> = mutableListOf()
 
-        positionsSelected.forEach { position->
+    fun getAllSelectedIds(): MutableList<Long> {
+        val ids: MutableList<Long> = mutableListOf()
+
+        positionsSelected.forEach { position ->
             ids.add(getItem(position).id)
         }
-        positionsSelected=mutableListOf()
+        positionsSelected = mutableListOf()
         return ids
     }
-    override fun getItemId(position: Int): Long = position.toLong()
 
+    override fun getItemId(position: Int): Long = position.toLong()
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
@@ -48,7 +50,8 @@ class DashboardAdapter : ListAdapter<Cookbook, DashboardAdapter.ViewHolder>(Cook
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder private constructor(val binding: ItemCookbookBinding) : RecyclerView.ViewHolder(binding.root){
+    class ViewHolder private constructor(val binding: ItemCookbookBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Cookbook, isActivated: Boolean = false) {
             binding.cookbook = item
@@ -58,15 +61,19 @@ class DashboardAdapter : ListAdapter<Cookbook, DashboardAdapter.ViewHolder>(Cook
 
         // set click listener to each cookbook
         // item as navigation component to list of recipes
-        init{
-            binding.root.setOnClickListener{ v: View ->
-                val position : Long? = binding.cookbook?.id
-                if(position != null) {
-                    val action = DashboardFragmentDirections.actionDashboardFragmentToCookbookFragment(position)
+        init {
+            binding.root.setOnClickListener { v: View ->
+                val position: Long? = binding.cookbook?.id
+                if (position != null) {
+                    val action =
+                        DashboardFragmentDirections.actionDashboardFragmentToCookbookFragment(
+                            position
+                        )
                     Navigation.findNavController(binding.root).navigate(action)
                 }
             }
         }
+
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
@@ -74,6 +81,7 @@ class DashboardAdapter : ListAdapter<Cookbook, DashboardAdapter.ViewHolder>(Cook
                 return ViewHolder(binding)
             }
         }
+
         fun getItemDetails(): ItemDetailsLookup.ItemDetails<Long> =
             object : ItemDetailsLookup.ItemDetails<Long>() {
                 override fun getPosition(): Int = adapterPosition
@@ -82,17 +90,13 @@ class DashboardAdapter : ListAdapter<Cookbook, DashboardAdapter.ViewHolder>(Cook
     }
 }
 
-
 class CookbookDiffCallback : DiffUtil.ItemCallback<Cookbook>() {
 
     override fun areItemsTheSame(oldItem: Cookbook, newItem: Cookbook): Boolean {
         return oldItem.id == newItem.id
     }
 
-
     override fun areContentsTheSame(oldItem: Cookbook, newItem: Cookbook): Boolean {
         return oldItem == newItem
     }
-
-
 }

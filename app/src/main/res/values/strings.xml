@@ -49,5 +49,11 @@
     <string name="add_ingredient_to_list_button_description">add ingredient to list</string>
     <string name="ingredient_name_hint">Ingredient name</string>
     <string name="amount_text">amount</string>
+    <string name="timer_text_hint">Click on the field and input a time for your timer</string>
+    <string name="_0">0</string>
+    <string name="_0_00">0:00</string>
+    <string name="start_button_description">start button</string>
+    <string name="pause_button_description">pause button</string>
+    <string name="stop_button_description">stop button</string>
 
 </resources>

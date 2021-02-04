@@ -13,6 +13,6 @@ data class CookbookWithRecipes(
                 parentColumn = "id",
                 entityColumn = "cookbookId"
         )
-        val recipeList:List<Recipe>
+        val recipeList: List<Recipe>
 )
 

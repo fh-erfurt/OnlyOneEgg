@@ -26,21 +26,21 @@ class RecipeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         //initialize a recipeId from nav args
         val args: RecipeFragmentArgs by navArgs()
         val recipeId = args.recipeId
 
         // Show the Fragment in Landscape or Portrait Modes
-        getActivity()?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR;
 
         // Get a reference to the binding object and inflate the fragment views.
         val binding: FragmentRecipeBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_recipe, container, false
         )
 
-        // Get a Reference to the Appliction
+        // Get a Reference to the appliction
         val application = requireNotNull(this.activity).application
 
         // Get a reference to recipe/ingredient/cookbook Dao
@@ -72,32 +72,32 @@ class RecipeFragment : Fragment() {
             }
         })
 
-        // Set the Layout to the recyclerview
+        // Set the layout to the recyclerview
         val manager = GridLayoutManager(activity, 1, GridLayoutManager.VERTICAL, false)
         binding.ingredientList.layoutManager = manager
 
-        // Show the Recipe Name
+        // Show the recipe name
         recipeViewModel.recipe.observe(
             viewLifecycleOwner,
             Observer { newRecipe -> binding.recipeName.text = newRecipe.name })
 
-        // Show the Recipe Difficulty
+        // Show the recipe difficulty
         recipeViewModel.recipe.observe(
             viewLifecycleOwner,
             Observer { newRecipe -> binding.difficulty.text = newRecipe.difficulty.toString() })
 
-        // Show the Recipe Cooktime
+        // Show the recipe cooktime
         recipeViewModel.recipe.observe(
             viewLifecycleOwner,
             Observer { newRecipe -> binding.recipeCooktime.text = newRecipe.cooktime.toString() })
 
-        // Show the Recipe Description
+        // Show the recipe description
         recipeViewModel.recipe.observe(
             viewLifecycleOwner,
             Observer { newRecipe -> binding.recipeDescription.text = newRecipe.description })
 
 
-        // Set the Recipe Image as the Cookbook Image
+        // Set the recipe image as the cookbook image
         if (!recipeDao.getRecipe(recipeId)
                 ?.let { cookbookDao.getCookbook(it.cookbookId).uri.isEmpty() }!!
         ) {
@@ -110,7 +110,7 @@ class RecipeFragment : Fragment() {
             binding.imageView2.setImageResource(R.drawable.chicken)
         }
 
-        // ClickListner for recipe remove
+        // ClickListener for recipe remove
         binding.removeRecipe.setOnClickListener {
 
             val action = recipeViewModel.recipe.value?.let { it1 ->

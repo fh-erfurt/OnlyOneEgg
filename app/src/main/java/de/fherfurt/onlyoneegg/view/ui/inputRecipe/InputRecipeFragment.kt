@@ -33,10 +33,10 @@ class InputRecipeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         // set the Fragment as only Portrait
-        getActivity()?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 
         //initialize a cookbookId from nav args
         val args: InputRecipeFragmentArgs by navArgs()
@@ -52,7 +52,7 @@ class InputRecipeFragment : Fragment() {
         // Setup ViewModel
         val inputRecipeViewModel = InputRecipeViewModel(application)
         binding.inputRecipeViewModel = inputRecipeViewModel
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
 
         // Setup the recycler View for further usage
         val ingredients = ArrayList<Ingredient>()
@@ -193,5 +193,4 @@ class InputRecipeFragment : Fragment() {
 
         return binding.root
     }
-
 }

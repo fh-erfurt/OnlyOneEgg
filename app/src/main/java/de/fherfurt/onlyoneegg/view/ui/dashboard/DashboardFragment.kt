@@ -2,14 +2,12 @@ package de.fherfurt.onlyoneegg.view.ui.dashboard
 
 
 import android.content.pm.ActivityInfo
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
@@ -27,21 +25,17 @@ import de.fherfurt.onlyoneegg.storage.RecipeRepository
 *
 * used for display all cookbooks of the application
 * has connections to cookbookFragment and inputCookbookFragment
-*
 * */
 class DashboardFragment : Fragment() {
-
 
     private var tracker: SelectionTracker<Long>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
-
+    ): View {
         // set the Fragment as only Portrait
-        getActivity()?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 
         // Get a reference to the binding object and inflate the fragment views.
         val binding: FragmentDashboardBinding = DataBindingUtil.inflate(
@@ -54,11 +48,12 @@ class DashboardFragment : Fragment() {
         val cookbookDao = OOEDatabase.getInstance(application).cookbookDao
         val recipeDao = OOEDatabase.getInstance(application).recipeDao
 
-        val cookbookRepository=CookbookRepository(cookbookDao)
-        val recipeRepository=RecipeRepository(recipeDao)
+        val cookbookRepository = CookbookRepository(cookbookDao)
+        val recipeRepository = RecipeRepository(recipeDao)
 
         // create view model for dashboard
-        val dashboardViewModel = DashboardViewModel(application, cookbookRepository, recipeRepository)
+        val dashboardViewModel =
+            DashboardViewModel(application, cookbookRepository, recipeRepository)
 
         binding.dashboardViewModel = dashboardViewModel
         binding.setLifecycleOwner(this)
@@ -70,11 +65,10 @@ class DashboardFragment : Fragment() {
         binding.addCookbook.setOnClickListener { findNavController().navigate(R.id.action_dashboardFragment_to_inputCookbookFragment) }
         // click listener on remove all selected items
         binding.remove.setOnClickListener {
-            var ids=adapter.getAllSelectedIds()
+            val ids = adapter.getAllSelectedIds()
             dashboardViewModel.removeAllSelectedCookbooks(ids)
         }
         binding.cookbookList.adapter = adapter
-
 
         // using observer design pattern to track all cookbooks of the database
         dashboardViewModel.cookbooks.observe(viewLifecycleOwner, {
@@ -90,11 +84,12 @@ class DashboardFragment : Fragment() {
 
         return binding.root
     }
+
     /*
     * Creates a tracker which tracks all selected items of dashboard recycle view
     *
     * */
-    private fun setupTracker(adapter: DashboardAdapter, binding: FragmentDashboardBinding){
+    private fun setupTracker(adapter: DashboardAdapter, binding: FragmentDashboardBinding) {
         tracker = SelectionTracker.Builder<Long>(
             "mySelection",
             binding.cookbookList,
@@ -109,25 +104,27 @@ class DashboardFragment : Fragment() {
 
         adapter.tracker = tracker
     }
+
     /*
     * attaches callbacks to the dashboard tracker
-    *
     * */
-    private fun addCallbacksToTracker(adapter: DashboardAdapter, binding:FragmentDashboardBinding){
+    private fun addCallbacksToTracker(
+        adapter: DashboardAdapter,
+        binding: FragmentDashboardBinding
+    ) {
         tracker?.addObserver(
             object : SelectionTracker.SelectionObserver<Long>() {
                 override fun onSelectionChanged() {
                     super.onSelectionChanged()
                     val items = tracker?.selection!!.size()
                     // show or hide number of items and trash icon
-                    if (items>0){
-                        binding.remove.visibility=View.VISIBLE
-                        binding.numberOfItemsSelected.visibility=View.VISIBLE
-                        binding.numberOfItemsSelected.text=items.toString()
-                    }
-                    else{
-                        binding.remove.visibility=View.INVISIBLE
-                        binding.numberOfItemsSelected.visibility=View.INVISIBLE
+                    if (items > 0) {
+                        binding.remove.visibility = View.VISIBLE
+                        binding.numberOfItemsSelected.visibility = View.VISIBLE
+                        binding.numberOfItemsSelected.text = items.toString()
+                    } else {
+                        binding.remove.visibility = View.INVISIBLE
+                        binding.numberOfItemsSelected.visibility = View.INVISIBLE
                     }
                     //reset selected list
                     adapter.positionsSelected = mutableListOf()
@@ -136,20 +133,21 @@ class DashboardFragment : Fragment() {
                         adapter.positionsSelected.add(id.toInt())
                     }
                 }
-                // upgrates selected list if items are deleted
+
+                // updates selected list if items are deleted
                 override fun onItemStateChanged(key: Long, selected: Boolean) {
                     if (!tracker!!.hasSelection())
                         adapter.notifyDataSetChanged()
                     super.onItemStateChanged(key, !selected)
 
                 }
+
                 // removes all selected items from tracker selection and notifies the adapter
                 override fun onSelectionRefresh() {
                     super.onSelectionRefresh()
                     tracker!!.clearSelection()
                     adapter.notifyDataSetChanged()
                 }
-
             })
     }
 }

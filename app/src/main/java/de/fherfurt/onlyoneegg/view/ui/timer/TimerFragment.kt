@@ -45,7 +45,7 @@ class TimerFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         // set the Fragment as only Portrait
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
@@ -58,10 +58,7 @@ class TimerFragment : Fragment() {
         // Get the application
         val application = requireNotNull(this.activity).application
 
-        // Setup the viewModel and binding
-        val timerViewModel = TimerViewModel(application)
-        binding.timerViewModel = timerViewModel
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
 
         // Helper Function for hiding the keyboard
         fun hideKeyboard(context: Context, view: View) {
@@ -101,9 +98,8 @@ class TimerFragment : Fragment() {
                 timerState = TimerState.Running
                 updateButtons()
                 startWasAlreadyPressed = true
-            }
-            else { // If the user has not written any time in the edit field
-               Toast.makeText(context, "Please input a time", Toast.LENGTH_SHORT).show()
+            } else { // If the user has not written any time in the edit field
+                Toast.makeText(context, "Please input a time", Toast.LENGTH_SHORT).show()
             }
         }
 

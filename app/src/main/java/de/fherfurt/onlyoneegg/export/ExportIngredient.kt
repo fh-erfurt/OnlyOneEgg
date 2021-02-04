@@ -10,9 +10,8 @@ data class ExportIngredient(
     var measurement: Measurement,
     var value: Long,
 ) {
-
+    // create second constructor
     constructor(ingredient: Ingredient)
             : this(ingredient.name, ingredient.measurement, ingredient.value) {
-
     }
 }

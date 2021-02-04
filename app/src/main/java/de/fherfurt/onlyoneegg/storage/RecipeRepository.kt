@@ -9,7 +9,6 @@ import de.fherfurt.onlyoneegg.model.Recipe
 * */
 class RecipeRepository(private val recipeDao: RecipeDao) {
 
-
     fun insert(recipe: Recipe): Long {
         return recipeDao.insert(recipe)
     }
@@ -29,10 +28,8 @@ class RecipeRepository(private val recipeDao: RecipeDao) {
     }
 
     fun deleteRecipeWithIngredients(id: Long) {
-
         recipeDao.deleteIngredientsByRecipeId(id)
         recipeDao.deleteById(id)
-
     }
 
     @Suppress("RedundantSuspendModifier")
@@ -41,19 +38,18 @@ class RecipeRepository(private val recipeDao: RecipeDao) {
         return recipeDao.getLastId()
     }
 
-     fun getRecipe(recipeId: Long): Recipe? {
+    fun getRecipe(recipeId: Long): Recipe? {
         return recipeDao.getRecipe(recipeId)
     }
 
-
-    fun getAllRecipesFromCertainCookbookList(cookbookId: Long):List<Recipe>{
+    fun getAllRecipesFromCertainCookbookList(cookbookId: Long): List<Recipe> {
         return recipeDao.getAllRecipesFromCertainCookbookList(cookbookId)
     }
 
-    fun getAllRecipesWithString(keyword: String): List<Recipe>{
-        return if(keyword.trim().isBlank()){
+    fun getAllRecipesWithString(keyword: String): List<Recipe> {
+        return if (keyword.trim().isBlank()) {
             ArrayList<Recipe>()
-        }else{
+        } else {
             recipeDao.getAllRecipesWithString(keyword.trim())
         }
     }

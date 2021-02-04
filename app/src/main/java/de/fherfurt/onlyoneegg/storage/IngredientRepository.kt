@@ -11,20 +11,19 @@ class IngredientRepository(private val ingredientDao: IngredientDao) {
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-     fun insert(ingredient: Ingredient) {
+    fun insert(ingredient: Ingredient) {
         ingredientDao.insert(ingredient)
     }
 
     suspend fun insertArrayList(ingredients: ArrayList<Ingredient>) {
         ingredientDao.insertArrayList(ingredients)
     }
-    
-    fun getAllIngredients(recipeId : Long): LiveData<List<Ingredient>> {
-        return ingredientDao.getAllIngredientsFromRecipe(recipeId )
+
+    fun getAllIngredients(recipeId: Long): LiveData<List<Ingredient>> {
+        return ingredientDao.getAllIngredientsFromRecipe(recipeId)
     }
 
-    fun getAllIngredientsFromCertainRecipeList(recipeId : Long): List<Ingredient>{
-        return ingredientDao.getAllIngredientsFromCertainRecipeList(recipeId )
+    fun getAllIngredientsFromCertainRecipeList(recipeId: Long): List<Ingredient> {
+        return ingredientDao.getAllIngredientsFromCertainRecipeList(recipeId)
     }
-
 }

@@ -29,7 +29,7 @@ class SearchRecipeFragment : Fragment() {
     ): View {
 
         // set the Fragment as only Portrait
-        getActivity()?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 
         // Get a reference to the binding object and inflate the fragment views.
         val binding: FragmentSearchRecipeBinding = DataBindingUtil.inflate(
@@ -71,5 +71,4 @@ class SearchRecipeFragment : Fragment() {
 
         return binding.root
     }
-
 }

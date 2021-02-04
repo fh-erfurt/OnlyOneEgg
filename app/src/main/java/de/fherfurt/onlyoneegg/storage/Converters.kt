@@ -3,6 +3,7 @@ package de.fherfurt.onlyoneegg.storage
 import androidx.room.TypeConverter
 import de.fherfurt.onlyoneegg.model.Difficulty
 import de.fherfurt.onlyoneegg.model.Measurement
+
 /*
 * Custom Converters used by the database
 * All of them are converting enums to string

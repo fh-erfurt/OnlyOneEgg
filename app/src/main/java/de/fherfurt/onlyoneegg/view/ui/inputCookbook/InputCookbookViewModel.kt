@@ -6,7 +6,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import de.fherfurt.onlyoneegg.model.Cookbook
 import de.fherfurt.onlyoneegg.storage.CookbookRepository
-import de.fherfurt.onlyoneegg.storage.OOEDatabase
 import kotlinx.coroutines.launch
 
 /*
@@ -15,8 +14,6 @@ import kotlinx.coroutines.launch
 class InputCookbookViewModel(application: Application, cookbookRepository: CookbookRepository): AndroidViewModel(application) {
 
     val cookbookRepository=cookbookRepository
-
-
 
     fun insertCookbook(cookbook: Cookbook){
         viewModelScope.launch {
@@ -28,6 +25,4 @@ class InputCookbookViewModel(application: Application, cookbookRepository: Cookb
     fun getLastCookbookId(): Long {
         return cookbookRepository.getLastCookbookId()
     }
-
-
 }

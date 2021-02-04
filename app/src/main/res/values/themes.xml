@@ -2,12 +2,10 @@
     <!-- Base application theme. -->
     <style name="Theme.OnlyOneEgg" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
 
-        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="o_mr1">shortEdges</item>
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="o_mr1">shortEdges
+        </item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
-
-
-
 
         <!-- Primary brand color. -->
         <item name="colorPrimary">#F9A825</item>
