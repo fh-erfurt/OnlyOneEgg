@@ -70,7 +70,7 @@
         android:id="@+id/addRecipeFragment"
         android:name="de.fherfurt.onlyoneegg.view.ui.inputRecipe.InputRecipeFragment"
         android:label="AddRecipeFragment"
-        tools:layout="@layout/fragment_addrecipe">
+        tools:layout="@layout/fragment_input_recipe">
         <action
             android:id="@+id/action_addRecipeFragment_to_cookbookFragment"
             app:destination="@id/cookbookFragment" />

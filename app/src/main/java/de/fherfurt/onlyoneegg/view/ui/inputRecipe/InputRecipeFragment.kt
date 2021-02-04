@@ -17,7 +17,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import de.fherfurt.onlyoneegg.R
-import de.fherfurt.onlyoneegg.databinding.FragmentAddrecipeBinding
+import de.fherfurt.onlyoneegg.databinding.FragmentInputRecipeBinding
 import de.fherfurt.onlyoneegg.model.Difficulty
 import de.fherfurt.onlyoneegg.model.Ingredient
 import de.fherfurt.onlyoneegg.model.Measurement
@@ -43,15 +43,15 @@ class InputRecipeFragment : Fragment() {
         val cookbookId = args.cookbookId
 
         // Get a reference to the binding object and inflate the fragment views.
-        val binding: FragmentAddrecipeBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_addrecipe, container, false
+        val binding: FragmentInputRecipeBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_input_recipe, container, false
         )
         // Get a reference to the application
         val application = requireNotNull(this.activity).application
 
         // Setup ViewModel
-        val addRecipeViewModel = InputRecipeViewModel(application)
-        binding.addRecipeViewModel = addRecipeViewModel
+        val inputRecipeViewModel = InputRecipeViewModel(application)
+        binding.inputRecipeViewModel = inputRecipeViewModel
         binding.setLifecycleOwner(this)
 
         // Setup the recycler View for further usage
@@ -160,14 +160,14 @@ class InputRecipeFragment : Fragment() {
                         Difficulty.valueOf(binding.difficultySpinner.selectedItem.toString())
 
                     // Write the recipe into the database and save its id
-                    val recipeId = addRecipeViewModel.insertRecipe(recipe)
+                    val recipeId = inputRecipeViewModel.insertRecipe(recipe)
 
                     // Set recipeId in all ingredients to the actual id
                     for (ingredient in ingredients) {
                         ingredient.recipeId = recipeId
                     }
                     // Save all ingredients in the database
-                    addRecipeViewModel.insertIngredientList(ingredients)
+                    inputRecipeViewModel.insertIngredientList(ingredients)
 
                     hideKeyboard(this.requireContext(), it)
                     // show a popup that the insertion worked
