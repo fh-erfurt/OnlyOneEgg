@@ -5,7 +5,9 @@ import androidx.room.*
 import de.fherfurt.onlyoneegg.model.Recipe
 import de.fherfurt.onlyoneegg.model.RecipeWithIngredients
 
-
+/*
+* Defines all sql operations needed to manage recipes
+* */
 @Dao
 interface RecipeDao {
 

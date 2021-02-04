@@ -4,10 +4,11 @@ import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import de.fherfurt.onlyoneegg.model.Ingredient
 
+/*
+* Uses IngredientDao and manages the access to it
+* */
 class IngredientRepository(private val ingredientDao: IngredientDao) {
-    // By default Room runs suspend queries off the main thread, therefore, we don't need to
-    // implement anything else to ensure we're not doing long running database work
-    // off the main thread.
+
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
      fun insert(ingredient: Ingredient) {

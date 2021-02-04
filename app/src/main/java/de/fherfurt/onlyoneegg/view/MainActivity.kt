@@ -9,7 +9,7 @@ import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import de.fherfurt.onlyoneegg.R
 
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,8 +20,6 @@ class MainActivity : AppCompatActivity(){
         setContentView(R.layout.activity_main)
         this.getSupportActionBar()?.hide();
         val navView = findViewById<BottomNavigationView>(R.id.nav_view)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration.Builder(
@@ -36,7 +34,5 @@ class MainActivity : AppCompatActivity(){
 
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
         NavigationUI.setupWithNavController(navView, navController)
-
-
     }
 }

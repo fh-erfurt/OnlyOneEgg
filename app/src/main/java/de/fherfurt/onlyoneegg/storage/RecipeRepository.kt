@@ -2,9 +2,11 @@ package de.fherfurt.onlyoneegg.storage
 
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
-import de.fherfurt.onlyoneegg.model.Cookbook
 import de.fherfurt.onlyoneegg.model.Recipe
 
+/*
+* Uses RecipeDao and manages the access to it
+* */
 class RecipeRepository(private val recipeDao: RecipeDao) {
 
 

@@ -17,14 +17,16 @@ import de.fherfurt.onlyoneegg.model.Recipe
 import de.fherfurt.onlyoneegg.storage.OOEDatabase
 import de.fherfurt.onlyoneegg.storage.RecipeRepository
 
-
+/*
+* Fragment for searching for a recipe in all cookbooks and listing all the ones found
+* */
 class SearchRecipeFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         // set the Fragment as only Portrait
         getActivity()?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);

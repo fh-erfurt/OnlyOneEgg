@@ -5,6 +5,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+/*
+* Enum for saving all available measurements
+* */
 enum class Measurement() {
     l,
     ml,
@@ -12,6 +15,9 @@ enum class Measurement() {
     pc,
 }
 
+/*
+* Entity class Ingredient stores needed values for the usage of it
+* */
 @Entity(tableName = "ingredient_table")
 data class Ingredient(
     @PrimaryKey(autoGenerate = true)

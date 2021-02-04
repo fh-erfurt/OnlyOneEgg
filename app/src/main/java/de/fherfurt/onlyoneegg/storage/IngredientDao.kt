@@ -4,6 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import de.fherfurt.onlyoneegg.model.Ingredient
 
+/*
+* Defines all sql operations needed to manage ingredients
+* */
 @Dao
 interface IngredientDao {
     @Insert

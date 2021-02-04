@@ -10,6 +10,10 @@ import de.fherfurt.onlyoneegg.databinding.ItemRecipeBinding
 import de.fherfurt.onlyoneegg.model.Recipe
 import de.fherfurt.onlyoneegg.view.ui.cookbook.RecipeDiffCallback
 
+/*
+* SearchRecipe recipe-recyclerView implementation
+* is used to list all found recipes
+* */
 class SearchRecipeAdapter(val recipeList: ArrayList<Recipe>) :
     ListAdapter<Recipe, SearchRecipeAdapter.ViewHolder>(RecipeDiffCallback()) {
 
