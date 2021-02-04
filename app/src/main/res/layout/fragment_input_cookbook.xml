@@ -10,7 +10,7 @@
             type="de.fherfurt.onlyoneegg.view.ui.inputCookbook.InputCookbookViewModel" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,45 +22,62 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="@string/cookbookNameTextView"
             android:textAlignment="center"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/cookbookName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName|text|textEmailAddress"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
 
         <ImageView
             android:id="@+id/imageCookbook"
             android:layout_width="match_parent"
             android:layout_height="369dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
+            android:layout_marginTop="24dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_baseline_image_24_yellow_light" />
-
+            android:src="@drawable/ic_baseline_image_24_yellow_light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cookbookName" />
 
         <Button
             android:id="@+id/add_picture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
             android:backgroundTint="@color/yellow"
             android:text="@string/addPictureCookbook"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageCookbook" />
 
         <Button
             android:id="@+id/doneAddCookbook"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="16dp"
             android:backgroundTint="@color/yellow"
             android:text="@string/doneAddCookbook"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/add_picture" />
 
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
