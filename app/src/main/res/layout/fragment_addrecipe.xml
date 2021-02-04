@@ -56,7 +56,7 @@
             app:layout_constraintRight_toLeftOf="@id/difficultySpinner"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editRecipeNameText"
-            app:suffix="minutes" />
+            app:suffix=" minutes" />
 
         <Spinner
             android:id="@+id/difficultySpinner"
